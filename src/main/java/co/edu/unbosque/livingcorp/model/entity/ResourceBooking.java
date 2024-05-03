@@ -16,7 +16,7 @@ public class ResourceBooking {
     @Column(name = "USER_NAME")
     private String userName;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "PROP_RES_ID")
     private PropertyResource propertyResourceId;
 
