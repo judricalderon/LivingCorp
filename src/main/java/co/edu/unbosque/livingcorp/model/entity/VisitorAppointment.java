@@ -12,6 +12,7 @@ import java.util.List;
 public class VisitorAppointment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="APPOINTMENT_ID")
     private int idVisitor;
     @Column(name ="VISITOR_NAME")
@@ -20,14 +21,14 @@ public class VisitorAppointment {
     private String advisor;
     @Column(name ="APPOINTMENT_DATETIME")
     private LocalDateTime dateTimeVisitor;
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "PROPERTY_ID")
-    private List<Property> idProperty;
+    private Property idProperty;
 
     public VisitorAppointment() {
     }
 
-    public VisitorAppointment(int idVisitor, String nameVisitor, String advisor, LocalDateTime dateTimeVisitor, List<Property> idProperty) {
+    public VisitorAppointment(int idVisitor, String nameVisitor, String advisor, LocalDateTime dateTimeVisitor, Property idProperty) {
         this.idVisitor = idVisitor;
         this.nameVisitor = nameVisitor;
         this.advisor = advisor;
@@ -67,11 +68,11 @@ public class VisitorAppointment {
         this.dateTimeVisitor = dateTimeVisitor;
     }
 
-    public List<Property> getIdProperty() {
+    public Property getIdProperty() {
         return idProperty;
     }
 
-    public void setIdProperty(List<Property> idProperty) {
+    public void setIdProperty(Property idProperty) {
         this.idProperty = idProperty;
     }
 }
