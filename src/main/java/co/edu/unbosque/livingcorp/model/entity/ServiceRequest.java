@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class ServiceRequest {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "RQST_ID")
     private int rqstId;
 
