@@ -10,10 +10,10 @@ public class Resident {
     @Id
     @Column(name = "PROPERTY_RESIDENT_ID")
     private int idResident;
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "PROPERTY_ID")
-    private List<Property> idProperty;
-   // @OneToMany
+    private Property idProperty;
+    @ManyToOne
     @Column(name = "USER_NAME")
     private User userName;
     @Column(name = "IS_OWNER")
