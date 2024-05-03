@@ -12,13 +12,13 @@ public class PropertyResource {
     @Column(name = "PROP_RES_ID")
     private int proResId;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn (name = "RESOURCE_ID")
-    private List<Resource> resId;
+    private Resource resId;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "PROPERTY_ID")
-    private List<Property> proId;
+    private Property proId;
 
     @Column(name = "RESOURCE_MIN_PRICE")
     private double minPrice;
