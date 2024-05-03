@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 public class ServiceRFQ {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "RFQ_ID")
     private int rfqId;
 
