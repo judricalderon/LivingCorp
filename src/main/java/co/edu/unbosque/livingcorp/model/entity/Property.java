@@ -23,10 +23,12 @@ public class Property {
     @Column(name = "PROPERTY_ROOMS")
     private int room;
     @Column(name = "PROPERTY_BATHROOMS")
+    private String bathroom;
+    @Column (name="PROPERTY_DESCRIPCION")
     private String description;
-    @OneToMany
-    @JoinColumn(name = "PROPERTY_DESCRIPCION")
-    private List<User> admi;
+    @ManyToOne
+    @JoinColumn(name = "PROPERTY_ADMIN")
+    private User admi;
     @Column(name = "IS_AVAILABLE_FOR_RENT")
     private boolean rent;
     @Column(name = "IS_AVAILABLE_FOR_SALE")
