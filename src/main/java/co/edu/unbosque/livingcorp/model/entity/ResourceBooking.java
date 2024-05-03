@@ -16,9 +16,9 @@ public class ResourceBooking {
     @Column(name = "USER_NAME")
     private String userName;
 
-    @OneToMany
+    @ManyToMany
     @JoinColumn(name = "PROP_RES_ID")
-    private List<PropertyResource> propertyResourceId;
+    private PropertyResource propertyResourceId;
 
     @Column(name = "BOOKING_DATETIME")
     private LocalDateTime bookingDateTime;
