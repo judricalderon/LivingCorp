@@ -8,6 +8,7 @@ import java.util.List;
 @Table(name = "PROPERTY_RESIDENTS")
 public class Resident {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PROPERTY_RESIDENT_ID")
     private int idResident;
     @ManyToOne
