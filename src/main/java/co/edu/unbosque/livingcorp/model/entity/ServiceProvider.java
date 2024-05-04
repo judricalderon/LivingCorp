@@ -10,6 +10,7 @@ import jakarta.persistence.Table;
 public class ServiceProvider {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PROVIDER_ID")
     private int providerId;
 
