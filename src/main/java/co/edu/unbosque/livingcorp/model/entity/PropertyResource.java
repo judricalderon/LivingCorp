@@ -9,6 +9,7 @@ import java.util.List;
 public class PropertyResource {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PROP_RES_ID")
     private int proResId;
 
@@ -38,7 +39,7 @@ public class PropertyResource {
     public PropertyResource() {
     }
 
-    public PropertyResource(int proResId, List<Resource> resId, List<Property> proId, double minPrice, int minTimeH, String availabily, int capacity, String bookEmail) {
+    public PropertyResource(int proResId, Resource resId, Property proId, double minPrice, int minTimeH, String availabily, int capacity, String bookEmail) {
         this.proResId = proResId;
         this.resId = resId;
         this.proId = proId;
@@ -57,19 +58,19 @@ public class PropertyResource {
         this.proResId = proResId;
     }
 
-    public List<Resource> getResId() {
+    public Resource getResId() {
         return resId;
     }
 
-    public void setResId(List<Resource> resId) {
+    public void setResId(Resource resId) {
         this.resId = resId;
     }
 
-    public List<Property> getProId() {
+    public Property getProId() {
         return proId;
     }
 
-    public void setProId(List<Property> proId) {
+    public void setProId(Property proId) {
         this.proId = proId;
     }
 
