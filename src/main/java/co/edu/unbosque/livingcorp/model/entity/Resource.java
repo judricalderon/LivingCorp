@@ -9,6 +9,7 @@ import jakarta.persistence.Table;
 @Table
 public class Resource {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "RESOURCE_ID")
     private int idResource;
     @Column(name = "RESOURCE_DESCRIPCION")
