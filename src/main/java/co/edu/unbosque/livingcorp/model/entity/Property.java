@@ -8,6 +8,7 @@ import java.util.List;
 @Table(name = "PROPERTIES")
 public class Property {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PROPERTY_ID")
     private int idProperty;
     @Column(name = "PROPERTY_NAME")
@@ -23,10 +24,12 @@ public class Property {
     @Column(name = "PROPERTY_ROOMS")
     private int room;
     @Column(name = "PROPERTY_BATHROOMS")
+    private String bathroom;
+    @Column (name="PROPERTY_DESCRIPCION")
     private String description;
-    @OneToMany
-    @JoinColumn(name = "PROPERTY_DESCRIPCION")
-    private List<User> admi;
+    @ManyToOne
+    @JoinColumn(name = "PROPERTY_ADMIN")
+    private User admi;
     @Column(name = "IS_AVAILABLE_FOR_RENT")
     private boolean rent;
     @Column(name = "IS_AVAILABLE_FOR_SALE")
@@ -35,7 +38,7 @@ public class Property {
     public Property() {
     }
 
-    public Property(int idProperty, String nameProperty, String city, String address, int area, double priceProperty, int room, String description, List<User> admi, boolean rent, boolean sale) {
+    public Property(int idProperty, String nameProperty, String city, String address, int area, double priceProperty, int room, String description, User admi, boolean rent, boolean sale) {
         this.idProperty = idProperty;
         this.nameProperty = nameProperty;
         this.city = city;
@@ -113,11 +116,11 @@ public class Property {
         this.description = description;
     }
 
-    public List<User> getAdmi() {
+    public User getAdmi() {
         return admi;
     }
 
-    public void setAdmi(List<User> admi) {
+    public void setAdmi(User admi) {
         this.admi = admi;
     }
 

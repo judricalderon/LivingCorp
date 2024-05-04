@@ -10,15 +10,16 @@ import java.util.List;
 public class ResourceBooking {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BOOKING_ID")
     private int bookingId;
 
     @Column(name = "USER_NAME")
     private String userName;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "PROP_RES_ID")
-    private List<PropertyResource> propertyResourceId;
+    private PropertyResource propertyResourceId;
 
     @Column(name = "BOOKING_DATETIME")
     private LocalDateTime bookingDateTime;
@@ -38,7 +39,7 @@ public class ResourceBooking {
     public ResourceBooking() {
     }
 
-    public ResourceBooking(int bookingId, String userName, List<PropertyResource> propertyResourceId, LocalDateTime bookingDateTime, LocalDateTime bookingStartDate, LocalDateTime bookingEndDate, double bookingCost, boolean paymentComplete) {
+    public ResourceBooking(int bookingId, String userName, PropertyResource propertyResourceId, LocalDateTime bookingDateTime, LocalDateTime bookingStartDate, LocalDateTime bookingEndDate, double bookingCost, boolean paymentComplete) {
         this.bookingId = bookingId;
         this.userName = userName;
         this.propertyResourceId = propertyResourceId;
@@ -65,11 +66,11 @@ public class ResourceBooking {
         this.userName = userName;
     }
 
-    public List<PropertyResource> getPropertyResourceId() {
+    public PropertyResource getPropertyResourceId() {
         return propertyResourceId;
     }
 
-    public void setPropertyResourceId(List<PropertyResource> propertyResourceId) {
+    public void setPropertyResourceId(PropertyResource propertyResourceId) {
         this.propertyResourceId = propertyResourceId;
     }
 

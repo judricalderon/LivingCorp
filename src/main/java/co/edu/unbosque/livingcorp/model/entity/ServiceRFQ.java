@@ -12,19 +12,20 @@ import java.time.LocalDateTime;
 public class ServiceRFQ {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "RFQ_ID")
     private int rfqId;
 
     @Column(name = "RFQ_DATETIME")
     private LocalDateTime rfqDateTime;
-
-    @Column(name = "USER_NAME")
+    @ManyToOne
+    @JoinColumn(name = "USER_NAME")
     private User userName;
-
-    @Column(name = "PROPERTY_ID")
+    @ManyToONe
+    @JoinColumn(name = "PROPERTY_ID")
     private Property propertyId;
-
-    @Column(name = "SVC_PROVIDER_ID")
+    @ManyToOne
+    @JoinColumn(name = "SVC_PROVIDER_ID")
     private ServiceProvider svcProviderId;
 
     @Column(name = "REQUEST_DESCRIPTION")

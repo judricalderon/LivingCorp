@@ -11,5 +11,15 @@ public class ServiceRequestDto {
     private ServiceProviderDto svcProviderId;
     private String requestDescription;
     private LocalDateTime svcDateTime;
+    public ServiceRequestDto{}
 
+    public ServiceRequestDto(int rqstId, LocalDateTime rqstDateTime, UserDto userName, PropertyDto propertyId, ServiceProviderDto svcProviderId, String requestDescription, LocalDateTime svcDateTime){
+        this.rqstId = rqstId;
+        this.rqstDateTime = rqstDateTime;
+        this.userName = userName;
+        this.propertyId = propertyId;
+        this.svcProviderId = svcProviderId;
+        this.requestDescription = requestDescription;
+        this.svcDateTime = svcDateTime;
+    }
 }
