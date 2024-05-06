@@ -9,13 +9,7 @@
     <title>LivingCorp</title>
 
     <style>
-        .header {
-            background-color: #6DA7CC; /* Color de fondo del encabezado */
-            padding: 10px; /* Espaciado interno del encabezado */
-            display: flex; /* Utilizamos flexbox para organizar los elementos */
-            align-items: center; /* Centra verticalmente los elementos */
-            justify-content: space-between; /* Espacio uniforme entre los elementos */
-        }
+
 
         .header img {
             margin-right: 20px; /* Espacio entre el logo y el menu */
@@ -23,20 +17,6 @@
             height: auto; /* Altura automatica proporcional */
         }
 
-        .card {
-            width: 90%; /* Ancho de la tarjeta */
-            margin-top: 10px; /* Separacion entre el encabezado y la tarjeta */
-        }
-
-        .form-horizontal {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #6DA7CC;
-        }
 
         .form-horizontal input {
             margin-right: 10px;
@@ -48,12 +28,7 @@
             align-items: center;
             flex-direction: column;
         }
-        #footer {
-            width: 100%;
-            text-align: center;
-            margin-top: 10px;
-            background-color: #6DA7CC; /* Color de fondo del footer */
-        }
+
 
         .form-container {
             display: flex;
@@ -97,6 +72,8 @@
 
     <!-- barra de navegacion -->
     <ui:include src="nav.xhtml"></ui:include>
+    <p:tooltip/>
+
 
     <div class="centered">
         <!-- Card -->
@@ -104,18 +81,25 @@
 
 
             <h:form styleClass="form-container">
+
                 <div class="form-field">
                     <h:outputLabel for="usuario" value="Usuario:" />
-                    <p:inputText id="usuario" value="#{beanLog.userDto.nameUser}" />
+                    <p:inputText id="usuario" value="#{beanLog.userDto.nameUser}" required="true"/>
+                    <p:message for="usuario" display="tooltip"/>
                 </div>
 
                 <div class="form-field">
                     <h:outputLabel for="password" value="Password:"  />
-                    <p:inputText type="password" id="password" value="#{beanLog.userDto.password}"/>
+                    <p:inputText type="password" id="password" value="#{beanLog.userDto.password}" required="true"/>
+                    <p:message for="password" display="tooltip"/>
                 </div>
 
 
                 <p:commandButton value="login" styleClass="ui-button-primary" action="#{beanLog.log()}" />
+
+                <p:messages id="messages" showDetail="true" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
             </h:form>
         </p:card>
     </div>
