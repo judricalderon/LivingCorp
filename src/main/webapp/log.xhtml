@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta charset="ISO-8859-1" />
+    <title>LivingCorp</title>
+
+    <style>
+        .header {
+            background-color: #6DA7CC; /* Color de fondo del encabezado */
+            padding: 10px; /* Espaciado interno del encabezado */
+            display: flex; /* Utilizamos flexbox para organizar los elementos */
+            align-items: center; /* Centra verticalmente los elementos */
+            justify-content: space-between; /* Espacio uniforme entre los elementos */
+        }
+
+        .header img {
+            margin-right: 20px; /* Espacio entre el logo y el menu */
+            width: 80px; /* Ancho de la imagen */
+            height: auto; /* Altura automatica proporcional */
+        }
+
+        .card {
+            width: 90%; /* Ancho de la tarjeta */
+            margin-top: 10px; /* Separacion entre el encabezado y la tarjeta */
+        }
+
+        .form-horizontal {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #6DA7CC;
+        }
+
+        .form-horizontal input {
+            margin-right: 10px;
+        }
+
+        .centered {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        #footer {
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+            background-color: #6DA7CC; /* Color de fondo del footer */
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-container .form-field {
+            margin-bottom: 10px;
+        }
+
+        .form-container .form-field label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-container .form-field input,
+        .form-container .form-field textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-container .form-field textarea {
+            resize: vertical;
+        }
+
+        .form-container .form-field button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</h:head>
+
+<h:body>
+
+    <!-- barra de navegacion -->
+    <ui:include src="nav.xhtml"></ui:include>
+
+    <div class="centered">
+        <!-- Card -->
+        <p:card style="width: 25em">
+
+
+            <h:form styleClass="form-container">
+                <div class="form-field">
+                    <h:outputLabel for="usuario" value="Usuario:" />
+                    <p:inputText id="usuario" value="#{beanLog.userDto.nameUser}" />
+                </div>
+
+                <div class="form-field">
+                    <h:outputLabel for="password" value="Password:"  />
+                    <p:inputText type="password" id="password" value="#{beanLog.userDto.password}"/>
+                </div>
+
+
+                <p:commandButton value="login" styleClass="ui-button-primary" action="#{beanLog.log()}" />
+            </h:form>
+        </p:card>
+    </div>
+
+    <!-- footer -->
+    <ui:include src="footer.xhtml"></ui:include>
+</h:body>
+</html>

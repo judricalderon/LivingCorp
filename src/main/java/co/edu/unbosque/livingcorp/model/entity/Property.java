@@ -2,8 +2,6 @@ package co.edu.unbosque.livingcorp.model.entity;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "PROPERTIES")
 public class Property {
@@ -29,7 +27,7 @@ public class Property {
     private String description;
     @ManyToOne
     @JoinColumn(name = "PROPERTY_ADMIN")
-    private User admi;
+    private User propertyAdmin;
     @Column(name = "IS_AVAILABLE_FOR_RENT")
     private boolean rent;
     @Column(name = "IS_AVAILABLE_FOR_SALE")
@@ -47,7 +45,7 @@ public class Property {
         this.priceProperty = priceProperty;
         this.room = room;
         this.description = description;
-        this.admi = admi;
+        this.propertyAdmin = admi;
         this.rent = rent;
         this.sale = sale;
     }
@@ -116,12 +114,12 @@ public class Property {
         this.description = description;
     }
 
-    public User getAdmi() {
-        return admi;
+    public User getPropertyAdmin() {
+        return propertyAdmin;
     }
 
-    public void setAdmi(User admi) {
-        this.admi = admi;
+    public void setPropertyAdmin(User admi) {
+        this.propertyAdmin = admi;
     }
 
     public boolean isRent() {

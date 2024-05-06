@@ -15,7 +15,7 @@ public class Resident {
     @JoinColumn(name = "PROPERTY_ID")
     private Property idProperty;
     @ManyToOne
-    @Column(name = "USER_NAME")
+    @JoinColumn (name = "USER_NAME")
     private User userName;
     @Column(name = "IS_OWNER")
     private boolean owner;

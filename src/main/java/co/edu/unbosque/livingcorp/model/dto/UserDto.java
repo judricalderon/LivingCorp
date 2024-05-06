@@ -1,26 +1,29 @@
 package co.edu.unbosque.livingcorp.model.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class UserDto {
     private String nameUser;
     private String emailUser;
     private String password;
-    private LocalDate lastLogin;
+    private LocalDateTime lastLogin;
     private boolean blocked;
-    private boolean propertyAdmi;
+    private boolean propertyAdmin;
     private boolean resident;
+    private int attempt;
 
     public UserDto() {}
 
-    public UserDto(String nameUser, String emailUser, String password, LocalDate lastLogin, boolean blocked, boolean propertyAdmi, boolean resident) {
+    public UserDto(String nameUser, String emailUser, String password, LocalDateTime lastLogin, boolean blocked, boolean propertyAdmin, boolean resident, int attempt) {
         this.nameUser = nameUser;
         this.emailUser = emailUser;
         this.password = password;
         this.lastLogin = lastLogin;
         this.blocked = blocked;
-        this.propertyAdmi = propertyAdmi;
+        this.propertyAdmin = propertyAdmin;
         this.resident = resident;
+        this.attempt = attempt;
     }
 
     public String getNameUser() {
@@ -47,11 +50,11 @@ public class UserDto {
         this.password = password;
     }
 
-    public LocalDate getLastLogin() {
+    public LocalDateTime getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(LocalDate lastLogin) {
+    public void setLastLogin(LocalDateTime lastLogin) {
         this.lastLogin = lastLogin;
     }
 
@@ -63,12 +66,12 @@ public class UserDto {
         this.blocked = blocked;
     }
 
-    public boolean isPropertyAdmi() {
-        return propertyAdmi;
+    public boolean isPropertyAdmin() {
+        return propertyAdmin;
     }
 
-    public void setPropertyAdmi(boolean propertyAdmi) {
-        this.propertyAdmi = propertyAdmi;
+    public void setPropertyAdmin(boolean propertyAdmin) {
+        this.propertyAdmin = propertyAdmin;
     }
 
     public boolean isResident() {
@@ -77,5 +80,27 @@ public class UserDto {
 
     public void setResident(boolean resident) {
         this.resident = resident;
+    }
+
+    public int getAttempt() {
+        return attempt;
+    }
+
+    public void setAttempt(int attempt) {
+        this.attempt = attempt;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "nameUser='" + nameUser + '\'' +
+                ", emailUser='" + emailUser + '\'' +
+                ", password='" + password + '\'' +
+                ", lastLogin=" + lastLogin +
+                ", blocked=" + blocked +
+                ", propertyAdmin=" + propertyAdmin +
+                ", resident=" + resident +
+                ", attempt=" + attempt +
+                '}';
     }
 }

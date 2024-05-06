@@ -6,14 +6,70 @@
       xmlns:p="http://primefaces.org/ui">
 <h:head>
     <meta charset="ISO-8859-1" />
-    <title>TEST JSF</title>
-
-
+    <title>LivingCorp</title>
+    <h:outputStylesheet library="primefaces" name="css/theme.css" />
 </h:head>
 
 <h:body>
+    <!-- barra de navegacion -->
+    <ui:include src="nav.xhtml"></ui:include>
 
-    <h1>hola mundo</h1>
+    <!-- dentro de la pagina -->
+    <p:card style="width: 25em">
+        <f:facet name="header">
+            <img alt="user header" src="https://londonogomez.com/sites/default/files/imagenes/proyectos/imgs-slider/LG_BannerPrincipal_Atlantica.jpg"/>
+        </f:facet>
+        <f:facet name="title">
+            Advanced Card
+        </f:facet>
+        <f:facet name="subtitle">
+            Card subtitle
+        </f:facet>
 
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
+            quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</p>
+
+        <f:facet name="footer">
+            <p:commandButton value="Agendar" oncomplete="PF('dlgAgendarCita').show()" />
+        </f:facet>
+
+        <p:dialog id="dlgAgendarCita" header="Agendar Cita" widgetVar="dlgAgendarCita" resizable="false" modal="true">
+            <div class="centered">
+                <!-- Card -->
+                <h:form styleClass="form-container">
+                    <div class="form-field">
+                        <h:outputLabel for="nombreCompleto" value="Nombre Completo:" />
+                        <p:inputText id="nombreCompleto" />
+                    </div>
+
+                    <div class="form-field">
+                        <h:outputLabel for="numero" value="Numero:" />
+                        <p:inputText id="numero" />
+                    </div>
+
+                    <div class="form-field">
+                        <h:outputLabel for="correo" value="Correo:" />
+                        <p:inputText id="correo" />
+                    </div>
+
+                    <div class="form-field">
+                        <h:outputLabel for="fechaAgenda" value="Fecha de Agenda:" />
+                        <p:calendar id="fechaAgenda" />
+                    </div>
+
+                    <div class="form-field">
+                        <h:outputLabel for="recomendaciones" value="Recomendaciones:" />
+                        <p:inputTextarea id="recomendaciones" rows="5" />
+                    </div>
+
+                    <!-- Boton para agendar cita -->
+                    <p:commandButton value="Agendar" action="#{BeanNav.inicio}" oncomplete="PF('dlgAgendarCita').hide()" />
+                </h:form>
+            </div>
+        </p:dialog>
+    </p:card>
+
+    <!-- footer -->
+    <ui:include src="footer.xhtml"></ui:include>
 </h:body>
 </html>

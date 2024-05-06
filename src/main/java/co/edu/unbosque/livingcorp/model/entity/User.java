@@ -1,18 +1,15 @@
 package co.edu.unbosque.livingcorp.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name="LIVINGCORPDB")
+@Table(name="WEB_USERS")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="USER_NAME")
     private String nameUser;
     @Column(name="USER_EMAIL")
@@ -20,25 +17,29 @@ public class User {
     @Column (name = "USER_PASSWORD")
     private String password;
     @Column (name = "LAST_LOGIN")
-    private LocalDate lastLogin;
+    private LocalDateTime lastLogin;
     @Column (name = "IS_BLOCKED")
     private boolean blocked;
     @Column (name = "IS_PROPERTY_ADMIN")
-    private boolean propert@yAdmi;
+    private boolean propertyAdmin;
     @Column (name = "IS_RESIDENT_PPRTY_OWNER")
     private boolean resident;
+    @Column (name = "USER_ATTEMPT")
+    private int attempt;
+
 
     public User() {
     }
-
-    public User(String nameUser, String emailUser, String password, LocalDate lastLogin, boolean blocked, boolean propiedadAdmi, boolean resident) {
+//public UserDto(String nameUser, String emailUser, String password, LocalDateTime lastLogin, boolean blocked, boolean propertyAdmi, boolean resident, int attempt)
+    public User(String nameUser, String emailUser, String password, LocalDateTime lastLogin, boolean blocked, boolean propertyAdmin, boolean resident, int attempt) {
         this.nameUser = nameUser;
         this.emailUser = emailUser;
         this.password = password;
         this.lastLogin = lastLogin;
         this.blocked = blocked;
-        this.propertyAdmi = propiedadAdmi;
+        this.propertyAdmin = propertyAdmin;
         this.resident = resident;
+        this.attempt = attempt;
     }
 
     public String getNameUser() {
@@ -65,11 +66,11 @@ public class User {
         this.password = password;
     }
 
-    public LocalDate getLastLogin() {
+    public LocalDateTime getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(LocalDate lastLogin) {
+    public void setLastLogin(LocalDateTime lastLogin) {
         this.lastLogin = lastLogin;
     }
 
@@ -81,12 +82,12 @@ public class User {
         this.blocked = blocked;
     }
 
-    public boolean isPropertyAdmi() {
-        return propertyAdmi;
+    public boolean isPropertyAdmin() {
+        return propertyAdmin;
     }
 
-    public void setPropertyAdmi(boolean propiedadAdmi) {
-        this.propertyAdmi = propiedadAdmi;
+    public void setPropertyAdmin(boolean propertyAdmin) {
+        this.propertyAdmin = propertyAdmin;
     }
 
     public boolean isResident() {
@@ -96,4 +97,27 @@ public class User {
     public void setResident(boolean resident) {
         this.resident = resident;
     }
+
+    public int getAttempt() {
+        return attempt;
+    }
+
+    public void setAttempt(int attempt) {
+        this.attempt = attempt;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "nameUser='" + nameUser + '\'' +
+                ", emailUser='" + emailUser + '\'' +
+                ", password='" + password + '\'' +
+                ", lastLogin=" + lastLogin +
+                ", blocked=" + blocked +
+                ", propertyAdmin=" + propertyAdmin +
+                ", resident=" + resident +
+                ", attempt=" + attempt +
+                '}';
+    }
+
 }
