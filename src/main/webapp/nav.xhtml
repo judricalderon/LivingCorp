@@ -8,17 +8,7 @@
     <meta charset="ISO-8859-1" />
     <title>LivingCorp</title>
 
-    <style >
-        /* Cambia el color de fondo del menubar */
-        .ui-menubar {
-            background-color: #9e733d;
-        }
 
-        /* Cambia el color del texto del menubar */
-        .ui-menuitem-text {
-            color: white;
-        }
-    </style>
 </h:head>
 
 <h:body>
@@ -28,8 +18,8 @@
 
             <p:menubar>
                 <p:menuitem value="Inicio" icon="pi pi-fw pi-home" action="#{beanNav.inicio}" />
-               <!-- <p:menuitem value="Residente" icon="pi pi-fw pi-building" outcome="/index.xhtml"/>-->
-                <p:menuitem value="crear admin" icon="pi pi-fw pi-user-edit" action="#{beanLog.simplesAdmin()}"/>
+               <!-- <p:menuitem value="Residente" icon="pi pi-fw pi-building" outcome="/index.xhtml"/>
+                <p:menuitem value="crear admin" icon="pi pi-fw pi-user-edit" action="#{beanNav.inicio()}"/>-->
                 <f:facet name="options">
                     <p:button value="Log in" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info" outcome="/log.xhtml"/>
                 </f:facet>
