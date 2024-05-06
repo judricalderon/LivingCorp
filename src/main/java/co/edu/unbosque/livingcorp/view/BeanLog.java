@@ -29,6 +29,7 @@ public class BeanLog implements Serializable {
     private ServiceLog serviceLog;
 
     private UserDto userDto;
+    private String mistake;
 
 
 
@@ -51,6 +52,8 @@ public class BeanLog implements Serializable {
             if(userDto !=null) {
                 //si está bloqueado se envía a la pag de error
                 if(userDto.getAttempt()>=3){
+                    //se da el valor de bloqueado al error
+                    mistake = "usuario Bloqueado por exceso de intentos";
                     //se envía a error
                     return "error.xhtml";
                 }
@@ -68,14 +71,20 @@ public class BeanLog implements Serializable {
             //retorna a la pagina de nuevo al la pagina del log
             return serviceLog.redireccionar(null);
         } catch (ExceptionPasswordNotEncrypted e) {
-            //imprimir mensaje de error
+            //se da valor de que la clave no fue encriptada
+            mistake = e.getMessage();
+            //imprimir en consola mensaje de error
             System.out.println(e.getMessage());
             //redireccionar a pagina de error
             return "error.xhtml";
         } catch (ExceptionRepetedObject e) {
+            //valor a que el objeto que quiere persistir esta siendo repetido
+            mistake = e.getMessage();
             System.out.println(e.getMessage());
             return "error.xhtml";
         } catch (ExceptionDontExist e) {
+            //el objeto no existe
+            mistake = e.getMessage();
             System.out.println(e.getMessage());
             return "error.xhtml";
         }
@@ -87,5 +96,21 @@ public class BeanLog implements Serializable {
 
     public void setUserDto(UserDto userDto) {
         this.userDto = userDto;
+    }
+
+    public ServiceLog getServiceLog() {
+        return serviceLog;
+    }
+
+    public void setServiceLog(ServiceLog serviceLog) {
+        this.serviceLog = serviceLog;
+    }
+
+    public String getMistake() {
+        return mistake;
+    }
+
+    public void setMistake(String mistake) {
+        this.mistake = mistake;
     }
 }
