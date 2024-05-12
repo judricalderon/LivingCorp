@@ -11,7 +11,7 @@ import jakarta.persistence.PersistenceContext;
 import java.util.List;
 
 @Stateless
-public class ResourceDao implements InterfaceDao<Resource,String> {
+public class ResourceDao implements InterfaceDao<Resource,Integer> {
     @PersistenceContext (unitName = "livingCorpPU")
     private EntityManager em;
 
@@ -23,7 +23,7 @@ public class ResourceDao implements InterfaceDao<Resource,String> {
        }catch(EntityExistsException e) {
            throw new ExceptionRepetedObject("Recurso ya existe");
        }
-        
+
     }
 
     @Override
@@ -42,7 +42,7 @@ public class ResourceDao implements InterfaceDao<Resource,String> {
     }
 
     @Override
-    public Resource find(String id) throws ExceptionRepetedObject, ExceptionDontExist {
+    public Resource find(Integer id) throws ExceptionRepetedObject, ExceptionDontExist {
         return null;
     }
 }
