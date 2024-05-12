@@ -11,14 +11,14 @@ import org.modelmapper.ModelMapper;
 import java.io.Serializable;
 
 @Stateless
-public class CreateResourceService implements Serializable {
+public class AdmiResourceService implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Inject
     private InterfaceDao<Resource,Integer> resourceDao;
     private ModelMapper modelMapper;
 
-    public CreateResourceService() {
+    public AdmiResourceService() {
         modelMapper = new ModelMapper();
     }
     public boolean create(ResourceDto resourceDto) throws ExceptionRepetedObject {
