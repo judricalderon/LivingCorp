@@ -1,14 +1,14 @@
 package co.edu.unbosque.livingcorp.model.presistence;
 
-import co.edu.unbosque.livingcorp.exception.ExceptionDontExist;
-import co.edu.unbosque.livingcorp.exception.ExceptionRepetedObject;
+import co.edu.unbosque.livingcorp.exception.DontExistException;
+import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
 
 import java.util.List;
 
 public interface InterfaceDao <T,K>{
-    void create(T t) throws ExceptionRepetedObject;
-    void update(T t) throws ExceptionRepetedObject;
-    void delete(T t) throws ExceptionDontExist;
+    void create(T t) throws RepetedObjectException;
+    void update(T t) throws RepetedObjectException;
+    void delete(T t) throws DontExistException;
     List<T> getAll();
-    T find(K id) throws ExceptionRepetedObject, ExceptionDontExist;
+    T find(K id) throws RepetedObjectException, DontExistException;
 }

@@ -1,6 +1,6 @@
 package co.edu.unbosque.livingcorp.service;
 
-import co.edu.unbosque.livingcorp.exception.ExceptionRepetedObject;
+import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
 import co.edu.unbosque.livingcorp.model.dto.ResourceDto;
 import co.edu.unbosque.livingcorp.model.entity.Resource;
 import co.edu.unbosque.livingcorp.model.presistence.InterfaceDao;
@@ -21,7 +21,7 @@ public class AdmiResourceService implements Serializable {
     public AdmiResourceService() {
         modelMapper = new ModelMapper();
     }
-    public boolean create(ResourceDto resourceDto) throws ExceptionRepetedObject {
+    public boolean create(ResourceDto resourceDto) throws RepetedObjectException {
 
         if (resourceDto!= null){
             //creo el recuro

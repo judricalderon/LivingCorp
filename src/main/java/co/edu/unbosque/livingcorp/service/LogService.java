@@ -1,8 +1,8 @@
 package co.edu.unbosque.livingcorp.service;
 
-import co.edu.unbosque.livingcorp.exception.ExceptionDontExist;
-import co.edu.unbosque.livingcorp.exception.ExceptionPasswordNotEncrypted;
-import co.edu.unbosque.livingcorp.exception.ExceptionRepetedObject;
+import co.edu.unbosque.livingcorp.exception.DontExistException;
+import co.edu.unbosque.livingcorp.exception.PasswordNotEncryptedException;
+import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
 import co.edu.unbosque.livingcorp.model.dto.UserDto;
 import co.edu.unbosque.livingcorp.model.entity.User;
 import co.edu.unbosque.livingcorp.model.presistence.InterfaceDao;
@@ -28,7 +28,7 @@ public class LogService implements Serializable {
     }
 
 //loguear usuario y admi
-public UserDto log(UserDto userDto) throws ExceptionPasswordNotEncrypted, ExceptionRepetedObject, ExceptionDontExist {
+public UserDto log(UserDto userDto) throws PasswordNotEncryptedException, RepetedObjectException, DontExistException {
     //busco el usuario en bd
 
 
@@ -71,7 +71,7 @@ public UserDto log(UserDto userDto) throws ExceptionPasswordNotEncrypted, Except
         }
 
     } else {
-        throw new ExceptionDontExist("no existe el usuario");
+        throw new DontExistException("no existe el usuario");
     }
     //returna un null en caso que el proceso no sea satisfactorio
     return null;
@@ -96,7 +96,7 @@ public UserDto log(UserDto userDto) throws ExceptionPasswordNotEncrypted, Except
     }
 
 // metodo para cifrar contrasena
-    public String encryptedPassword(String password) throws ExceptionPasswordNotEncrypted {
+    public String encryptedPassword(String password) throws PasswordNotEncryptedException {
         try {//inicializamos el metodo que utiliza el algoritmo de cifrado
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             //le pasamos la contrasena para que la codifique y estoretorna una cadena de byte, asi que se mete en un arreglo
@@ -112,7 +112,7 @@ public UserDto log(UserDto userDto) throws ExceptionPasswordNotEncrypted, Except
             return hexString.toString();
             //por si se coloca un algoritmo que no se esa utilizando
         } catch (NoSuchAlgorithmException e) {
-            throw new ExceptionPasswordNotEncrypted("La contraseña no se ha cifrado");
+            throw new PasswordNotEncryptedException("La contraseña no se ha cifrado");
         }
 
 

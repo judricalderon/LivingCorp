@@ -1,14 +1,11 @@
 package co.edu.unbosque.livingcorp.model.presistence;
 
-import co.edu.unbosque.livingcorp.exception.ExceptionDontExist;
-import co.edu.unbosque.livingcorp.exception.ExceptionRepetedObject;
+import co.edu.unbosque.livingcorp.exception.DontExistException;
+import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
 import co.edu.unbosque.livingcorp.model.entity.Property;
 import co.edu.unbosque.livingcorp.model.entity.User;
 import jakarta.ejb.Stateless;
-import jakarta.persistence.EntityExistsException;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -19,43 +16,47 @@ public class UserDao implements InterfaceDao <User,String> {
 
 
     @Override
-    public void create(User user) throws ExceptionRepetedObject {
+    public void create(User user) throws RepetedObjectException {
         try {
             em.persist(user);
         }catch(EntityExistsException e){
-            throw new ExceptionRepetedObject("Usuario ya existe");
+            throw new RepetedObjectException("Usuario ya existe");
         }
     }
 
     @Override
-    public void update(User user) throws ExceptionRepetedObject {
+    public void update(User user) throws RepetedObjectException {
         try {
             em.merge(user);
         }catch(EntityNotFoundException e){
-            throw new ExceptionRepetedObject( "Usuario a modificar no existe");
+            throw new RepetedObjectException( "Usuario a modificar no existe");
         }
     }
 
     @Override
-    public void delete(User user) throws ExceptionDontExist {
+    public void delete(User user) throws DontExistException {
         try {
             em.remove(user);
         }catch(EntityNotFoundException e){
-            throw new ExceptionDontExist("Usuario no existe");
+            throw new DontExistException("Usuario no existe");
         }
     }
 
     @Override
     public List<User> getAll() {
-        return List.of();
+        try {
+            return em.createQuery("SELECT u FROM User u", User.class).getResultList();
+        }catch(NoResultException ignored){
+            return List.of();
+        }
     }
 
     @Override
-    public User find(String id) throws ExceptionDontExist {
+    public User find(String id) throws DontExistException {
         try {
             return em.find(User.class, id);
         }catch(EntityNotFoundException e){
-            throw new ExceptionDontExist("Usuario no existe");
+            throw new DontExistException("Usuario no existe");
     }
     }
 }

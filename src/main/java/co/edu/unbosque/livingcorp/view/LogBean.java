@@ -1,9 +1,9 @@
 package co.edu.unbosque.livingcorp.view;
 
 
-import co.edu.unbosque.livingcorp.exception.ExceptionDontExist;
-import co.edu.unbosque.livingcorp.exception.ExceptionPasswordNotEncrypted;
-import co.edu.unbosque.livingcorp.exception.ExceptionRepetedObject;
+import co.edu.unbosque.livingcorp.exception.DontExistException;
+import co.edu.unbosque.livingcorp.exception.PasswordNotEncryptedException;
+import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
 import co.edu.unbosque.livingcorp.model.dto.UserDto;
 import co.edu.unbosque.livingcorp.service.LogService;
 import jakarta.annotation.PostConstruct;
@@ -67,19 +67,19 @@ public class LogBean implements Serializable {
             userDto = new UserDto();
             //retorna a la pagina de nuevo al la pagina del log
             return serviceLog.redireccionar(null);
-        } catch (ExceptionPasswordNotEncrypted e) {
+        } catch (PasswordNotEncryptedException e) {
             //se da valor de que la clave no fue encriptada
             mistake = e.getMessage();
             //imprimir en consola mensaje de error
             System.out.println(e.getMessage());
             //redireccionar a pagina de error
             return "error.xhtml";
-        } catch (ExceptionRepetedObject e) {
+        } catch (RepetedObjectException e) {
             //valor a que el objeto que quiere persistir esta siendo repetido
             mistake = e.getMessage();
             System.out.println(e.getMessage());
             return "error.xhtml";
-        } catch (ExceptionDontExist e) {
+        } catch (DontExistException e) {
             //el objeto no existe
             mistake = e.getMessage();
             System.out.println(e.getMessage());

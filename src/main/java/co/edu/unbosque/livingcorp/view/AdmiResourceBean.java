@@ -1,6 +1,6 @@
 package co.edu.unbosque.livingcorp.view;
 
-import co.edu.unbosque.livingcorp.exception.ExceptionRepetedObject;
+import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
 import co.edu.unbosque.livingcorp.model.dto.ResourceDto;
 import co.edu.unbosque.livingcorp.service.AdmiResourceService;
 import jakarta.annotation.PostConstruct;
@@ -37,7 +37,7 @@ public class AdmiResourceBean implements Serializable {
             }else {
                 System.out.println("Resource already exists");
             }
-        } catch (ExceptionRepetedObject e) {
+        } catch (RepetedObjectException e) {
             System.out.println(e.getMessage());
         }
 

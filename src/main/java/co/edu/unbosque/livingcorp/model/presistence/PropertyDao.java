@@ -1,9 +1,8 @@
 package co.edu.unbosque.livingcorp.model.presistence;
 
-import co.edu.unbosque.livingcorp.exception.ExceptionDontExist;
-import co.edu.unbosque.livingcorp.exception.ExceptionRepetedObject;
+import co.edu.unbosque.livingcorp.exception.DontExistException;
+import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
 import co.edu.unbosque.livingcorp.model.entity.Property;
-import co.edu.unbosque.livingcorp.model.entity.User;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.*;
 
@@ -16,39 +15,48 @@ public class PropertyDao implements InterfaceDao<Property,Integer> {
 
 
     @Override
-    public void create(Property property) throws ExceptionRepetedObject {
+    public void create(Property property) throws RepetedObjectException {
         try {
             em.persist(property);
         }catch(EntityExistsException e){
-            throw new ExceptionRepetedObject("Propiedad ya existe");
+            throw new RepetedObjectException("Propiedad ya existe");
         }
     }
 
     @Override
-    public void update(Property property)  throws ExceptionRepetedObject {
+    public void update(Property property)  throws RepetedObjectException {
       try {
           em.merge(property);
       }catch(EntityNotFoundException e){
-          throw new ExceptionRepetedObject( "Propiedad a modificar no existe");
+          throw new RepetedObjectException( "Propiedad a modificar no existe");
       }
       }
 
     @Override
-    public void delete(Property property) {
-
+    public void delete(Property property) throws DontExistException {
+        try {
+            em.remove(property);
+        }catch(EntityNotFoundException e){
+            throw new DontExistException("Propiedad no existe");
+        }
     }
 
     @Override
     public List<Property> getAll() {
-        return List.of();
+        try {
+            return em.createQuery("SELECT p FROM Property p", Property.class).getResultList();
+        }catch(NoResultException ignored){
+            return List.of();
+        }
+
     }
 
     @Override
-    public Property find(Integer id) throws ExceptionDontExist {
+    public Property find(Integer id) throws DontExistException {
         try {
             return em.find(Property.class, id);
         } catch (EntityNotFoundException e) {
-            throw new ExceptionDontExist("Usuario no existe");
+            throw new DontExistException("Propiedad no existe");
         }
     }
 }
