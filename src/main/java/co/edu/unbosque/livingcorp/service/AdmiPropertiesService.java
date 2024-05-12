@@ -25,7 +25,7 @@ public class AdmiPropertiesService implements Serializable {
         modelMapper = new ModelMapper();
     }
 
-    private boolean createProperties(PropertyDto propertiesDto) throws RepetedObjectException {
+    public boolean createProperties(PropertyDto propertiesDto) throws RepetedObjectException {
         List<PropertyDto> listaBd = propertyDao.getAll()
                                                 .stream()
                                                 .map(entity ->modelMapper.map(entity,PropertyDto.class))
@@ -41,7 +41,7 @@ public class AdmiPropertiesService implements Serializable {
             }
         }else {
             propertyDao.create(modelMapper.map(propertiesDto, Property.class));
-            return true;            
+            return true;
         }
 
     }

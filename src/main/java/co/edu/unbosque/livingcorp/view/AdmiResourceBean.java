@@ -35,9 +35,11 @@ public class AdmiResourceBean implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Resource created"));
                 System.out.println("Resource created");
             }else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Resource already exists"));
                 System.out.println("Resource already exists");
             }
         } catch (RepetedObjectException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
             System.out.println(e.getMessage());
         }
 
