@@ -71,10 +71,10 @@
 <h:body>
 
     <!-- barra de navegacion -->
-    <ui:include src="navIndex.xhtml"></ui:include>
+    <ui:include src="navAdministrador.xhtml"></ui:include>
     <p:tooltip/>
 
-    <h:outputLabel  value="Creacion de propiedad" />
+    <h:outputLabel  value="Creacion de Recurso" />
     <div class="centered">
         <!-- Card -->
         <p:card style="width: 25em">
@@ -83,40 +83,19 @@
             <h:form styleClass="form-container">
 
                 <div class="form-field">
-                    <h:outputLabel for="nameProperty" value="Nombre de la Propiedad:" />
-                    <p:inputText id="nameProperty" value="" required="true"/>
-                    <p:message for="nameProperty" display="tooltip"/>
-                </div>
-                <div class="form-field">
-                    <h:outputLabel for="city" value="Ciudad:" />
-                    <p:inputText id="city" value="" required="true"/>
-                    <p:message for="city" display="tooltip"/>
-                </div>
-                <div class="form-field">
-                    <h:outputLabel for="address" value="Direccion de la Propiedad:" />
-                    <p:inputText id="address" value="" required="true"/>
-                    <p:message for="address" display="tooltip"/>
-                </div>
-                
-                <div class="field col-12 md:col-4">
-                    <p:outputLabel for="input6" value="Empty Display - Zero"/>
-                    <p:inputNumber id="input6" value="#{inputNumberView.input6}" symbol="%"
-                                   symbolPosition="s" emptyValue="zero" />
-                </div>
-
-
-
-
-                <div class="form-field">
-                    <h:outputLabel for="description" value="Descripcion de la Propiedad:" />
-                    <p:inputText id="description" value="" required="true"/>
+                    <h:outputLabel for="description" value="Descripcion del recurso:" />
+                    <p:inputText id="description" value="" required="true" maxlength="25"/>
                     <p:message for="description" display="tooltip"/>
                 </div>
 
 
+                <div class="form-field">
+                    <h:outputLabel for="type" value="tipo de recurso:" />
+                    <p:inputText id="type" value="" required="true" maxlength="25"/>
+                    <p:message for="type" display="tooltip"/>
+                </div>
 
-
-                <p:commandButton value="login" styleClass="ui-button-primary" action="#{beanLog.log()}" />
+                <p:commandButton value="Crear" styleClass="ui-button-primary" action="#{beanLog.log()}" />
 
                 <p:messages id="messages" showDetail="true" closable="true">
                     <p:autoUpdate/>

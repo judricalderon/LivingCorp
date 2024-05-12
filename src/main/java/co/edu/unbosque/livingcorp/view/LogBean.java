@@ -5,11 +5,8 @@ import co.edu.unbosque.livingcorp.exception.ExceptionDontExist;
 import co.edu.unbosque.livingcorp.exception.ExceptionPasswordNotEncrypted;
 import co.edu.unbosque.livingcorp.exception.ExceptionRepetedObject;
 import co.edu.unbosque.livingcorp.model.dto.UserDto;
-import co.edu.unbosque.livingcorp.model.entity.User;
-import co.edu.unbosque.livingcorp.model.presistence.UserDao;
-import co.edu.unbosque.livingcorp.service.ServiceLog;
+import co.edu.unbosque.livingcorp.service.LogService;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.ApplicationScoped;
 
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.FacesContext;
@@ -21,12 +18,12 @@ import java.io.Serializable;
 
 @Named(value = "beanLog")
 @SessionScoped
-public class BeanLog implements Serializable {
+public class LogBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
     @Inject
-    private ServiceLog serviceLog;
+    private LogService serviceLog;
 
     private UserDto userDto;
     private String mistake;
@@ -98,11 +95,11 @@ public class BeanLog implements Serializable {
         this.userDto = userDto;
     }
 
-    public ServiceLog getServiceLog() {
+    public LogService getServiceLog() {
         return serviceLog;
     }
 
-    public void setServiceLog(ServiceLog serviceLog) {
+    public void setServiceLog(LogService serviceLog) {
         this.serviceLog = serviceLog;
     }
 

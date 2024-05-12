@@ -10,16 +10,16 @@ public class Resource {
     @Column(name = "RESOURCE_ID")
     private int idResource;
     @Column(name = "RESOURCE_DESCRIPCION")
-    private String descripcion;
+    private String description;
     @Column(name = "RESOURCE_TYPE")
     private String type;
 
     public Resource() {
     }
 
-    public Resource(int idResource, String descripcion, String type) {
+    public Resource(int idResource, String description, String type) {
         this.idResource = idResource;
-        this.descripcion = descripcion;
+        this.description = description;
         this.type = type;
     }
 
@@ -31,12 +31,12 @@ public class Resource {
         this.idResource = idResource;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescription(String descripcion) {
+        this.description = descripcion;
     }
 
     public String getType() {

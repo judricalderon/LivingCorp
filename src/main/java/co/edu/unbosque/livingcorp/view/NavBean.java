@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Named(value = "beanNav")
 @RequestScoped
-public class BeanNav implements Serializable {
+public class NavBean implements Serializable {
     private static final long serialVersionUID = 1L;
     public String inicio(){
         return "index.xhtml";

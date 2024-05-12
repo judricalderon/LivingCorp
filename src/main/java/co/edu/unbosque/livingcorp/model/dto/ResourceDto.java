@@ -3,13 +3,13 @@ package co.edu.unbosque.livingcorp.model.dto;
 public class ResourceDto {
 
     private int idResource;
-    private String descripcion;
+    private String description;
     private String type;
     public ResourceDto() {}
 
-    public ResourceDto(int idResource, String descripcion, String type) {
+    public ResourceDto(int idResource, String description, String type) {
         this.idResource = idResource;
-        this.descripcion = descripcion;
+        this.description = description;
         this.type = type;
     }
 
@@ -21,12 +21,12 @@ public class ResourceDto {
         this.idResource = idResource;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getType() {

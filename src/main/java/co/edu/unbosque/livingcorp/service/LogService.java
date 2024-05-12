@@ -6,8 +6,6 @@ import co.edu.unbosque.livingcorp.exception.ExceptionRepetedObject;
 import co.edu.unbosque.livingcorp.model.dto.UserDto;
 import co.edu.unbosque.livingcorp.model.entity.User;
 import co.edu.unbosque.livingcorp.model.presistence.InterfaceDao;
-import com.mysql.cj.protocol.a.LocalDateTimeValueEncoder;
-import jakarta.annotation.PostConstruct;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import org.modelmapper.ModelMapper;
@@ -15,18 +13,17 @@ import org.modelmapper.ModelMapper;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Stateless //lo reconoce como componente para posteriormente inyecta
 //se deja para poder pasarlo entre servidores o persistir, esto por session
-public class ServiceLog implements Serializable {
+public class LogService implements Serializable {
     private static final long serialVersionUID = 1L;
     @Inject
     private InterfaceDao<User, String> userDao;
     private ModelMapper mp;
 
-    public ServiceLog() {
+    public LogService() {
         mp = new ModelMapper();
     }
 
@@ -87,7 +84,7 @@ public UserDto log(UserDto userDto) throws ExceptionPasswordNotEncrypted, Except
         //verifico si el usuario es administrador
         if(userDto.isPropertyAdmin()){
             //redirecciono a la pag .xhtml del panel administrador
-            return "panelAdmin.xhtml";
+            return "panelCreateProperty.xhtml";
         }else {
             //retorno el panel del usuario
             return "panelUser.xhtml";
