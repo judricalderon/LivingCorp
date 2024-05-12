@@ -84,7 +84,7 @@ public UserDto log(UserDto userDto) throws ExceptionPasswordNotEncrypted, Except
         //verifico si el usuario es administrador
         if(userDto.isPropertyAdmin()){
             //redirecciono a la pag .xhtml del panel administrador
-            return "panelCreateProperty.xhtml";
+            return "panelAdmiProperty.xhtml";
         }else {
             //retorno el panel del usuario
             return "panelUser.xhtml";

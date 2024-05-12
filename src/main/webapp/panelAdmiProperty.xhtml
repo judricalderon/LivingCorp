@@ -71,7 +71,7 @@
 <h:body>
 
     <!-- barra de navegacion -->
-    <ui:include src="navAdministrador.xhtml"></ui:include>
+    <ui:include src="navAdmi.xhtml"></ui:include>
     <p:tooltip/>
 
     <h:outputLabel  value="Creacion de propiedad" />
@@ -117,7 +117,7 @@
 
 
 
-                <p:commandButton value="login" styleClass="ui-button-primary" action="#{beanLog.log()}" />
+                <p:commandButton value="login" styleClass="ui-button-primary" action="#{logBean.log()}" />
 
                 <p:messages id="messages" showDetail="true" closable="true">
                     <p:autoUpdate/>

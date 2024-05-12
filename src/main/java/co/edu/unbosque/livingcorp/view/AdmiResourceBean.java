@@ -5,6 +5,8 @@ import co.edu.unbosque.livingcorp.model.dto.ResourceDto;
 import co.edu.unbosque.livingcorp.service.AdmiResourceService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
@@ -23,10 +25,14 @@ public class AdmiResourceBean implements Serializable {
     public void init() {
         resourceDto = new ResourceDto();
     }
+
+
     public void createResource(){
         try{
+            System.out.println(resourceDto.getDescription()+" "+resourceDto.getType());
             boolean validacion = admiResourceService.create(resourceDto);
             if(validacion){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Resource created"));
                 System.out.println("Resource created");
             }else {
                 System.out.println("Resource already exists");
@@ -34,6 +40,14 @@ public class AdmiResourceBean implements Serializable {
         } catch (ExceptionRepetedObject e) {
             System.out.println(e.getMessage());
         }
+
     }
 
+    public ResourceDto getResourceDto() {
+        return resourceDto;
+    }
+
+    public void setResourceDto(ResourceDto resourceDto) {
+        this.resourceDto = resourceDto;
+    }
 }

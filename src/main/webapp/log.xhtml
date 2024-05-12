@@ -84,18 +84,18 @@
 
                 <div class="form-field">
                     <h:outputLabel for="usuario" value="Usuario:" />
-                    <p:inputText id="usuario" value="#{beanLog.userDto.nameUser}" required="true"/>
+                    <p:inputText id="usuario" value="#{logBean.userDto.nameUser}" required="true"/>
                     <p:message for="usuario" display="tooltip"/>
                 </div>
 
                 <div class="form-field">
                     <h:outputLabel for="password" value="Password:"  />
-                    <p:inputText type="password" id="password" value="#{beanLog.userDto.password}" required="true"/>
+                    <p:inputText type="password" id="password" value="#{logBean.userDto.password}" required="true"/>
                     <p:message for="password" display="tooltip"/>
                 </div>
 
 
-                <p:commandButton value="login" styleClass="ui-button-primary" action="#{beanLog.log()}" />
+                <p:commandButton value="login" styleClass="ui-button-primary" action="#{logBean.log()}" />
 
                 <p:messages id="messages" showDetail="true" closable="true">
                     <p:autoUpdate/>

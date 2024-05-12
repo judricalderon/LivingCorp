@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.Serializable;
 
-@Named(value = "beanLog")
+@Named(value = "logBean")
 @SessionScoped
 public class LogBean implements Serializable {
     private static final long serialVersionUID = 1L;
