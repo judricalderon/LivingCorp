@@ -10,16 +10,12 @@ import co.edu.unbosque.livingcorp.model.presistence.InterfaceDao;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import org.modelmapper.ModelMapper;
-
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.stream.Collectors;
 
 @Stateless
-public class AdmiPropertiesService implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class AdmiPropertiesService  {
+
 
     @Inject
     private InterfaceDao<Property,Integer> propertyDao;

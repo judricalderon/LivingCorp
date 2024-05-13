@@ -6,19 +6,17 @@ import co.edu.unbosque.livingcorp.model.dto.PropertyResourceDto;
 import co.edu.unbosque.livingcorp.model.dto.ResourceDto;
 import co.edu.unbosque.livingcorp.service.AdmiPropertyResourceService;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.SessionScoped;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-
-import java.io.Serializable;
 import java.util.List;
 
 @Named(value = "admiPropertyResourceBean")
-@SessionScoped
-public class AdmiPropertyResourceBean implements Serializable {
-    private static final long serialVersionUID = 1L;
+@RequestScoped
+public class AdmiPropertyResourceBean  {
+
     @Inject
     private AdmiPropertyResourceService admiPropertyResourceService;
     private List<String> listNameProperty;

@@ -1,21 +1,18 @@
 package co.edu.unbosque.livingcorp.view;
-
 import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
 import co.edu.unbosque.livingcorp.model.dto.ResourceDto;
 import co.edu.unbosque.livingcorp.service.AdmiResourceService;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.SessionScoped;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-import java.io.Serializable;
-
 @Named(value = "admiResourceBean")
-@SessionScoped
-public class AdmiResourceBean implements Serializable {
-    private static final long serialVersionUID = 1L;
+@RequestScoped
+public class AdmiResourceBean  {
+
 
     @Inject
     private AdmiResourceService admiResourceService;

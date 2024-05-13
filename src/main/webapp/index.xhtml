@@ -7,7 +7,64 @@
 <h:head>
     <meta charset="ISO-8859-1" />
     <title>LivingCorp</title>
-    <h:outputStylesheet library="primefaces" name="css/theme.css" />
+    <style>
+
+
+        .header img {
+            margin-right: 20px; /* Espacio entre el logo y el menu */
+            width: 80px; /* Ancho de la imagen */
+            height: auto; /* Altura automatica proporcional */
+        }
+
+
+        .form-horizontal input {
+            margin-right: 10px;
+        }
+
+        .centered {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-container .form-field {
+            margin-bottom: 10px;
+        }
+
+        .form-container .form-field label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-container .form-field input,
+        .form-container .form-field textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-container .form-field textarea {
+            resize: vertical;
+        }
+
+        .form-container .form-field button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </h:head>
 
 <h:body>
@@ -15,22 +72,23 @@
     <ui:include src="navIndex.xhtml"></ui:include>
 
     <!-- dentro de la pagina -->
+    <p:dataList value="bean lista de datos" var="variable">
     <p:card style="width: 25em">
         <f:facet name="header">
             <img alt="user header" src="https://londonogomez.com/sites/default/files/imagenes/proyectos/imgs-slider/LG_BannerPrincipal_Atlantica.jpg"/>
         </f:facet>
         <f:facet name="title">
-            Advanced Card
+
         </f:facet>
         <f:facet name="subtitle">
             Card subtitle
         </f:facet>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-            quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</p>
+        <p:outputLabel for="username2" styleClass="block">Username</p:outputLabel>
+        <p:inputText id="username2" value="#{dato.username}" disabled="true" />
 
         <f:facet name="footer">
-            <p:commandButton value="Agendar" oncomplete="PF('dlgAgendarCita').show()" />
+            <p:commandButton value="Info" oncomplete="PF('dlgAgendarCita').show()" />
         </f:facet>
 
         <p:dialog id="dlgAgendarCita" header="Agendar Cita" widgetVar="dlgAgendarCita" resizable="false" modal="true">
@@ -68,7 +126,7 @@
             </div>
         </p:dialog>
     </p:card>
-
+    </p:dataList>
     <!-- footer -->
     <ui:include src="footer.xhtml"></ui:include>
 </h:body>

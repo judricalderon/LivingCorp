@@ -1,5 +1,4 @@
 package co.edu.unbosque.livingcorp.service;
-
 import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
 import co.edu.unbosque.livingcorp.model.dto.ResourceDto;
 import co.edu.unbosque.livingcorp.model.entity.Resource;
@@ -8,11 +7,9 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import org.modelmapper.ModelMapper;
 
-import java.io.Serializable;
-
 @Stateless
-public class AdmiResourceService implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class AdmiResourceService  {
+
 
     @Inject
     private InterfaceDao<Resource,Integer> resourceDao;

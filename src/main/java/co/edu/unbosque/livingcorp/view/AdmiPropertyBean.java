@@ -6,19 +6,17 @@ import co.edu.unbosque.livingcorp.model.dto.PropertyDto;
 import co.edu.unbosque.livingcorp.model.dto.UserDto;
 import co.edu.unbosque.livingcorp.service.AdmiPropertiesService;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.SessionScoped;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-
-import java.io.Serializable;
 import java.util.List;
 
 @Named (value = "admiPropertyBean")
-@SessionScoped
-public class AdmiPropertyBean implements Serializable {
-    private static final long serialVersionUID = 1L;
+@RequestScoped
+public class AdmiPropertyBean  {
+
     @Inject
     private AdmiPropertiesService admiPropertiesService;
     private PropertyDto propertyDto;
@@ -31,7 +29,7 @@ public class AdmiPropertyBean implements Serializable {
     }
     public void createProperty() throws RepetedObjectException {
         try{
-            System.out.println("terco gonorrea ome");
+
             for(String aux : administradores){
                 System.out.println(aux);
             }
