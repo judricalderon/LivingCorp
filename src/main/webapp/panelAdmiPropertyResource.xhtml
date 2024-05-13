@@ -85,10 +85,10 @@
             <h:form styleClass="form-container">
                 <div class="form-field">
                     <p:outputLabel for="type" value="Typo de recurso:"/>
-                    <p:selectOneMenu id="type" value="#{admiPropertyBean.propertyDto.propertyAdmin.nameUser}"
+                    <p:selectOneMenu id="type" value="#{admiPropertyResourceBean.propertyResourceDto.resId.type}"
                                      required="true">
                         <f:selectItem itemLabel="" itemValue=""/>
-                        <f:selectItems value="#{admiPropertyBean.administradores}"/>
+                        <f:selectItems value="#{admiPropertyResourceBean.listTypeResource}"/>
                     </p:selectOneMenu>
 
                     <p:message for="type" display="tooltip"/>
@@ -97,10 +97,10 @@
 
                 <div class="form-field">
                     <p:outputLabel for="nameProperty" value="Nombre de la propiedad:"/>
-                    <p:selectOneMenu id="nameProperty" value="#{admiPropertyBean.propertyDto.propertyAdmin.nameUser}"
-                                     required="true">
+                    <p:selectOneMenu id="nameProperty" required="true"
+                                     value="#{admiPropertyResourceBean.propertyResourceDto.proId.nameProperty}">
                         <f:selectItem itemLabel="" itemValue=""/>
-                        <f:selectItems value="#{admiPropertyBean.administradores}"/>
+                        <f:selectItems value="#{admiPropertyResourceBean.listNameProperty}"/>
                     </p:selectOneMenu>
 
                     <p:message for="nameProperty" display="tooltip"/>
@@ -108,44 +108,45 @@
 
                 <div class="form-field">
                     <p:outputLabel for="minPrice" value="Precio minimo de la reserva (COP):"/>
-                    <p:inputNumber id="minPrice" value="#{admiPropertyBean.propertyDto.room}" minValue="150000" decimalPlaces="2"
-                                   required="true" />
+                    <p:inputNumber id="minPrice" value="#{admiPropertyResourceBean.propertyResourceDto.minPrice}"
+                                   minValue="150000" decimalPlaces="2" required="true" />
                     <p:message for="minPrice" display="tooltip"/>
                 </div>
 
                 <div class="form-field">
                     <p:outputLabel for="minTimeH" value="Tiempo minimo de la reserva:"/>
-                    <p:inputNumber id="minTimeH" value="#{admiPropertyBean.propertyDto.room}" minValue="3" decimalPlaces="0"
-                                   required="true" />
+                    <p:inputNumber id="minTimeH" value="#{admiPropertyResourceBean.propertyResourceDto.minTimeH}"
+                                   minValue="3" decimalPlaces="0" required="true" />
                     <p:message for="minTimeH" display="tooltip"/>
                 </div>
 
                 <div>
                     <p:outputLabel value="Indicar disponibilidad del producto:"/>
                     <p:selectBooleanButton onLabel="Si" offLabel="No" style="width:6rem" required="true"
-                                           value="#{admiPropertyBean.propertyDto.sale}"/>
+                                           value="#{admiPropertyResourceBean.propertyResourceDto.availabily}"/>
                 </div>
 
 
                 <div class="form-field">
                     <p:outputLabel for="capacity" value="Numero maximo de personas:"/>
-                    <p:inputNumber id="capacity" value="#{admiPropertyBean.propertyDto.room}" minValue="3" decimalPlaces="0"
-                                   required="true" />
+                    <p:inputNumber id="capacity" value="#{admiPropertyResourceBean.propertyResourceDto.capacity}"
+                                   minValue="3" decimalPlaces="0" required="true" />
                     <p:message for="capacity" display="tooltip"/>
                 </div>
 
                 <div class="form-field">
                     <p:outputLabel for="bookEmail" value="Email del administrador:"/>
-                    <p:selectOneMenu id="bookEmail" value="#{admiPropertyBean.propertyDto.propertyAdmin.nameUser}"
+                    <p:selectOneMenu id="bookEmail" value="#{admiPropertyResourceBean.propertyResourceDto.bookEmail}"
                                      required="true">
                         <f:selectItem itemLabel="" itemValue=""/>
-                        <f:selectItems value="#{admiPropertyBean.administradores}"/>
+                        <f:selectItems value="#{admiPropertyResourceBean.listEmailUser}"/>
                     </p:selectOneMenu>
 
                     <p:message for="type" display="tooltip"/>
                 </div>
 
-                <p:commandButton value="Gestinoar recursos" styleClass="ui-button-primary" action="#{admiResourceBean.createResource()}" />
+                <p:commandButton value="Gestinoar recursos" styleClass="ui-button-primary"
+                                 action="#{admiPropertyResourceBean.createPropertyResource()}" />
 
                 <p:messages id="messages" showDetail="true" closable="true">
                     <p:autoUpdate/>

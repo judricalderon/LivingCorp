@@ -49,7 +49,7 @@ public class AdmiPropertyResourceService implements Serializable {
 
 
 
-    public List<String> ListNameUser(UserDto userDto){
+    public List<String> listNameUser(){
 
         return userDao.getAll()
                        .stream()
@@ -69,7 +69,7 @@ public class AdmiPropertyResourceService implements Serializable {
                 .findFirst().orElseGet(PropertyDto::new);
     }
 
-    public List<String> ListNameProperty(PropertyDto propertyDto){
+    public List<String> listNameProperty(){
 
         return propertyDao.getAll()
                 .stream()
@@ -90,7 +90,7 @@ public class AdmiPropertyResourceService implements Serializable {
                 .findFirst().orElseGet(ResourceDto::new);
     }
 
-    public List<String> ListNameResource(ResourceDto resourceDto){
+    public List<String> listTypeResource(){
 
         return resourceDao.getAll()
                 .stream()
