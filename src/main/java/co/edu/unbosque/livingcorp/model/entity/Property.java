@@ -36,7 +36,7 @@ public class Property {
     public Property() {
     }
 
-    public Property(int idProperty, String nameProperty, String city, String address, int area, double priceProperty, int room, String description, User admi, boolean rent, boolean sale) {
+    public Property(int idProperty, String nameProperty, String city, String address, int area, double priceProperty, int room, String bathroom, String description, User propertyAdmin, boolean rent, boolean sale) {
         this.idProperty = idProperty;
         this.nameProperty = nameProperty;
         this.city = city;
@@ -44,8 +44,9 @@ public class Property {
         this.area = area;
         this.priceProperty = priceProperty;
         this.room = room;
+        this.bathroom = bathroom;
         this.description = description;
-        this.propertyAdmin = admi;
+        this.propertyAdmin = propertyAdmin;
         this.rent = rent;
         this.sale = sale;
     }
@@ -106,6 +107,14 @@ public class Property {
         this.room = room;
     }
 
+    public String getBathroom() {
+        return bathroom;
+    }
+
+    public void setBathroom(String bathroom) {
+        this.bathroom = bathroom;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -118,8 +127,8 @@ public class Property {
         return propertyAdmin;
     }
 
-    public void setPropertyAdmin(User admi) {
-        this.propertyAdmin = admi;
+    public void setPropertyAdmin(User propertyAdmin) {
+        this.propertyAdmin = propertyAdmin;
     }
 
     public boolean isRent() {

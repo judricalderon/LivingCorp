@@ -84,13 +84,13 @@
 
                 <div class="form-field">
                     <h:outputLabel for="usuario" value="Usuario:" />
-                    <p:inputText id="usuario" value="#{logBean.userDto.nameUser}" required="true"/>
+                    <p:inputText id="usuario" value="#{logBean.userDto.nameUser}" required="true" maxlength="10"/>
                     <p:message for="usuario" display="tooltip"/>
                 </div>
 
                 <div class="form-field">
                     <h:outputLabel for="password" value="Password:"  />
-                    <p:inputText type="password" id="password" value="#{logBean.userDto.password}" required="true"/>
+                    <p:inputText type="password" id="password" value="#{logBean.userDto.password}" required="true" maxlength="255"/>
                     <p:message for="password" display="tooltip"/>
                 </div>
 

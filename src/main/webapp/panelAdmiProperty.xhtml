@@ -84,40 +84,74 @@
 
                 <div class="form-field">
                     <h:outputLabel for="nameProperty" value="Nombre de la Propiedad:" />
-                    <p:inputText id="nameProperty" value="" required="true"/>
+                    <p:inputText id="nameProperty" value="#{admiPropertyBean.propertyDto.nameProperty}" required="true"
+                                 maxlength="150"/>
                     <p:message for="nameProperty" display="tooltip"/>
                 </div>
                 <div class="form-field">
                     <h:outputLabel for="city" value="Ciudad:" />
-                    <p:inputText id="city" value="" required="true"/>
+                    <p:inputText id="city" value="#{admiPropertyBean.propertyDto.city}" required="true" maxlength="25"/>
                     <p:message for="city" display="tooltip"/>
                 </div>
                 <div class="form-field">
                     <h:outputLabel for="address" value="Direccion de la Propiedad:" />
-                    <p:inputText id="address" value="" required="true"/>
+                    <p:inputText id="address" value="#{admiPropertyBean.propertyDto.address}" required="true" maxlength="255"/>
                     <p:message for="address" display="tooltip"/>
                 </div>
 +}
 
                 <div class="field col-12 md:col-4">
-                    <p:outputLabel for="input6" value="Empty Display - Zero"/>
-                    <p:inputNumber id="input6" value="#{inputNumberView.input6}" symbol="%"
-                                   symbolPosition="s" emptyValue="zero" />
+                    <p:outputLabel for="area" value="Area de la propiedad:"/>
+                    <p:inputNumber id="area" value="#{admiPropertyBean.propertyDto.area}" minValue="10"
+                                   decimalPlaces="0" required="true" />
+                    <p:message for="area" display="tooltip"/>
                 </div>
 
+                <div class="field col-12 md:col-4">
+                    <p:outputLabel for="priceProperty" value="Precio de la propiedad:"/>
+                    <p:inputNumber id="priceProperty" value="#{admiPropertyBean.propertyDto.priceProperty}" symbol="COP"
+                                   minValue="1000" required="true" symbolPosition="s" emptyValue="always" />
+                    <p:message for="priceProperty" display="tooltip"/>
+                </div>
 
-
+                <div class="field col-12 md:col-4">
+                    <p:outputLabel for="room" value="Habitaciones de la propiedad:"/>
+                    <p:inputNumber id="room" value="#{admiPropertyBean.propertyDto.room}" minValue="1" decimalPlaces="0"
+                                   required="true" />
+                    <p:message for="room" display="tooltip"/>
+                </div>
+                <div class="field col-12 md:col-4">
+                    <p:outputLabel for="bathroom" value="Banhos de la propiedad:"/>
+                    <p:inputNumber id="bathroom" value="#{admiPropertyBean.propertyDto.bathroom}" minValue="1" decimalPlaces="0" required="true" />
+                    <p:message for="bathroom" display="tooltip"/>
+                </div>
 
                 <div class="form-field">
                     <h:outputLabel for="description" value="Descripcion de la Propiedad:" />
-                    <p:inputText id="description" value="" required="true"/>
+                    <p:inputTextarea rows="6" cols="33" id="description" value="#{admiPropertyBean.propertyDto.description}"
+                                     required="true" maxlength="255"/>
                     <p:message for="description" display="tooltip"/>
+                </div>
+                <div class="field col-12 md:col-4">
+                    <p:outputLabel for="@next" value="Administrador que crea la propiedad:"/>
+                    <p:selectOneMenu id="propertyAdmin" value="#{admiPropertyBean.propertyDto.propertyAdmin}" dynamic="true">
+                        <f:selectItem itemLabel="Select One" itemValue=""/>
+                        <f:selectItems value="#{selectOneMenuView.options}"/>
+                    </p:selectOneMenu>
+                    <p:message for="propertyAdmin" display="tooltip"/>
+                </div>
+                <div>
+                    <p:outputLabel value="Propiedad para rentar?"/>
+                    <p:selectBooleanButton onLabel="Si" offLabel="No" style="width:6rem" required="true" />
+                </div>
+
+                <div>
+                    <p:outputLabel value="Propiedad para vender?"/>
+                    <p:selectBooleanButton onLabel="Si" offLabel="No" style="width:6rem" required="true" />
                 </div>
 
 
-
-
-                <p:commandButton value="login" styleClass="ui-button-primary" action="#{logBean.log()}" />
+                <p:commandButton value="Crear Propiedad" styleClass="ui-button-primary" action="#{logBean.log()}" />
 
                 <p:messages id="messages" showDetail="true" closable="true">
                     <p:autoUpdate/>

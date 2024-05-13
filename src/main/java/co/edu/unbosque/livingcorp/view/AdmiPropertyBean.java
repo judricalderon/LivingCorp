@@ -39,4 +39,12 @@ public class AdmiPropertyBean implements Serializable {
             System.out.println(e.getMessage());
         }
     }
+
+    public PropertyDto getPropertyDto() {
+        return propertyDto;
+    }
+
+    public void setPropertyDto(PropertyDto propertyDto) {
+        this.propertyDto = propertyDto;
+    }
 }

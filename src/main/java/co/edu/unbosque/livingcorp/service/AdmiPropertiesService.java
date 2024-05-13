@@ -2,7 +2,9 @@ package co.edu.unbosque.livingcorp.service;
 
 import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
 import co.edu.unbosque.livingcorp.model.dto.PropertyDto;
+import co.edu.unbosque.livingcorp.model.dto.UserDto;
 import co.edu.unbosque.livingcorp.model.entity.Property;
+import co.edu.unbosque.livingcorp.model.entity.User;
 import co.edu.unbosque.livingcorp.model.presistence.InterfaceDao;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
@@ -19,6 +21,8 @@ public class AdmiPropertiesService implements Serializable {
 
     @Inject
     private InterfaceDao<Property,Integer> propertyDao;
+    @Inject
+    private InterfaceDao<User,String> userDao;
     private ModelMapper modelMapper;
 
     public AdmiPropertiesService() {
@@ -44,6 +48,12 @@ public class AdmiPropertiesService implements Serializable {
             return true;
         }
 
+    }
+    public List<UserDto> listarAdmi(){
+        return userDao.getAll().stream()
+                .filter(User::isPropertyAdmin)
+                .map(entity -> modelMapper.map(entity,UserDto.class))
+                .collect(Collectors.toList());
     }
 
 }
