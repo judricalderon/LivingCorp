@@ -1,5 +1,6 @@
 package co.edu.unbosque.livingcorp.service;
 
+import co.edu.unbosque.livingcorp.exception.DontExistException;
 import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
 import co.edu.unbosque.livingcorp.model.dto.PropertyDto;
 import co.edu.unbosque.livingcorp.model.dto.UserDto;
@@ -11,6 +12,7 @@ import jakarta.inject.Inject;
 import org.modelmapper.ModelMapper;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
@@ -29,7 +31,7 @@ public class AdmiPropertiesService implements Serializable {
         modelMapper = new ModelMapper();
     }
 
-    public boolean createProperties(PropertyDto propertiesDto) throws RepetedObjectException {
+    public boolean createProperties(PropertyDto propertiesDto) throws RepetedObjectException, DontExistException {
         List<PropertyDto> listaBd = propertyDao.getAll()
                                                 .stream()
                                                 .map(entity ->modelMapper.map(entity,PropertyDto.class))
@@ -40,20 +42,24 @@ public class AdmiPropertiesService implements Serializable {
             if (nombreIgual){
                 return false;
             }else {
+                propertiesDto.setPropertyAdmin(modelMapper.map(userDao.find(propertiesDto.getPropertyAdmin().getNameUser()), UserDto.class));
                 propertyDao.create(modelMapper.map(propertiesDto, Property.class));
                 return true;
             }
         }else {
+            propertiesDto.setPropertyAdmin(modelMapper.map(userDao.find(propertiesDto.getPropertyAdmin().getNameUser()), UserDto.class));
             propertyDao.create(modelMapper.map(propertiesDto, Property.class));
             return true;
         }
 
     }
-    public List<UserDto> listarAdmi(){
-        return userDao.getAll().stream()
+    public List<String> listarAdmi(){
+        List<String> administradores = userDao.getAll().stream()
                 .filter(User::isPropertyAdmin)
                 .map(entity -> modelMapper.map(entity,UserDto.class))
+                .map(UserDto::getNameUser)
                 .collect(Collectors.toList());
+        return administradores;
     }
 
 }
