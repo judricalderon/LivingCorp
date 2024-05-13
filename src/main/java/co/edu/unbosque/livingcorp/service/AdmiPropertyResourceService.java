@@ -27,7 +27,7 @@ public class AdmiPropertyResourceService implements Serializable {
     @Inject
     private InterfaceDao<Property,Integer> propertyDao;
     @Inject
-    private InterfaceDao<Resource,String> resourceDao;
+    private InterfaceDao<Resource,Integer> resourceDao;
     @Inject
     private InterfaceDao<PropertyResource,Integer> propertyResourceDao;
 

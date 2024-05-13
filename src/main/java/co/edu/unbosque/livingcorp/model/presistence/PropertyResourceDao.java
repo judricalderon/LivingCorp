@@ -9,7 +9,6 @@ import jakarta.persistence.*;
 
 import java.util.List;
 @Stateless
-
 public class PropertyResourceDao implements InterfaceDao<PropertyResource,Integer> {
     @PersistenceContext(unitName = "livingCorpPU")
     private EntityManager em;
