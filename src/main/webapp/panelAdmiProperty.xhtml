@@ -108,9 +108,9 @@
                 </div>
 
                 <div class="form-field">
-                    <p:outputLabel for="priceProperty" value="Precio de la propiedad:"/>
-                    <p:inputNumber id="priceProperty" value="#{admiPropertyBean.propertyDto.priceProperty}" symbol="COP"
-                                   minValue="100000" required="true" symbolPosition="s" emptyValue="always" decimalPlaces="0"/>
+                    <p:outputLabel for="priceProperty" value="Precio de la propiedad (COP):"/>
+                    <p:inputNumber id="priceProperty" value="#{admiPropertyBean.propertyDto.room}" minValue="200000" decimalPlaces="0"
+                                   required="true" />
                     <p:message for="priceProperty" display="tooltip"/>
                 </div>
 

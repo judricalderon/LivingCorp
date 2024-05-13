@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta charset="ISO-8859-1" />
+    <title>LivingCorp</title>
+
+    <style>
+
+
+        .header img {
+            margin-right: 20px; /* Espacio entre el logo y el menu */
+            width: 80px; /* Ancho de la imagen */
+            height: auto; /* Altura automatica proporcional */
+        }
+
+
+        .form-horizontal input {
+            margin-right: 10px;
+        }
+
+        .centered {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-container .form-field {
+            margin-bottom: 10px;
+        }
+
+        .form-container .form-field label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-container .form-field input,
+        .form-container .form-field textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-container .form-field textarea {
+            resize: vertical;
+        }
+
+        .form-container .form-field button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</h:head>
+
+<h:body>
+
+    <!-- barra de navegacion -->
+    <ui:include src="navAdmi.xhtml"></ui:include>
+    <!-- mostrar mensajes-->
+    <p:tooltip/>
+
+
+    <h:outputLabel  value="Creacion de Recurso" />
+    <div class="centered">
+        <!-- Card -->
+        <p:card style="width: 25em">
+
+
+            <h:form styleClass="form-container">
+                <div class="form-field">
+                    <p:outputLabel for="type" value="Typo de recurso:"/>
+                    <p:selectOneMenu id="type" value="#{admiPropertyBean.propertyDto.propertyAdmin.nameUser}"
+                                     required="true">
+                        <f:selectItem itemLabel="" itemValue=""/>
+                        <f:selectItems value="#{admiPropertyBean.administradores}"/>
+                    </p:selectOneMenu>
+
+                    <p:message for="type" display="tooltip"/>
+                </div>
+
+
+                <div class="form-field">
+                    <p:outputLabel for="nameProperty" value="Nombre de la propiedad:"/>
+                    <p:selectOneMenu id="nameProperty" value="#{admiPropertyBean.propertyDto.propertyAdmin.nameUser}"
+                                     required="true">
+                        <f:selectItem itemLabel="" itemValue=""/>
+                        <f:selectItems value="#{admiPropertyBean.administradores}"/>
+                    </p:selectOneMenu>
+
+                    <p:message for="nameProperty" display="tooltip"/>
+                </div>
+
+                <div class="form-field">
+                    <p:outputLabel for="minPrice" value="Precio minimo de la reserva (COP):"/>
+                    <p:inputNumber id="minPrice" value="#{admiPropertyBean.propertyDto.room}" minValue="150000" decimalPlaces="2"
+                                   required="true" />
+                    <p:message for="minPrice" display="tooltip"/>
+                </div>
+
+                <div class="form-field">
+                    <p:outputLabel for="minTimeH" value="Tiempo minimo de la reserva:"/>
+                    <p:inputNumber id="minTimeH" value="#{admiPropertyBean.propertyDto.room}" minValue="3" decimalPlaces="0"
+                                   required="true" />
+                    <p:message for="minTimeH" display="tooltip"/>
+                </div>
+
+                <div>
+                    <p:outputLabel value="Indicar disponibilidad del producto:"/>
+                    <p:selectBooleanButton onLabel="Si" offLabel="No" style="width:6rem" required="true"
+                                           value="#{admiPropertyBean.propertyDto.sale}"/>
+                </div>
+
+
+                <div class="form-field">
+                    <p:outputLabel for="capacity" value="Numero maximo de personas:"/>
+                    <p:inputNumber id="capacity" value="#{admiPropertyBean.propertyDto.room}" minValue="3" decimalPlaces="0"
+                                   required="true" />
+                    <p:message for="capacity" display="tooltip"/>
+                </div>
+
+                <div class="form-field">
+                    <p:outputLabel for="bookEmail" value="Email del administrador:"/>
+                    <p:selectOneMenu id="bookEmail" value="#{admiPropertyBean.propertyDto.propertyAdmin.nameUser}"
+                                     required="true">
+                        <f:selectItem itemLabel="" itemValue=""/>
+                        <f:selectItems value="#{admiPropertyBean.administradores}"/>
+                    </p:selectOneMenu>
+
+                    <p:message for="type" display="tooltip"/>
+                </div>
+
+                <p:commandButton value="Gestinoar recursos" styleClass="ui-button-primary" action="#{admiResourceBean.createResource()}" />
+
+                <p:messages id="messages" showDetail="true" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
+            </h:form>
+        </p:card>
+    </div>
+
+    <!-- footer -->
+    <ui:include src="footer.xhtml"></ui:include>
+</h:body>
+</html>
