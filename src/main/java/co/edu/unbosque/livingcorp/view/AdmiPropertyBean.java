@@ -27,12 +27,7 @@ public class AdmiPropertyBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        propertyDto = new PropertyDto();
-        propertyDto.setPropertyAdmin(new UserDto());
-        administradores = admiPropertiesService.listarAdmi();
-        for(String aux : administradores){
-            System.out.println(aux);
-        }
+        update();
     }
     public void createProperty() throws RepetedObjectException {
         try{
@@ -80,5 +75,14 @@ public class AdmiPropertyBean implements Serializable {
 
     public void setAdministrador(String administrador) {
         Administrador = administrador;
+    }
+    public void update(){
+        propertyDto = new PropertyDto();
+        propertyDto.setPropertyAdmin(new UserDto());
+        administradores = admiPropertiesService.listarAdmi();
+        for(String aux : administradores){
+            System.out.println(aux);
+        }
+        System.out.println("se actualiza los datos");
     }
 }

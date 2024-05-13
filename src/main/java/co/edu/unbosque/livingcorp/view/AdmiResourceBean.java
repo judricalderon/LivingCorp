@@ -23,7 +23,7 @@ public class AdmiResourceBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        resourceDto = new ResourceDto();
+        update();
     }
 
 
@@ -51,5 +51,9 @@ public class AdmiResourceBean implements Serializable {
 
     public void setResourceDto(ResourceDto resourceDto) {
         this.resourceDto = resourceDto;
+    }
+    public void update(){
+        resourceDto = new ResourceDto();
+        System.out.println("se actualiza los datos");
     }
 }

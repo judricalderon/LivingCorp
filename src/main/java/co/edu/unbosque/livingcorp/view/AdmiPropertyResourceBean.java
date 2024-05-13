@@ -28,12 +28,7 @@ public class AdmiPropertyResourceBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        listNameProperty = admiPropertyResourceService.listNameProperty();
-        listTypeResource = admiPropertyResourceService.listTypeResource();
-        listEmailUser = admiPropertyResourceService.listNameUser();
-        propertyResourceDto = new PropertyResourceDto();
-        propertyResourceDto.setResId(new ResourceDto());
-        propertyResourceDto.setProId(new PropertyDto());
+        update();
     }
 
     public void createPropertyResource() {
@@ -82,5 +77,14 @@ public class AdmiPropertyResourceBean implements Serializable {
 
     public void setPropertyResourceDto(PropertyResourceDto propertyResourceDto) {
         this.propertyResourceDto = propertyResourceDto;
+    }
+    public void update(){
+        listNameProperty = admiPropertyResourceService.listNameProperty();
+        listTypeResource = admiPropertyResourceService.listTypeResource();
+        listEmailUser = admiPropertyResourceService.listNameUser();
+        propertyResourceDto = new PropertyResourceDto();
+        propertyResourceDto.setResId(new ResourceDto());
+        propertyResourceDto.setProId(new PropertyDto());
+        System.out.println("se actualiza los datos");
     }
 }
