@@ -47,7 +47,7 @@ public class AdmiPropertyResourceService {
 
 
 
-    public List<String> listNameUser(){
+    public List<String> listEmilUser(){
 
         return userDao.getAll()
                        .stream()

@@ -79,7 +79,7 @@ public class AdmiPropertyResourceBean  {
     public void update(){
         listNameProperty = admiPropertyResourceService.listNameProperty();
         listTypeResource = admiPropertyResourceService.listTypeResource();
-        listEmailUser = admiPropertyResourceService.listNameUser();
+        listEmailUser = admiPropertyResourceService.listEmilUser();
         propertyResourceDto = new PropertyResourceDto();
         propertyResourceDto.setResId(new ResourceDto());
         propertyResourceDto.setProId(new PropertyDto());
