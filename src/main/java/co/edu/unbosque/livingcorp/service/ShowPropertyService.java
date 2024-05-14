@@ -16,6 +16,8 @@ public class ShowPropertyService {
     private InterfaceDao<Property,Integer> propertyDao;
     private ModelMapper modelMapper;
 
+
+
     public ShowPropertyService() {
         modelMapper = new ModelMapper();
     }
@@ -26,5 +28,10 @@ public class ShowPropertyService {
                 .map(entity ->modelMapper.map(entity,PropertyDto.class))
                 .collect(Collectors.toList());
     }
+
+    public void createAppointmentVisitor(VisitorAppointmentDto visitorAppointment) {
+
+    }
+
 
 }

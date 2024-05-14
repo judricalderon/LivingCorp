@@ -1,15 +1,12 @@
 package co.edu.unbosque.livingcorp.model.entity;
 
-import co.edu.unbosque.livingcorp.model.dto.PropertyDto;
 import jakarta.persistence.*;
-import jakarta.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table (name = "PROPERTY_VISITOR_APPOINTMENT")
-public class VisitorAppointment {
+public class Visitor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +22,10 @@ public class VisitorAppointment {
     @JoinColumn(name = "PROPERTY_ID")
     private Property idProperty;
 
-    public VisitorAppointment() {
+    public Visitor() {
     }
 
-    public VisitorAppointment(int idVisitor, String nameVisitor, String advisor, LocalDateTime dateTimeVisitor, Property idProperty) {
+    public Visitor(int idVisitor, String nameVisitor, String advisor, LocalDateTime dateTimeVisitor, Property idProperty) {
         this.idVisitor = idVisitor;
         this.nameVisitor = nameVisitor;
         this.advisor = advisor;

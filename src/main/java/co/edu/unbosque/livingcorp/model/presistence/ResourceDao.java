@@ -50,7 +50,8 @@ public class ResourceDao implements InterfaceDao<Resource,Integer> {
             return em.createQuery("SELECT r FROM Resource r", Resource.class).getResultList();
         }catch(NoResultException ignored){
             return List.of();
-        }}
+        }
+    }
 
     @Override
     public Resource find(Integer id) throws RepetedObjectException, DontExistException {

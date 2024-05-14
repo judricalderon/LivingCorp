@@ -138,30 +138,33 @@
                     <div class="form-field">
                         <h:outputLabel for="nombreCompleto" value="Nombre Completo:" />
                         <p:inputText id="nombreCompleto" />
+                        <p:message for="nombreCompleto" display="tooltip"/>
                     </div>
 
                     <div class="form-field">
-                        <h:outputLabel for="numero" value="Numero:" />
-                        <p:inputText id="numero" />
-                    </div>
+                        <p:outputLabel for="nombre administrador" value="Administrador que crea la propiedad:"/>
+                        <p:selectOneMenu id="nombre administrador" value="#{admiPropertyBean.propertyDto.propertyAdmin.nameUser}"
+                                         required="true">
+                            <f:selectItem itemLabel="" itemValue=""/>
+                            <f:selectItems value="#{admiPropertyBean.administradores}"/>
+                        </p:selectOneMenu>
 
+                        <p:message for="nombre administrador" display="tooltip"/>
+                    </div>
                     <div class="form-field">
-                        <h:outputLabel for="correo" value="Correo:" />
-                        <p:inputText id="correo" />
+                        <p:outputLabel for="propertyAdmin" value="Administrador que crea la propiedad:"/>
+                        <p:selectOneMenu id="propertyAdmin" value="#{admiPropertyBean.propertyDto.propertyAdmin.nameUser}"
+                                         required="true">
+                            <f:selectItem itemLabel="" itemValue=""/>
+                            <f:selectItems value="#{admiPropertyBean.administradores}"/>
+                        </p:selectOneMenu>
+
+                        <p:message for="propertyAdmin" display="tooltip"/>
                     </div>
 
-                    <div class="form-field">
-                        <h:outputLabel for="fechaAgenda" value="Fecha de Agenda:" />
-                        <p:calendar id="fechaAgenda" />
-                    </div>
-
-                    <div class="form-field">
-                        <h:outputLabel for="recomendaciones" value="Recomendaciones:" />
-                        <p:inputTextarea id="recomendaciones" rows="5" />
-                    </div>
-
-
-
+                    <p:messages id="messages" showDetail="true" closable="true">
+                        <p:autoUpdate/>
+                    </p:messages>
                     <!-- Boton para agendar cita -->
                     <p:commandButton value="Agendar" action="#{BeanNav.inicio}" oncomplete="PF('dlgAgendarCita').hide()" />
                 </h:form>
