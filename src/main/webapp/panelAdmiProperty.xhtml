@@ -1,11 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
-    <meta charset="ISO-8859-1" />
+    <meta charset="ISO-8859-1"/>
     <title>LivingCorp</title>
 
     <style>
@@ -74,7 +75,7 @@
     <ui:include src="navAdmi.xhtml"></ui:include>
     <p:tooltip/>
 
-    <h:outputLabel  value="Creacion de propiedad" />
+    <h:outputLabel value="Creacion de propiedad"/>
     <div class="centered">
         <!-- Card -->
         <p:card style="width: 25em">
@@ -83,19 +84,20 @@
             <h:form styleClass="form-container">
 
                 <div class="form-field">
-                    <h:outputLabel for="nameProperty" value="Nombre de la Propiedad:" />
+                    <h:outputLabel for="nameProperty" value="Nombre de la Propiedad:"/>
                     <p:inputText id="nameProperty" value="#{admiPropertyBean.propertyDto.nameProperty}" required="true"
                                  maxlength="150"/>
                     <p:message for="nameProperty" display="tooltip"/>
                 </div>
                 <div class="form-field">
-                    <h:outputLabel for="city" value="Ciudad:" />
+                    <h:outputLabel for="city" value="Ciudad:"/>
                     <p:inputText id="city" value="#{admiPropertyBean.propertyDto.city}" required="true" maxlength="25"/>
                     <p:message for="city" display="tooltip"/>
                 </div>
                 <div class="form-field">
-                    <h:outputLabel for="address" value="Direccion de la Propiedad:" />
-                    <p:inputText id="address" value="#{admiPropertyBean.propertyDto.address}" required="true" maxlength="255"/>
+                    <h:outputLabel for="address" value="Direccion de la Propiedad:"/>
+                    <p:inputText id="address" value="#{admiPropertyBean.propertyDto.address}" required="true"
+                                 maxlength="255"/>
                     <p:message for="address" display="tooltip"/>
                 </div>
 
@@ -103,33 +105,35 @@
                 <div class="form-field">
                     <p:outputLabel for="area" value="Area de la propiedad:"/>
                     <p:inputNumber id="area" value="#{admiPropertyBean.propertyDto.area}" minValue="10"
-                                   decimalPlaces="0" required="true" />
+                                   decimalPlaces="0" required="true"/>
                     <p:message for="area" display="tooltip"/>
                 </div>
 
                 <div class="form-field">
                     <p:outputLabel for="priceProperty" value="Precio de la propiedad (COP):"/>
-                    <p:inputNumber id="priceProperty" value="#{admiPropertyBean.propertyDto.room}" minValue="200000" decimalPlaces="0"
-                                   required="true" />
+                    <p:inputNumber id="priceProperty" value="#{admiPropertyBean.propertyDto.room}" minValue="200000"
+                                   decimalPlaces="0"
+                                   required="true"/>
                     <p:message for="priceProperty" display="tooltip"/>
                 </div>
 
                 <div class="form-field">
                     <p:outputLabel for="room" value="Habitaciones de la propiedad:"/>
                     <p:inputNumber id="room" value="#{admiPropertyBean.propertyDto.room}" minValue="1" decimalPlaces="0"
-                                   required="true" />
+                                   required="true"/>
                     <p:message for="room" display="tooltip"/>
                 </div>
                 <div class="form-field">
                     <p:outputLabel for="bathroom" value="Banhos de la propiedad:"/>
                     <p:inputNumber id="bathroom" value="#{admiPropertyBean.propertyDto.bathroom}" minValue="1"
-                                   decimalPlaces="0" required="true" />
+                                   decimalPlaces="0" required="true"/>
                     <p:message for="bathroom" display="tooltip"/>
                 </div>
 
                 <div class="form-field">
-                    <h:outputLabel for="description" value="Descripcion de la Propiedad:" />
-                    <p:inputTextarea rows="6" cols="33" id="description" value="#{admiPropertyBean.propertyDto.description}"
+                    <h:outputLabel for="description" value="Descripcion de la Propiedad:"/>
+                    <p:inputTextarea rows="6" cols="33" id="description"
+                                     value="#{admiPropertyBean.propertyDto.description}"
                                      required="true" maxlength="255"/>
                     <p:message for="description" display="tooltip"/>
                 </div>
@@ -156,7 +160,8 @@
                 </div>
 
 
-                <p:commandButton value="Crear Propiedad" styleClass="ui-button-primary" action="#{admiPropertyBean.createProperty()}" />
+                <p:commandButton value="Crear Propiedad" styleClass="ui-button-primary"
+                                 action="#{admiPropertyBean.createProperty()}"/>
 
                 <p:messages id="messages" showDetail="true" closable="true">
                     <p:autoUpdate/>

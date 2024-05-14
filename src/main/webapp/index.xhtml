@@ -63,6 +63,10 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+
+            .card-wrapper {
+                display: inline-block;
+                margin-right: 10px;
         }
     </style>
 </h:head>
@@ -72,23 +76,59 @@
     <ui:include src="navIndex.xhtml"></ui:include>
 
     <!-- dentro de la pagina -->
-    <p:dataList value="bean lista de datos" var="variable">
+    <p:dataList value="#{showPropertyBean.propertiesDto}" var="propertyDto">
+        <div class="card-wrapper">
     <p:card style="width: 25em">
         <f:facet name="header">
             <img alt="user header" src="https://londonogomez.com/sites/default/files/imagenes/proyectos/imgs-slider/LG_BannerPrincipal_Atlantica.jpg"/>
         </f:facet>
         <f:facet name="title">
-
+        #{propertyDto.nameProperty}
         </f:facet>
         <f:facet name="subtitle">
-            Card subtitle
+            #{propertyDto.city}
         </f:facet>
+        <div>
 
-        <p:outputLabel for="username2" styleClass="block">Username</p:outputLabel>
-        <p:inputText id="username2" value="#{dato.username}" disabled="true" />
+            <h:outputLabel for="address" value="Direccion:" />
+            <p:inputText id="address" value="#{propertyDto.address}" disabled="true" />
+        </div>
+        <div>
+
+            <h:outputLabel for="area" value="Area en m2:" />
+            <p:inputText id="area" value="#{propertyDto.area}" disabled="true" />
+        </div>
+        <div>
+
+            <h:outputLabel for="priceProperty" value="valor del inmueble:" />
+            <p:inputText id="priceProperty" value="#{propertyDto.priceProperty}" disabled="true" />
+        </div>
+        <div>
+
+            <h:outputLabel for="room" value="Habitaciones:" />
+        <p:inputText id="room" value="#{propertyDto.room}" disabled="true" />
+        </div>
+        <div>
+
+            <h:outputLabel for="bathroom" value="Banhos:" />
+        <p:inputText id="bathroom" value="#{propertyDto.bathroom}" disabled="true" />
+        </div>
+        <div>
+
+            <h:outputLabel for="description" value="Banhos:" />
+        <p:inputTextarea id= "description" rows="6" cols="33" disabled="true" value="#{propertyDto.description}"/>
+        </div>
+        <div>
+            <h:outputText value="Disponible para venta: "/>
+            <h:outputText value="#{propertyDto.sale  ? 'Si' : 'No'}"/>
+        </div>
+        <div>
+            <h:outputText value="Disponible para arriendo: "/>
+            <h:outputText value="#{propertyDto.rent  ? 'Si' : 'No'}"/>
+        </div>
 
         <f:facet name="footer">
-            <p:commandButton value="Info" oncomplete="PF('dlgAgendarCita').show()" />
+            <p:commandButton value="Agendar Cita" oncomplete="PF('dlgAgendarCita').show()" />
         </f:facet>
 
         <p:dialog id="dlgAgendarCita" header="Agendar Cita" widgetVar="dlgAgendarCita" resizable="false" modal="true">
@@ -120,12 +160,15 @@
                         <p:inputTextarea id="recomendaciones" rows="5" />
                     </div>
 
+
+
                     <!-- Boton para agendar cita -->
                     <p:commandButton value="Agendar" action="#{BeanNav.inicio}" oncomplete="PF('dlgAgendarCita').hide()" />
                 </h:form>
             </div>
         </p:dialog>
     </p:card>
+        </div>
     </p:dataList>
     <!-- footer -->
     <ui:include src="footer.xhtml"></ui:include>

@@ -131,4 +131,22 @@ public class PropertyDto {
     public void setSale(boolean sale) {
         this.sale = sale;
     }
+
+    @Override
+    public String toString() {
+        return "PropertyDto{" +
+                "idProperty=" + idProperty +
+                ", nameProperty='" + nameProperty + '\'' +
+                ", city='" + city + '\'' +
+                ", address='" + address + '\'' +
+                ", area=" + area +
+                ", priceProperty=" + priceProperty +
+                ", room=" + room +
+                ", bathroom='" + bathroom + '\'' +
+                ", description='" + description + '\'' +
+                ", propertyAdmin=" + propertyAdmin +
+                ", rent=" + rent +
+                ", sale=" + sale +
+                '}';
+    }
 }
