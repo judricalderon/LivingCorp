@@ -136,30 +136,24 @@
                 <!-- Card -->
                 <h:form styleClass="form-container">
                     <div class="form-field">
-                        <h:outputLabel for="nombreCompleto" value="Nombre Completo:" />
-                        <p:inputText id="nombreCompleto" />
-                        <p:message for="nombreCompleto" display="tooltip"/>
+                        <h:outputLabel for="nameVisitor" value="Nombre Completo:" />
+                        <p:inputText id="nameVisitor" value="#{showPropertyBean.visitorDto.nameVisitor}"/>
+                        <p:message for="nameVisitor" display="tooltip"/>
                     </div>
 
                     <div class="form-field">
-                        <p:outputLabel for="nombre administrador" value="Administrador que crea la propiedad:"/>
-                        <p:selectOneMenu id="nombre administrador" value="#{admiPropertyBean.propertyDto.propertyAdmin.nameUser}"
+                        <p:outputLabel for="advisor" value="Administrador que crea la propiedad:"/>
+                        <p:selectOneMenu id="advisor" value="#{showPropertyBean.visitorDto.advisor}"
                                          required="true">
                             <f:selectItem itemLabel="" itemValue=""/>
-                            <f:selectItems value="#{admiPropertyBean.administradores}"/>
+                            <f:selectItems value="#{showPropertyBean.nameUsers}"/>
                         </p:selectOneMenu>
 
-                        <p:message for="nombre administrador" display="tooltip"/>
+                        <p:message for="advisor" display="tooltip"/>
                     </div>
-                    <div class="form-field">
-                        <p:outputLabel for="propertyAdmin" value="Administrador que crea la propiedad:"/>
-                        <p:selectOneMenu id="propertyAdmin" value="#{admiPropertyBean.propertyDto.propertyAdmin.nameUser}"
-                                         required="true">
-                            <f:selectItem itemLabel="" itemValue=""/>
-                            <f:selectItems value="#{admiPropertyBean.administradores}"/>
-                        </p:selectOneMenu>
-
-                        <p:message for="propertyAdmin" display="tooltip"/>
+                    <div>
+                    <h:outputLabel for="nameProperty" value="Propiedad:" />
+                    <p:inputText id="nameProperty" value="#{propertyDto.nameProperty}" disabled="true" />
                     </div>
 
                     <p:messages id="messages" showDetail="true" closable="true">
