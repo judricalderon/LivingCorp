@@ -77,10 +77,12 @@
     <ui:include src="navIndex.xhtml"></ui:include>
 
     <!-- dentro de la pagina -->
-    <p:dataList value="#{showPropertyBean.propertiesDto}" var="propertyDto">
-        <h:form styleClass="form-container">
-            <div class="card-wrapper">
-                <p:card style="width: 25em">
+  
+    <p:dataGrid var="propertyDto" value="#{showPropertyBean.propertiesDto}" columns="3">
+
+        <div class="card-wrapper">
+            <p:card style="width: 25em">
+                <h:form styleClass="form-container">
                     <f:facet name="header">
                         <img alt="user header"
                              src="https://londonogomez.com/sites/default/files/imagenes/proyectos/imgs-slider/LG_BannerPrincipal_Atlantica.jpg"/>
@@ -132,10 +134,12 @@
                     </div>
 
                     <f:facet name="footer">
-                        <p:commandButton value="Agendar Cita" action="#{showPropertyBean.prepareForAppointment(propertyDto)}"
+                        <p:commandButton value="Agendar Cita"
+                                         action="#{showPropertyBean.prepareForAppointment(propertyDto)}"
                                          oncomplete="PF('dlgAgendarCita').show()"/>
                     </f:facet>
-
+                </h:form>
+                <h:form styleClass="form-container">
                     <p:dialog id="dlgAgendarCita" header="Agendar Cita" widgetVar="dlgAgendarCita" resizable="false"
                               modal="true">
                         <div class="centered">
@@ -180,10 +184,11 @@
 
                         </div>
                     </p:dialog>
-                </p:card>
-            </div>
-        </h:form>
-    </p:dataList>
+                </h:form>
+            </p:card>
+        </div>
+
+    </p:dataGrid>
     <!-- footer -->
     <ui:include src="footer.xhtml"></ui:include>
 </h:body>
