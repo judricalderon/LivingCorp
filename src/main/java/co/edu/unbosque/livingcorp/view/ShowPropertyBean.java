@@ -11,6 +11,8 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import org.primefaces.PrimeFaces;
+import org.primefaces.model.DialogFrameworkOptions;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -52,10 +54,15 @@ public class ShowPropertyBean implements Serializable {
             System.out.println(e.getMessage());
         }
     }
-    public void prepareForAppointment(PropertyDto propertyDto) {
-        System.out.println(propertyDto);
+
+        public void prepareForAppointment(PropertyDto propertyDto) {
         selectedPropertyDto = propertyDto;
-    }
+            DialogFrameworkOptions options = DialogFrameworkOptions.builder()
+                    .resizable(false)
+                    .build();
+
+            PrimeFaces.current().dialog().openDynamic("visitorAppointment", options, null);
+        }
 
 
     public List<PropertyDto> getPropertiesDto() {
