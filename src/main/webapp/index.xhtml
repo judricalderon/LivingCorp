@@ -64,7 +64,6 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-        }
 
             .card-wrapper {
                 display: inline-block;
@@ -133,14 +132,14 @@
                     </div>
 
                     <f:facet name="footer">
-                        <p:commandButton value="View" icon="pi pi-home"
-                                         action="#{showPropertyBean.prepareForAppointment(propertyDto)}" styleClass="mr-2" />
+                        <p:commandButton value="Agendar Cita" action="#{showPropertyBean.prepareForAppointment(propertyDto)}"
+                                         oncomplete="PF('dlgAgendarCita').show()"/>
                     </f:facet>
 
-                    <!--<p:dialog id="dlgAgendarCita" header="Agendar Cita" widgetVar="dlgAgendarCita" resizable="false"
+                    <p:dialog id="dlgAgendarCita" header="Agendar Cita" widgetVar="dlgAgendarCita" resizable="false"
                               modal="true">
                         <div class="centered">
-                             -Card -
+                            <!-- Card -->
 
                             <div class="form-field">
                                 <h:outputLabel for="nameVisitor" value="Nombre Completo:"/>
@@ -174,13 +173,13 @@
                             <p:messages id="messages" showDetail="true" closable="true">
                                 <p:autoUpdate/>
                             </p:messages>
-                            - Boton para agendar cita -
+                            <!-- Boton para agendar cita -->
                             <p:commandButton value="Agendar"
                                              action="#{showPropertyBean.createAppointmentVisitor(propertyDto)}"
                                              oncomplete="PF('dlgAgendarCita').hide()"/>
 
                         </div>
-                    </p:dialog>-->
+                    </p:dialog>
                 </p:card>
             </div>
         </h:form>
