@@ -11,7 +11,7 @@ import java.util.List;
 
 @Stateless
 public class ResidentDao implements InterfaceDao<Resident,Integer>{
-    @PersistenceContext(unitName = "")
+    @PersistenceContext(unitName = "livingCorpPU")
     private EntityManager em;
 
 
