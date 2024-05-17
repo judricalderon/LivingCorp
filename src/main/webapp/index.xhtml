@@ -63,11 +63,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-
-            .card-wrapper {
-                display: inline-block;
-                margin-right: 10px;
-            }
+        }
     </style>
 </h:head>
 
@@ -137,7 +133,7 @@
                         <!-- Card -->
                         <h:form styleClass="form-container">
                             <div class="form-field">
-                                <h:outputLabel for="nameVisitor" value="Nombre Completo:" />
+                                <h:outputLabel for="nameVisitor" value="Nombre Completo:"/>
                                 <p:inputText id="nameVisitor" value="#{showPropertyBean.visitorDto.nameVisitor}"/>
                                 <p:message for="nameVisitor" display="tooltip"/>
                             </div>
@@ -152,6 +148,13 @@
 
                                 <p:message for="advisor" display="tooltip"/>
                             </div>
+
+                            <div class="field col-12 md:col-4">
+                                <p:outputLabel for="timeMinMax" value="Time (Min-Max)"/>
+                                <p:datePicker id="timeMinMax" value="#{showPropertyBean.visitorDto.dateTimeVisitor}"
+                                              showTime="true" mindate="#{showPropertyBean.minDateTime}"/>
+                            </div>
+
                             <div>
                                 <h:outputLabel for="nameProperty" value="Propiedad:" />
                                 <p:inputText id="nameProperty" value="#{showPropertyBean.visitorDto.getIdProperty().getNameProperty()}" disabled="true" />
@@ -161,7 +164,7 @@
                                 <p:autoUpdate/>
                             </p:messages>
                             <!-- Boton para agendar cita -->
-                            <p:commandButton value="Agendar" action="#{showPropertyBean.createAppointmentVisitor(propertyDto)}" oncomplete="PF('dlgAgendarCita').hide()" />
+                            <p:commandButton value="Agendar" action="#{showPropertyBean.createAppointmentVisitor()}" oncomplete="PF('dlgAgendarCita').hide()" />
                         </h:form>
                     </div>
                 </p:dialog>

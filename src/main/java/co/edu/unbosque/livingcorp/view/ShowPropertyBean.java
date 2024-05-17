@@ -5,14 +5,11 @@ import co.edu.unbosque.livingcorp.model.dto.PropertyDto;
 import co.edu.unbosque.livingcorp.model.dto.VisitorDto;
 import co.edu.unbosque.livingcorp.service.ShowPropertyService;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import org.primefaces.PrimeFaces;
-import org.primefaces.model.DialogFrameworkOptions;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -37,9 +34,9 @@ public class ShowPropertyBean implements Serializable {
         update();
     }
 
-    public void createAppointmentVisitor(PropertyDto propertyDto) {
+    public void createAppointmentVisitor() {
         try {
-            visitorDto.setIdProperty(propertyDto);
+
             boolean aux = showPropertyService.createAppointmentVisitor(visitorDto);
             if (aux) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Visitor appointment created"));
@@ -96,11 +93,6 @@ public class ShowPropertyBean implements Serializable {
         nameUsers = showPropertyService.listNameUser();
         visitorDto = new VisitorDto();
         visitorDto.setIdProperty(new PropertyDto());
-        for(PropertyDto v : propertiesDto ){
-            System.out.println(v.getIdProperty());
-        }
-
-
         Date today = new Date();
         minDateTime = new Date(today.getTime());
 
