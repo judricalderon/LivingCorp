@@ -31,7 +31,6 @@ public class ShowPropertyBean implements Serializable {
     private VisitorDto visitorDto;
     private Date minDateTime;
 
-    private PropertyDto selectedPropertyDto;
 
     @PostConstruct
     public void init() {
@@ -55,14 +54,7 @@ public class ShowPropertyBean implements Serializable {
         }
     }
 
-        public void prepareForAppointment(PropertyDto propertyDto) {
-        selectedPropertyDto = propertyDto;
-            DialogFrameworkOptions options = DialogFrameworkOptions.builder()
-                    .resizable(false)
-                    .build();
 
-            PrimeFaces.current().dialog().openDynamic("visitorAppointment", options, null);
-        }
 
 
     public List<PropertyDto> getPropertiesDto() {
@@ -97,20 +89,18 @@ public class ShowPropertyBean implements Serializable {
         this.minDateTime = minDateTime;
     }
 
-    public PropertyDto getSelectedPropertyDto() {
-        return selectedPropertyDto;
-    }
 
-    public void setSelectedPropertyDto(PropertyDto selectedPropertyDto) {
-        this.selectedPropertyDto = selectedPropertyDto;
-    }
 
     public void update() {
         propertiesDto = showPropertyService.listPropertyObject();
         nameUsers = showPropertyService.listNameUser();
         visitorDto = new VisitorDto();
         visitorDto.setIdProperty(new PropertyDto());
-        selectedPropertyDto = new PropertyDto();
+        for(PropertyDto v : propertiesDto ){
+            System.out.println(v.getIdProperty());
+        }
+
+
         Date today = new Date();
         minDateTime = new Date(today.getTime());
 
