@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta charset="ISO-8859-1"/>
+    <title>LivingCorp</title>
+
+    <style>
+
+
+        .header img {
+            margin-right: 20px; /* Espacio entre el logo y el menu */
+            width: 80px; /* Ancho de la imagen */
+            height: auto; /* Altura automatica proporcional */
+        }
+
+
+        .form-horizontal input {
+            margin-right: 10px;
+        }
+
+        .centered {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-container .form-field {
+            margin-bottom: 10px;
+        }
+
+        .form-container .form-field label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-container .form-field input,
+        .form-container .form-field textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-container .form-field textarea {
+            resize: vertical;
+        }
+
+        .form-container .form-field button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</h:head>
+
+<h:body>
+
+    <!-- barra de navegacion -->
+    <ui:include src="navAdmi.xhtml"></ui:include>
+    <p:tooltip/>
+
+    <h:outputLabel value="Creacion de propiedad"/>
+    <div class="centered">
+        <!-- Card -->
+        <p:card style="width: 25em">
+
+
+            <h:form styleClass="form-container">
+
+                <div class="form-field">
+                    <h:outputLabel for="nameUser" value="Nombre de usuario:"/>
+                    <p:inputText id="nameUser" value="#{admiUserBean.userDto.nameUser}" required="true"
+                                 maxlength="10"/>
+                    <p:message for="nameUser" display="tooltip"/>
+                </div>
+                <div class="form-field">
+                    <h:outputLabel for="emailUser" value="Email:"/>
+                    <p:inputText id="emailUser" value="#{admiUserBean.userDto.emailUser}" type="email" required="true" maxlength="100"/>
+                    <p:message for="emailUser" display="tooltip"/>
+                </div>
+
+                <div class="form-field">
+                    <h:outputLabel for="password" value="Password:"  />
+                    <p:inputText type="password" id="password" value="#{admiUserBean.userDto.password}" required="true" maxlength="255"/>
+                    <p:message for="password" display="tooltip"/>
+                </div>
+                <div>
+                    <p:outputLabel value="Es Administrador?"/>
+                    <p:selectBooleanButton onLabel="Si" offLabel="No" style="width:6rem" required="true"
+                                           value="#{admiUserBean.userDto.propertyAdmin}"/>
+                </div>
+                <div>
+                    <p:outputLabel value="Es Propietario?"/>
+                    <p:selectBooleanButton onLabel="Si" offLabel="No" style="width:6rem" required="true"
+                                           value="#{admiUserBean.userDto.resident}"/>
+                </div>
+
+
+                <p:commandButton value="Crear Propiedad" styleClass="ui-button-primary"
+                                 action="#{admiUserBean.createUser()}"/>
+
+                <p:messages id="messages" showDetail="true" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
+            </h:form>
+        </p:card>
+    </div>
+
+    <!-- footer -->
+    <ui:include src="footer.xhtml"></ui:include>
+</h:body>
+</html>

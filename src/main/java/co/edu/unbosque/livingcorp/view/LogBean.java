@@ -86,6 +86,10 @@ public class LogBean implements Serializable {
             return "error.xhtml";
         }
        }
+       public String logout(){
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "index.xhtml";
+       }
 
     public UserDto getUserDto() {
         return userDto;

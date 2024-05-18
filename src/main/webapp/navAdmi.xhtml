@@ -21,11 +21,11 @@
             <p:menuitem value="Crear Propiedad" icon="pi pi-fw pi-building" outcome="/panelAdmiProperty.xhtml" />
             <p:menuitem value="Crear Recurso" icon="pi pi-fw pi-briefcase" outcome="/panelAdmiResource.xhtml" />
             <p:menuitem value="Gestionar Recursos" icon="pi pi-fw pi-briefcase" outcome="/panelAdmiPropertyResource.xhtml" />
+            <p:menuitem value="Crear Usuarios" icon="pi pi-fw pi-briefcase" outcome="/panelAdmiUser.xhtml" />
             <!-- <p:menuitem value="Residente" icon="pi pi-fw pi-building" outcome="/index.xhtml"/>
              <p:menuitem value="crear admin" icon="pi pi-fw pi-user-edit" action="#{beanNav.inicio()}"/>-->
             <f:facet name="options">
-               <p:button value="Logout" icon="pi pi-fw pi-sign-in" styleClass="ui-button-danger" outcome="/index.x
-               html"/>
+               <p:commandButton value="Logout" icon="pi pi-fw pi-sign-in" styleClass="ui-button-danger" action="#{logBean.logout()}"/>
             </f:facet>
          </p:menubar>
       </h:form>
