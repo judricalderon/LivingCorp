@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta charset="ISO-8859-1"/>
+    <title>LivingCorp</title>
+
+    <style>
+
+
+        .header img {
+            margin-right: 20px; /* Espacio entre el logo y el menu */
+            width: 80px; /* Ancho de la imagen */
+            height: auto; /* Altura automatica proporcional */
+        }
+
+
+        .form-horizontal input {
+            margin-right: 10px;
+        }
+
+        .centered {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-container .form-field {
+            margin-bottom: 10px;
+        }
+
+        .form-container .form-field label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-container .form-field input,
+        .form-container .form-field textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-container .form-field textarea {
+            resize: vertical;
+        }
+
+        .form-container .form-field button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</h:head>
+
+<h:body>
+
+    <!-- barra de navegacion -->
+    <ui:include src="navAdmi.xhtml"></ui:include>
+    <p:tooltip/>
+
+    <h:outputLabel value="Pago"/>
+    <div class="centered">
+        <!-- Card -->
+        <p:card style="width: 25em">
+
+
+            <h:form styleClass="form-container">
+
+                <div>
+
+                    <h:outputLabel for="minPrice" value="Precio de la reserva:" />
+                    <p:inputText id="minPrice" value="#{userBean.resourceBookingDto.bookingCost}" disabled="true" />
+                </div>
+
+                <p:commandButton value="Pagar" styleClass="ui-button-primary"
+                                 action="#{userBean.createResourceBooking()}"/>
+
+                <p:messages id="messages" showDetail="true" closable="true">
+                    <p:autoUpdate/>
+                </p:messages>
+            </h:form>
+        </p:card>
+    </div>
+
+    <!-- footer -->
+    <ui:include src="footer.xhtml"></ui:include>
+</h:body>
+</html>

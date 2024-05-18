@@ -13,6 +13,7 @@ import jakarta.inject.Inject;
 import org.modelmapper.ModelMapper;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +34,7 @@ public class UserService implements Serializable {
 
     public boolean crearReserva(ResourceBookingDto resourceBookingDto) throws RepetedObjectException {
                 if(resourceBookingDto != null){
+                    resourceBookingDto.setPaymentComplete(true);
                     resourceBookingDao.create(modelMapper.map(resourceBookingDto,ResourceBooking.class));
                     return true;
                 }else {
@@ -40,23 +42,32 @@ public class UserService implements Serializable {
                 }
     }
 
-    public List<PropertyResource> obtenerReservas(UserDto userDto) throws DontExistException {
+    public List<PropertyResourceDto> obtenerReservas(UserDto userDto) throws DontExistException {
         ResidentDto residentDto = residentDao.getAll().stream()
                 .filter(entity -> userDto.getNameUser().equals(entity.getUserName().getNameUser()))
                 .map(entity -> modelMapper.map(entity, ResidentDto.class))
                 .findFirst()
                 .orElseThrow(() -> new DontExistException("El residente no existe"));
 
-        List<PropertyResource> reservas = propertyResourceDao.getAll().stream()
+        List<PropertyResourceDto> reservas = propertyResourceDao.getAll().stream()
                 .filter(entity-> entity.getProId().getIdProperty()==residentDto.getIdProperty().getIdProperty())
-                .map(entity ->modelMapper.map(entity,PropertyResource.class))
+                .map(entity ->modelMapper.map(entity,PropertyResourceDto.class))
                 .collect(Collectors.toList());
          return reservas;
 
     }
-    public double calcularPrecio (PropertyResourceDto propertyResourceDto,int hora){
-            double aux=propertyResourceDto.getMinPrice() * hora;
+    public double calcularPrecio (ResourceBookingDto resourceBookingDto){
+        Duration duration = Duration.between(resourceBookingDto.getBookingStartDate(), resourceBookingDto.getBookingEndDate());
+
+
+        double aux= (double)duration.toHours()*resourceBookingDto.getPropertyResourceId().getMinPrice();
+
             return aux;
+    }
+    public boolean calcularTiempoMin(ResourceBookingDto resourceBookingDto){
+        Duration duration = Duration.between(resourceBookingDto.getBookingStartDate(), resourceBookingDto.getBookingEndDate());
+        double aux= (double)duration.toHours();
+        return aux > 3;
     }
 
 

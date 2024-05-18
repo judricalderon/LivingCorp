@@ -73,98 +73,70 @@
 
     <!-- dentro de la pagina -->
 
-    <p:dataGrid var="propertyDto" value="#{showPropertyBean.propertiesDto}" columns="3" >
+    <p:dataGrid var="propertyResourceDto" value="#{userBean.propertyResources}" columns="3" >
         <div class="card-wrapper">
             <p:card style="width: 25em">
                 <f:facet name="header">
-                    <img alt="user header" src="https://londonogomez.com/sites/default/files/imagenes/proyectos/imgs-slider/LG_BannerPrincipal_Atlantica.jpg"/>
+                    <img alt="user header" src="https://as2.ftcdn.net/v2/jpg/04/01/88/79/1000_F_401887989_K9RHwVL3QflPKtNQCmZIq8lz25uIoeEy.jpg"/>
                 </f:facet>
                 <f:facet name="title">
-                    #{propertyDto.nameProperty}
+                    #{propertyResourceDto.resId.type}
                 </f:facet>
                 <f:facet name="subtitle">
-                    #{propertyDto.city}
+                    #{propertyResourceDto.resId.description}
                 </f:facet>
                 <div>
 
-                    <h:outputLabel for="address" value="Direccion:" />
-                    <p:inputText id="address" value="#{propertyDto.address}" disabled="true" />
+                    <h:outputLabel for="minPrice" value="Precio por hora:" />
+                    <p:inputText id="minPrice" value="#{propertyResourceDto.minPrice}" disabled="true" />
                 </div>
                 <div>
 
-                    <h:outputLabel for="area" value="Area en m2:" />
-                    <p:inputText id="area" value="#{propertyDto.area}" disabled="true" />
+                    <h:outputLabel for="minTimeH" value="tiempo minimo:" />
+                    <p:inputText id="minTimeH" value="#{propertyResourceDto.minTimeH}" disabled="true" />
                 </div>
                 <div>
 
-                    <h:outputLabel for="priceProperty" value="valor del inmueble:" />
-                    <p:inputText id="priceProperty" value="#{propertyDto.priceProperty}" disabled="true" />
+                    <h:outputLabel for="capacity" value="Capacidad maxima:" />
+                    <p:inputText id="capacity" value="#{propertyResourceDto.capacity}" disabled="true" />
                 </div>
-                <div>
 
-                    <h:outputLabel for="room" value="Habitaciones:" />
-                    <p:inputText id="room" value="#{propertyDto.room}" disabled="true" />
-                </div>
-                <div>
-
-                    <h:outputLabel for="bathroom" value="Banhos:" />
-                    <p:inputText id="bathroom" value="#{propertyDto.bathroom}" disabled="true" />
-                </div>
-                <div>
-
-                    <h:outputLabel for="description" value="Banhos:" />
-                    <p:inputTextarea id= "description" rows="6" cols="33" disabled="true" value="#{propertyDto.description}"/>
-                </div>
-                <div>
-                    <h:outputText value="Disponible para venta: "/>
-                    <h:outputText value="#{propertyDto.sale  ? 'Si' : 'No'}"/>
-                </div>
-                <div>
-                    <h:outputText value="Disponible para arriendo: "/>
-                    <h:outputText value="#{propertyDto.rent  ? 'Si' : 'No'}"/>
-                </div>
 
                 <f:facet name="footer">
-                    <p:commandButton value="Agendar Cita" oncomplete="PF('dlgAgendarCita').show()" update="dlgAgendarCita" action="#{showPropertyBean.visitorDto.setIdProperty(propertyDto)}"/>
+                    <p:commandButton value="Reservar" oncomplete="PF('dlgAgendarCita').show()" update="dlgAgendarCita"
+                    action="#{userBean.resourceBookingDto.setPropertyResourceId(propertyResourceDto)}" />
                 </f:facet>
 
                 <p:dialog id="dlgAgendarCita" header="Agendar Cita" widgetVar="dlgAgendarCita" resizable="false" modal="true">
                     <div class="centered">
                         <!-- Card -->
                         <h:form styleClass="form-container">
-                            <div class="form-field">
-                                <h:outputLabel for="nameVisitor" value="Nombre Completo:"/>
-                                <p:inputText id="nameVisitor" value="#{showPropertyBean.visitorDto.nameVisitor}"/>
-                                <p:message for="nameVisitor" display="tooltip"/>
+                            <div>
+                                <h:outputLabel for="nameUser" value="Usuario:" />
+                                <p:inputText id="nameUser" value="#{userBean.userDto.nameUser}" disabled="true" />
                             </div>
-
-                            <div class="form-field">
-                                <p:outputLabel for="advisor" value="Administrador que crea la propiedad:"/>
-                                <p:selectOneMenu id="advisor" value="#{showPropertyBean.visitorDto.advisor}"
-                                                 required="true">
-                                    <f:selectItem itemLabel="" itemValue=""/>
-                                    <f:selectItems value="#{showPropertyBean.nameUsers}"/>
-                                </p:selectOneMenu>
-
-                                <p:message for="advisor" display="tooltip"/>
+                            <div>
+                                <h:outputLabel for="nameProperty" value="Propiedad:" />
+                                <p:inputText id="nameProperty" value="#{userBean.resourceBookingDto.propertyResourceId.proId.nameProperty}"
+                                             disabled="true" />
                             </div>
 
                             <div class="field col-12 md:col-4">
-                                <p:outputLabel for="timeMinMax" value="Time (Min-Max)"/>
-                                <p:datePicker id="timeMinMax" value="#{showPropertyBean.visitorDto.dateTimeVisitor}"
-                                              showTime="true" mindate="#{showPropertyBean.minDateTime}"/>
+                                <p:outputLabel for="bookingStartDate" value="Inicio de la reserva:"/>
+                                <p:datePicker id="bookingStartDate" value="#{userBean.resourceBookingDto.bookingStartDate}"
+                                              showTime="true" mindate="#{userBean.minDateTime}"/>
                             </div>
-
-                            <div>
-                                <h:outputLabel for="nameProperty" value="Propiedad:" />
-                                <p:inputText id="nameProperty" value="#{showPropertyBean.visitorDto.getIdProperty().getNameProperty()}" disabled="true" />
+                            <div class="field col-12 md:col-4">
+                                <p:outputLabel for="bookingEndDate" value="Finalizacion de la reserva:"/>
+                                <p:datePicker id="bookingEndDate" value="#{userBean.resourceBookingDto.bookingEndDate}"
+                                              showTime="true" mindate="#{userBean.minDateTime}"/>
                             </div>
 
                             <p:messages id="messages" showDetail="true" closable="true">
                                 <p:autoUpdate/>
                             </p:messages>
                             <!-- Boton para agendar cita -->
-                            <p:commandButton value="Agendar" action="#{showPropertyBean.createAppointmentVisitor()}" oncomplete="PF('dlgAgendarCita').hide()" />
+                            <p:commandButton value="Pagar" action="#{userBean.calcularPrecio()}" oncomplete="PF('dlgAgendarCita').hide()" />
                         </h:form>
                     </div>
                 </p:dialog>

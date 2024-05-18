@@ -89,4 +89,18 @@ public class ResourceBookingDto {
     public void setPaymentComplete(boolean paymentComplete) {
         this.paymentComplete = paymentComplete;
     }
+
+    @Override
+    public String toString() {
+        return "ResourceBookingDto{" +
+                "bookingId=" + bookingId +
+                ", userName=" + userName +
+                ", propertyResourceId=" + propertyResourceId +
+                ", bookingDateTime=" + bookingDateTime +
+                ", bookingStartDate=" + bookingStartDate +
+                ", bookingEndDate=" + bookingEndDate +
+                ", bookingCost=" + bookingCost +
+                ", paymentComplete=" + paymentComplete +
+                '}';
+    }
 }
