@@ -40,26 +40,20 @@ public class LogBean implements Serializable {
     public String log() {
 
 
-       //atributo auxiliar para saber si el proceso de logueo fue exitoso
-        System.out.println(userDto.toString());
+
         try {
-            //se ejecuta el metodo de logueo del servicio
+
             userDto = serviceLog.log(userDto);
-            //si el log es exitoso se inicia session a true
+
             if(userDto !=null) {
-                //si está bloqueado se envía a la pag de error
                 if(userDto.getAttempt()>=3){
-                    //se da el valor de bloqueado al error
                     mistake = "usuario Bloqueado por exceso de intentos";
-                    //se envía a error
                     return "error.xhtml";
                 }
-                //se crea objeto session y se pone en activa
                 HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-                //se incluye el usuario para así utilizarlo en otros beans
+
                 session.setAttribute("userLogIn", userDto);
-                System.out.println(userDto.toString());
-                //retorna a la pagina de admi o usuario
+
                 return serviceLog.redireccionar(userDto);
 
             }

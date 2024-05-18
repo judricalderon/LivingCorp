@@ -33,6 +33,7 @@ public class UserService implements Serializable {
     }
 
     public boolean crearReserva(ResourceBookingDto resourceBookingDto) throws RepetedObjectException {
+        System.out.println(resourceBookingDto+"crearReserva");
                 if(resourceBookingDto != null){
                     resourceBookingDto.setPaymentComplete(true);
                     resourceBookingDao.create(modelMapper.map(resourceBookingDto,ResourceBooking.class));
@@ -58,15 +59,15 @@ public class UserService implements Serializable {
     }
     public double calcularPrecio (ResourceBookingDto resourceBookingDto){
         Duration duration = Duration.between(resourceBookingDto.getBookingStartDate(), resourceBookingDto.getBookingEndDate());
-
-
-        double aux= (double)duration.toHours()*resourceBookingDto.getPropertyResourceId().getMinPrice();
-
+        System.out.println(duration+"calcularPrecio");
+    double aux= (double)duration.toHours()*resourceBookingDto.getPropertyResourceId().getMinPrice();
+        System.out.println(aux+"calcularPrecio");
             return aux;
     }
     public boolean calcularTiempoMin(ResourceBookingDto resourceBookingDto){
         Duration duration = Duration.between(resourceBookingDto.getBookingStartDate(), resourceBookingDto.getBookingEndDate());
         double aux= (double)duration.toHours();
+        System.out.println(aux+"calcularTiempoMin");
         return aux > 3;
     }
 

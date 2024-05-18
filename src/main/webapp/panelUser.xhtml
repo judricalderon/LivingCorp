@@ -75,6 +75,7 @@
 
     <p:dataGrid var="propertyResourceDto" value="#{userBean.propertyResources}" columns="3" >
         <div class="card-wrapper">
+            <h:form styleClass="form-container">
             <p:card style="width: 25em">
                 <f:facet name="header">
                     <img alt="user header" src="https://as2.ftcdn.net/v2/jpg/04/01/88/79/1000_F_401887989_K9RHwVL3QflPKtNQCmZIq8lz25uIoeEy.jpg"/>
@@ -103,44 +104,13 @@
 
 
                 <f:facet name="footer">
-                    <p:commandButton value="Reservar" oncomplete="PF('dlgAgendarCita').show()" update="dlgAgendarCita"
-                    action="#{userBean.resourceBookingDto.setPropertyResourceId(propertyResourceDto)}" />
+                    <p:commandButton value="Reservar"
+                                     action="#{userBean.prepareResourceBooking(propertyResourceDto)}" />
                 </f:facet>
 
-                <p:dialog id="dlgAgendarCita" header="Agendar Cita" widgetVar="dlgAgendarCita" resizable="false" modal="true">
-                    <div class="centered">
-                        <!-- Card -->
-                        <h:form styleClass="form-container">
-                            <div>
-                                <h:outputLabel for="nameUser" value="Usuario:" />
-                                <p:inputText id="nameUser" value="#{userBean.userDto.nameUser}" disabled="true" />
-                            </div>
-                            <div>
-                                <h:outputLabel for="nameProperty" value="Propiedad:" />
-                                <p:inputText id="nameProperty" value="#{userBean.resourceBookingDto.propertyResourceId.proId.nameProperty}"
-                                             disabled="true" />
-                            </div>
 
-                            <div class="field col-12 md:col-4">
-                                <p:outputLabel for="bookingStartDate" value="Inicio de la reserva:"/>
-                                <p:datePicker id="bookingStartDate" value="#{userBean.resourceBookingDto.bookingStartDate}"
-                                              showTime="true" mindate="#{userBean.minDateTime}"/>
-                            </div>
-                            <div class="field col-12 md:col-4">
-                                <p:outputLabel for="bookingEndDate" value="Finalizacion de la reserva:"/>
-                                <p:datePicker id="bookingEndDate" value="#{userBean.resourceBookingDto.bookingEndDate}"
-                                              showTime="true" mindate="#{userBean.minDateTime}"/>
-                            </div>
-
-                            <p:messages id="messages" showDetail="true" closable="true">
-                                <p:autoUpdate/>
-                            </p:messages>
-                            <!-- Boton para agendar cita -->
-                            <p:commandButton value="Pagar" action="#{userBean.calcularPrecio()}" oncomplete="PF('dlgAgendarCita').hide()" />
-                        </h:form>
-                    </div>
-                </p:dialog>
             </p:card>
+            </h:form>
         </div>
     </p:dataGrid>
     <!-- footer -->

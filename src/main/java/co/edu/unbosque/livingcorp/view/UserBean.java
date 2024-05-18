@@ -4,9 +4,9 @@ package co.edu.unbosque.livingcorp.view;
 import co.edu.unbosque.livingcorp.exception.DontExistException;
 import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
 import co.edu.unbosque.livingcorp.model.dto.*;
-import co.edu.unbosque.livingcorp.model.entity.PropertyResource;
 import co.edu.unbosque.livingcorp.service.UserService;
 import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -15,7 +15,9 @@ import jakarta.inject.Named;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -41,9 +43,12 @@ public class UserBean implements Serializable {
             System.out.println(e.getMessage());
         }
     }
-    public String calcularPrecio(){
-        System.out.println(resourceBookingDto.getBookingStartDate().toString());
-        System.out.println(resourceBookingDto.getBookingEndDate().toString());
+    public String ValorFinal(){
+
+
+
+        System.out.println("calcula valor de final");
+        System.out.println(resourceBookingDto);
         if(userService.calcularTiempoMin(resourceBookingDto)) {
             resourceBookingDto.setBookingCost(userService.calcularPrecio(resourceBookingDto));
             return "panelPago.xhtml";
@@ -51,35 +56,56 @@ public class UserBean implements Serializable {
             return "panelUser.xhtml";
         }
     }
-    public void createResourceBooking(){
+    public String prepareResourceBooking(PropertyResourceDto propertyResourceDto) {
+        System.out.println("preparaBook");
+        System.out.println(resourceBookingDto);
+        resourceBookingDto.setPropertyResourceId(propertyResourceDto);
+        resourceBookingDto.setUserName(userDto.getNameUser());
+
+
+        System.out.println(resourceBookingDto);
+
+        return "panelBookingResource.xhtml";
+    }
+    public String createResourceBooking(){
         try{
-            resourceBookingDto.setBookingDateTime(LocalDateTime.now());
+
             if(userService.crearReserva(resourceBookingDto)){
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Booking Resource created"));
                 System.out.println("Visitor appointment created");
+                return "panelUser.xhtml";
             }else{
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Booking Resource appointment already exists"));
                 System.out.println("Booking Resource already exists");
+                return "panelUser.xhtml";
             }
         }catch (RepetedObjectException e){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
             System.out.println(e.getMessage());
+            return "panelUser.xhtml";
         }
     }
     public void update() throws DontExistException {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        System.out.println("raro");
         session.getAttribute("userLogIn");
         userDto= (UserDto) session.getAttribute("userLogIn");
         resourceBookingDto = new ResourceBookingDto();
         propertyResource = new PropertyResourceDto();
         propertyResource.setProId(new PropertyDto());
         propertyResource.setResId(new ResourceDto());
-        resourceBookingDto.setPropertyResourceId(new PropertyResourceDto());
-        resourceBookingDto.setUserName(userDto);
+        resourceBookingDto.setPropertyResourceId(propertyResource);
+        resourceBookingDto.setUserName(userDto.getNameUser());
+        resourceBookingDto.setBookingDateTime(LocalDateTime.now());
         propertyResources = userService.obtenerReservas(userDto);
+        LocalDateTime now = LocalDateTime.now();
+
+        resourceBookingDto.setBookingStartDate(now.plusDays(3));
+
+        resourceBookingDto.setBookingEndDate(now.plusDays(3).plusHours(5));
         today = new Date();
         long oneDay = 24 * 60 * 60 * 1000;
-        minDateTime = new Date(today.getTime()+ (3 * oneDay));
+        minDateTime = new Date(today.getTime() - (3 * oneDay));;
     }
 
     public Date getMinDateTime() {
@@ -129,4 +155,21 @@ public class UserBean implements Serializable {
     public void setUserDto(UserDto userDto) {
         this.userDto = userDto;
     }
+
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public Date getToday() {
+        return today;
+    }
+
+    public void setToday(Date today) {
+        this.today = today;
+    }
+
 }

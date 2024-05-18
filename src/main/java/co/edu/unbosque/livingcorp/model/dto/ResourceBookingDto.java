@@ -1,10 +1,12 @@
 package co.edu.unbosque.livingcorp.model.dto;
 
+
+
 import java.time.LocalDateTime;
 
 public class ResourceBookingDto {
     private int bookingId;
-    private UserDto userName;
+    private String userName;
     private PropertyResourceDto propertyResourceId;
     private LocalDateTime bookingDateTime;
     private LocalDateTime bookingStartDate;
@@ -12,10 +14,7 @@ public class ResourceBookingDto {
     private double bookingCost;
     private boolean paymentComplete;
 
-    public ResourceBookingDto() {
-    }
-
-    public ResourceBookingDto(int bookingId, UserDto userName, PropertyResourceDto propertyResourceId, LocalDateTime bookingDateTime, LocalDateTime bookingStartDate, LocalDateTime bookingEndDate, double bookingCost, boolean paymentComplete) {
+    public ResourceBookingDto(int bookingId, String userName, PropertyResourceDto propertyResourceId, LocalDateTime bookingDateTime, LocalDateTime bookingStartDate, LocalDateTime bookingEndDate, double bookingCost, boolean paymentComplete) {
         this.bookingId = bookingId;
         this.userName = userName;
         this.propertyResourceId = propertyResourceId;
@@ -26,6 +25,9 @@ public class ResourceBookingDto {
         this.paymentComplete = paymentComplete;
     }
 
+    public ResourceBookingDto() {
+    }
+
     public int getBookingId() {
         return bookingId;
     }
@@ -34,11 +36,11 @@ public class ResourceBookingDto {
         this.bookingId = bookingId;
     }
 
-    public UserDto getUserName() {
+    public String getUserName() {
         return userName;
     }
 
-    public void setUserName(UserDto userName) {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
@@ -94,7 +96,7 @@ public class ResourceBookingDto {
     public String toString() {
         return "ResourceBookingDto{" +
                 "bookingId=" + bookingId +
-                ", userName=" + userName +
+                ", userName='" + userName + '\'' +
                 ", propertyResourceId=" + propertyResourceId +
                 ", bookingDateTime=" + bookingDateTime +
                 ", bookingStartDate=" + bookingStartDate +

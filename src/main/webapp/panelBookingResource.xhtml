@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+   <meta charset="ISO-8859-1" />
+   <title>LivingCorp</title>
+
+   <style>
+
+
+      .header img {
+         margin-right: 20px; /* Espacio entre el logo y el menu */
+         width: 80px; /* Ancho de la imagen */
+         height: auto; /* Altura automatica proporcional */
+      }
+
+
+      .form-horizontal input {
+         margin-right: 10px;
+      }
+
+      .centered {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         flex-direction: column;
+      }
+
+
+      .form-container {
+         display: flex;
+         flex-direction: column;
+      }
+
+      .form-container .form-field {
+         margin-bottom: 10px;
+      }
+
+      .form-container .form-field label {
+         margin-bottom: 5px;
+         font-weight: bold;
+      }
+
+      .form-container .form-field input,
+      .form-container .form-field textarea {
+         width: 100%;
+         padding: 8px;
+         border: 1px solid #ccc;
+         border-radius: 5px;
+         box-sizing: border-box;
+      }
+
+      .form-container .form-field textarea {
+         resize: vertical;
+      }
+
+      .form-container .form-field button {
+         padding: 10px 20px;
+         background-color: #007bff;
+         color: #fff;
+         border: none;
+         border-radius: 5px;
+         cursor: pointer;
+      }
+   </style>
+</h:head>
+
+<h:body>
+
+   <!-- barra de navegacion -->
+   <ui:include src="navUser.xhtml"></ui:include>
+   <!-- mostrar mensajes-->
+   <p:tooltip/>
+
+
+   <h:outputLabel  value="Reservar Recurso" />
+   <div class="centered">
+      <!-- Card -->
+      <p:card style="width: 25em">
+
+
+         <h:form styleClass="form-container">
+
+            <div>
+               <h:outputLabel for="nameUser" value="Propiedad:" />
+               <p:inputText id="nameUser" value="#{userBean.userDto.nameUser}" disabled="true" />
+               <p:message for="nameUser" display="tooltip"/>
+            </div>
+            <div>
+               <h:outputLabel for="nameProperty" value="Propiedad:" />
+               <p:inputText id="nameProperty" value="#{userBean.resourceBookingDto.propertyResourceId.proId.nameProperty}" disabled="true" />
+               <p:message for="nameProperty" display="tooltip"/>
+            </div>
+
+            <div class="field col-12 md:col-4">
+
+               <h5>Inicio de reserva:</h5>
+               <p:datePicker id="starReserva" value="#{userBean.resourceBookingDto.bookingStartDate}"
+                             inline="true" showTime="true" timeInput="true" />
+
+               <p:message for="starReserva" display="tooltip"/>
+            </div>
+
+            <div class="field col-12 md:col-4">
+               <h5>Fin de reserva:</h5>
+               <p:datePicker id="endReserva" value="#{userBean.resourceBookingDto.bookingEndDate}"
+                             inline="true" showTime="true" timeInput="true" />
+               <p:message for="endReserva" display="tooltip"/>
+            </div>
+
+
+
+            <p:commandButton value="Reservar" styleClass="ui-button-primary" action="#{userBean.ValorFinal()}" />
+            <p:messages id="messages" showDetail="true" closable="true">
+               <p:autoUpdate/>
+            </p:messages>
+
+         </h:form>
+      </p:card>
+   </div>
+
+   <!-- footer -->
+   <ui:include src="footer.xhtml"></ui:include>
+</h:body>
+</html>
