@@ -29,7 +29,7 @@ public class UserBean implements Serializable {
     private ResourceBookingDto resourceBookingDto;
     private PropertyResourceDto propertyResource;
     private UserDto userDto;
-    private Date today;
+
 
     @PostConstruct
     public void init() {
@@ -75,6 +75,7 @@ public class UserBean implements Serializable {
     public void update() throws DontExistException {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         session.getAttribute("userLogIn");
+
         userDto= (UserDto) session.getAttribute("userLogIn");
         resourceBookingDto = new ResourceBookingDto();
         propertyResource = new PropertyResourceDto();
@@ -87,7 +88,7 @@ public class UserBean implements Serializable {
         LocalDateTime now = LocalDateTime.now();
         resourceBookingDto.setBookingStartDate(now.plusDays(3));
         resourceBookingDto.setBookingEndDate(now.plusDays(3).plusHours(5));
-        today = new Date();
+        session.setAttribute("propertyResources",propertyResources);
     }
 
     public List<PropertyResourceDto> getPropertyResources() {
