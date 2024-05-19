@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta charset="ISO-8859-1" />
+    <title>LivingCorp</title>
+
+
+</h:head>
+
+<h:body>
+
+    <!-- barra de navegacion -->
+    <ui:include src="navAdmi.xhtml"></ui:include>
+    <h1>Tabla Recursos</h1>
+    <!-- mostrar mensajes-->
+    <p:commandButton value="PDF" styleClass="mr-2 mb-2 ui-button-outlined">
+        <p:dataExporter type="pdf" target="tblResourseBooking" fileName="ResourseBooking" pageOnly="true"/>
+    </p:commandButton>
+
+    <p:dataTable id="tblResourseBooking" var="resourceBookings" value="#{admiReportBean.resourceBookings}"
+                 paginator="true" rows="10" styleClass="mt-2">
+        <p:column>
+            <f:facet name="Propiedad">
+                <h:outputText value="nameProperty"/>
+            </f:facet>
+            <h:outputText value="#{resourceBookings.propertyResourceId.proId.nameProperty}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="Nombre del residente">
+                <h:outputText value="userName"/>
+            </f:facet>
+            <h:outputText value="#{resourceBookings.userName}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="Recurso">
+                <h:outputText value="type"/>
+            </f:facet>
+            <h:outputText value="#{resourceBookings.propertyResourceId.resId.type}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="Descripcion del recurso">
+                <h:outputText value="description"/>
+            </f:facet>
+            <h:outputText value="#{resourceBookings.propertyResourceId.resId.description}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="Disponibilidad">
+                <h:outputText value="availabily"/>
+            </f:facet>
+            <h:outputText value="#{resourceBookings.propertyResourceId.availabily}"/>
+        </p:column>
+
+<h1>Tabla Propiedades</h1>
+    </p:dataTable>
+    <p:commandButton value="PDF" styleClass="mr-2 mb-2 ui-button-outlined">
+        <p:dataExporter type="pdf" target="tblresident" fileName="Residents" pageOnly="true"/>
+    </p:commandButton>
+
+    <p:dataTable id="tblresident" var="residentDtos" value="#{admiReportBean.residentDtos}"
+                 paginator="true" rows="10" styleClass="mt-2">
+        <p:column>
+            <f:facet name="Propiedad">
+                <h:outputText value="nameProperty"/>
+            </f:facet>
+            <h:outputText value="#{residentDtos.idProperty.nameProperty}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="Direccion">
+                <h:outputText value="address"/>
+            </f:facet>
+            <h:outputText value="#{residentDtos.idProperty.address}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="Ciudad">
+                <h:outputText value="city"/>
+            </f:facet>
+            <h:outputText value="#{residentDtos.idProperty.city}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="Nombre Residente">
+                <h:outputText value="nameUser"/>
+            </f:facet>
+            <h:outputText value="#{residentDtos.userName.nameUser}"/>
+        </p:column>
+        <p:column>
+            <f:facet name="Propietario">
+                <h:outputText value="propertyAdmin"/>
+            </f:facet>
+            <h:outputText value="#{residentDtos.userName.propertyAdmin}"/>
+        </p:column>
+
+
+
+
+    </p:dataTable>
+
+    <!-- footer -->
+    <ui:include src="footer.xhtml"></ui:include>
+</h:body>
+</html>
