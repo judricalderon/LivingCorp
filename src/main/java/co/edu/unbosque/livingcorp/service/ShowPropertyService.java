@@ -10,49 +10,52 @@ import co.edu.unbosque.livingcorp.model.entity.Visitor;
 import co.edu.unbosque.livingcorp.model.presistence.InterfaceDao;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Stateless
 public class ShowPropertyService implements Serializable {
+    private static final Logger logger = Logger.getLogger(ShowPropertyService.class);
     private static final long serialVersionUID = 1L;
     @Inject
-    private InterfaceDao<Property,Integer> propertyDao;
+    private InterfaceDao<Property, Integer> propertyDao;
     @Inject
-    private InterfaceDao<Visitor,Integer> visitorDao;
+    private InterfaceDao<Visitor, Integer> visitorDao;
     @Inject
-    private InterfaceDao<User,String> userDao;
+    private InterfaceDao<User, String> userDao;
     private ModelMapper modelMapper;
-
 
 
     public ShowPropertyService() {
         modelMapper = new ModelMapper();
     }
 
-    public List<PropertyDto> listPropertyObject(){
+    public List<PropertyDto> listPropertyObject() {
+        logger.info("listPropertyObject");
         return propertyDao.getAll().stream()
-                .filter(entity-> entity.isRent() || entity.isSale())
-                .map(entity ->modelMapper.map(entity,PropertyDto.class))
+                .filter(entity -> entity.isRent() || entity.isSale())
+                .map(entity -> modelMapper.map(entity, PropertyDto.class))
                 .collect(Collectors.toList());
     }
 
 
-
     public boolean createAppointmentVisitor(VisitorDto visitorDto) throws RepetedObjectException {
-        if(visitorDto != null){
-            visitorDao.create(modelMapper.map(visitorDto,Visitor.class));
+        if (visitorDto != null) {
+            visitorDao.create(modelMapper.map(visitorDto, Visitor.class));
+            logger.info("Visitor created");
             return true;
-        }else {
+        } else {
+            logger.info("Visitor object is null");
             return true;
         }
 
     }
-    public List<String> listNameUser(){
 
+    public List<String> listNameUser() {
+        logger.info("listNameUser");
         return userDao.getAll()
                 .stream()
                 .map(entity -> modelMapper.map(entity, UserDto.class))

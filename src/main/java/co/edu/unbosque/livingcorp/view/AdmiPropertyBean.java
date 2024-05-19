@@ -11,11 +11,13 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import org.apache.log4j.Logger;
 import java.util.List;
 
 @Named (value = "admiPropertyBean")
 @RequestScoped
 public class AdmiPropertyBean  {
+    private static final Logger logger = Logger.getLogger(AdmiPropertyBean.class);
 
     @Inject
     private AdmiPropertiesService admiPropertiesService;
@@ -29,25 +31,20 @@ public class AdmiPropertyBean  {
     }
     public void createProperty() throws RepetedObjectException {
         try{
-
-            for(String aux : administradores){
-                System.out.println(aux);
-            }
-
             boolean validaPropiedad = admiPropertiesService.createProperties(propertyDto);
             if (validaPropiedad) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Property created"));
-                System.out.println("Property created");
+                logger.info("Property created");
             }else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Property already exists"));
-                System.out.println("Property already exists");
+                logger.warn("Property already exists");
             }
         }catch (RepetedObjectException e){
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
         } catch (DontExistException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 
@@ -67,20 +64,11 @@ public class AdmiPropertyBean  {
         this.administradores = administradores;
     }
 
-    public String getAdministrador() {
-        return Administrador;
-    }
-
-    public void setAdministrador(String administrador) {
-        Administrador = administrador;
-    }
     public void update(){
         propertyDto = new PropertyDto();
         propertyDto.setPropertyAdmin(new UserDto());
         administradores = admiPropertiesService.listarAdmi();
-        for(String aux : administradores){
-            System.out.println(aux);
-        }
-        System.out.println("se actualiza los datos");
+        logger.info(administradores);
+
     }
 }

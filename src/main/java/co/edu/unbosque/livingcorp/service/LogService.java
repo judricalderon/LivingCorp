@@ -8,6 +8,7 @@ import co.edu.unbosque.livingcorp.model.entity.User;
 import co.edu.unbosque.livingcorp.model.presistence.InterfaceDao;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 
 import java.io.Serializable;
@@ -15,9 +16,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 
-@Stateless //lo reconoce como componente para posteriormente inyecta
-//se deja para poder pasarlo entre servidores o persistir, esto por session
+@Stateless
 public class LogService implements Serializable {
+    private static final Logger logger = Logger.getLogger(LogService.class);
     private static final long serialVersionUID = 1L;
     @Inject
     private InterfaceDao<User, String> userDao;
@@ -27,75 +28,58 @@ public class LogService implements Serializable {
         mp = new ModelMapper();
     }
 
-//loguear usuario y admi
-public UserDto log(UserDto userDto) throws PasswordNotEncryptedException, RepetedObjectException, DontExistException {
-    //busco el usuario en bd
 
+    public UserDto log(UserDto userDto) throws PasswordNotEncryptedException, RepetedObjectException, DontExistException {
 
-    //verifico que no sea null el usuario
-    if (userDao.find(userDto.getNameUser()) != null) {
-        //busco el usuario en bd
-        UserDto auxUserDto = mp.map(userDao.find(userDto.getNameUser()), UserDto.class);
-        //comparo que sus intentos no sean mayores a 3
-        if (auxUserDto.getAttempt()<=3){
-            //encripto la contraseña del usuario de la vista
-            String auxEncrypted = encryptedPassword(userDto.getPassword());
-            //valido que sean las contraseñas y nombres iguales
-            if (auxUserDto.getPassword().equals(auxEncrypted) && auxUserDto.getNameUser().equals(userDto.getNameUser())) {
-                //reinicio los intentos a 0
-                auxUserDto.setAttempt(0);
-                //fecha de ingreso
-                auxUserDto.setLastLogin(LocalDateTime.now());
-                // persisto la modificacion
-                userDao.update(mp.map(auxUserDto, User.class));
-                //modifico para que la contraseña sea vacia y no enviarla a la vista
-                 auxUserDto.setPassword("");
-                //se retorna un usuario
-                return auxUserDto;
+        if (userDao.find(userDto.getNameUser()) != null) {
+            UserDto auxUserDto = mp.map(userDao.find(userDto.getNameUser()), UserDto.class);
+            if (auxUserDto.getAttempt() <= 3) {
+                String auxEncrypted = encryptedPassword(userDto.getPassword());
+                if (auxUserDto.getPassword().equals(auxEncrypted) && auxUserDto.getNameUser().equals(userDto.getNameUser())) {
+                    auxUserDto.setAttempt(0);
+                    auxUserDto.setLastLogin(LocalDateTime.now());
+                    userDao.update(mp.map(auxUserDto, User.class));
+                    auxUserDto.setPassword("");
+                    logger.info("User is create");
+                    return auxUserDto;
 
+                } else {
+                    auxUserDto.setAttempt(auxUserDto.getAttempt() + 1);
+                    userDao.update(mp.map(auxUserDto, User.class));
+                    logger.info("User is updated");
+                }
             } else {
-                //se le suma un intento
-                auxUserDto.setAttempt(auxUserDto.getAttempt()+1);
 
-
-                // persisto la modificacion
+                auxUserDto.setBlocked(true);
                 userDao.update(mp.map(auxUserDto, User.class));
+                logger.info("User is blocked");
+                return auxUserDto;
             }
-        } else{
-            //se setea para bloquear el usurio
-            auxUserDto.setBlocked(true);
-            //se persiste el usuario ya bloqueado
-            userDao.update(mp.map(auxUserDto, User.class));
-            //se retorna el usuario para indicar que está bloqueado
-            return auxUserDto;
+
+        } else {
+            logger.info("no existe el usuario");
+            throw new DontExistException("no existe el usuario");
         }
-
-    } else {
-        throw new DontExistException("no existe el usuario");
+        return null;
     }
-    //returna un null en caso que el proceso no sea satisfactorio
-    return null;
-}
 
-//redireccionar a la pagina de usuario o admi
     public String redireccionar(UserDto userDto) {
-        //verifica si es null
-        if(userDto != null){
-        //verifico si el usuario es administrador
-        if(userDto.isPropertyAdmin()){
-            //redirecciono a la pag .xhtml del panel administrador
-            return "panelAdmiResource.xhtml";
-        }else {
-            //retorno el panel del usuario
-            return "panelUser.xhtml";
-        }}else{
-            //retorno la pagina del log
+        if (userDto != null) {
+            if (userDto.isPropertyAdmin()) {
+                logger.info("User is admin");
+                return "panelAdmiResource.xhtml";
+            } else {
+                logger.info("User is not admin");
+                return "panelUser.xhtml";
+            }
+        } else {
+            logger.info("User is null");
             return "log.xhtml";
         }
 
     }
 
-// metodo para cifrar contrasena
+    // metodo para cifrar contrasena
     public String encryptedPassword(String password) throws PasswordNotEncryptedException {
         try {//inicializamos el metodo que utiliza el algoritmo de cifrado
             MessageDigest md = MessageDigest.getInstance("SHA-256");

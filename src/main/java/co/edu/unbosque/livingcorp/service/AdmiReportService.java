@@ -7,6 +7,7 @@ import co.edu.unbosque.livingcorp.model.entity.ResourceBooking;
 import co.edu.unbosque.livingcorp.model.presistence.InterfaceDao;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 
 @Stateless
 public class AdmiReportService implements Serializable {
+    private static final Logger logger = Logger.getLogger(AdmiReportService.class);
     private static final long serialVersionUID = 1L;
     @Inject
     private InterfaceDao<Resident,Integer> residentDtoDao;
@@ -26,11 +28,13 @@ public class AdmiReportService implements Serializable {
         modelMapper = new ModelMapper();
     }
     public List<ResourceBookingDto> listResourceBookings() {
+        logger.info("listResourceBookings");
         return resourceBookingDao.getAll().stream()
                 .map(entity -> modelMapper.map(entity, ResourceBookingDto.class))
                 .collect(Collectors.toList());
     }
     public List<ResidentDto> listResident() {
+        logger.info("listResident");
         return residentDtoDao.getAll().stream()
                 .filter(entity -> !entity.getUserName().isPropertyAdmin())
                 .map(entity -> modelMapper.map(entity, ResidentDto.class))

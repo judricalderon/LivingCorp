@@ -10,6 +10,7 @@ import co.edu.unbosque.livingcorp.model.entity.ResourceBooking;
 import co.edu.unbosque.livingcorp.model.presistence.InterfaceDao;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 
 import java.io.Serializable;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 
 @Stateless
 public class UserService implements Serializable {
+    private static final Logger logger = Logger.getLogger(UserService.class);
     private static final long serialVersionUID = 1L;
     @Inject
     private InterfaceDao<PropertyResource,Integer> propertyResourceDao;
@@ -37,8 +39,10 @@ public class UserService implements Serializable {
                 if(resourceBookingDto != null){
                     resourceBookingDto.setPaymentComplete(true);
                     resourceBookingDao.create(modelMapper.map(resourceBookingDto,ResourceBooking.class));
+                    logger.info("Creada reserva completada");
                     return true;
                 }else {
+                    logger.info("no se crea reserva");
                     return false;
                 }
     }
@@ -54,20 +58,21 @@ public class UserService implements Serializable {
                 .filter(entity-> entity.getProId().getIdProperty()==residentDto.getIdProperty().getIdProperty())
                 .map(entity ->modelMapper.map(entity,PropertyResourceDto.class))
                 .collect(Collectors.toList());
+        logger.info("Create List PropertyResoruce");
          return reservas;
 
     }
     public double calcularPrecio (ResourceBookingDto resourceBookingDto){
         Duration duration = Duration.between(resourceBookingDto.getBookingStartDate(), resourceBookingDto.getBookingEndDate());
-        System.out.println(duration+"calcularPrecio");
+        logger.info(duration);
     double aux= (double)duration.toHours()*resourceBookingDto.getPropertyResourceId().getMinPrice();
-        System.out.println(aux+"calcularPrecio");
+        logger.info(aux+"calcularPrecio");
             return aux;
     }
     public boolean calcularTiempoMin(ResourceBookingDto resourceBookingDto){
         Duration duration = Duration.between(resourceBookingDto.getBookingStartDate(), resourceBookingDto.getBookingEndDate());
         double aux= (double)duration.toHours();
-        System.out.println(aux+"calcularTiempoMin");
+        logger.info(aux+"calcularTiempoMin");
         return aux > 3;
     }
 

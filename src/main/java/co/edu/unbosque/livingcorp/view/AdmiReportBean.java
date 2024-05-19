@@ -7,6 +7,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 @Named(value = "admiReportBean")
 @RequestScoped
 public class AdmiReportBean implements Serializable {
+    private static final Logger logger = Logger.getLogger(AdmiReportBean.class);
     private static final long serialVersionUID = 1L;
     @Inject
     private AdmiReportService admiReportService;
@@ -22,6 +24,7 @@ public class AdmiReportBean implements Serializable {
 
     @PostConstruct
     public void init() {
+        logger.info("AdmiReportBean init");
         resourceBookings = admiReportService.listResourceBookings();
         residentDtos = admiReportService.listResident();
     }

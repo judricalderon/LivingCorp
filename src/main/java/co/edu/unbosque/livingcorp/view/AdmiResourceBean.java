@@ -8,11 +8,12 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import org.apache.log4j.Logger;
 
 @Named(value = "admiResourceBean")
 @RequestScoped
 public class AdmiResourceBean  {
-
+    private static final Logger logger = Logger.getLogger(AdmiResourceBean.class);
 
     @Inject
     private AdmiResourceService admiResourceService;
@@ -22,22 +23,19 @@ public class AdmiResourceBean  {
     public void init() {
         update();
     }
-
-
     public void createResource(){
         try{
-            System.out.println(resourceDto.getDescription()+" "+resourceDto.getType());
             boolean validacion = admiResourceService.create(resourceDto);
             if(validacion){
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Resource created"));
-                System.out.println("Resource created");
+                logger.info("Resource created");
             }else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Resource already exists"));
-                System.out.println("Resource already exists");
+                logger.warn("Resource already exists");
             }
         } catch (RepetedObjectException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
         }
 
     }
@@ -51,6 +49,5 @@ public class AdmiResourceBean  {
     }
     public void update(){
         resourceDto = new ResourceDto();
-        System.out.println("se actualiza los datos");
     }
 }

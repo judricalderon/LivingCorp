@@ -11,11 +11,14 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import org.apache.log4j.Logger;
+
 import java.util.List;
 
 @Named(value = "admiPropertyResourceBean")
 @RequestScoped
 public class AdmiPropertyResourceBean  {
+    private static final Logger logger = Logger.getLogger(AdmiPropertyResourceBean.class);
 
     @Inject
     private AdmiPropertyResourceService admiPropertyResourceService;
@@ -34,14 +37,14 @@ public class AdmiPropertyResourceBean  {
             boolean auxPropertyResource = admiPropertyResourceService.createPropertyResource(propertyResourceDto);
             if (auxPropertyResource) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Property Resource created"));
-                System.out.println("Property Resource created");
+                logger.info("Property Resource created");
             }else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Property already exists"));
-                System.out.println("Property resource already exists");
+                logger.warn("Property already exists");
             }
         } catch (RepetedObjectException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 
@@ -83,6 +86,5 @@ public class AdmiPropertyResourceBean  {
         propertyResourceDto = new PropertyResourceDto();
         propertyResourceDto.setResId(new ResourceDto());
         propertyResourceDto.setProId(new PropertyDto());
-        System.out.println("se actualiza los datos");
     }
 }

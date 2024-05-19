@@ -11,16 +11,16 @@ import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
-import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-
+import org.apache.log4j.Logger;
 import java.io.Serializable;
 import java.util.List;
 
 @Named(value = "admiUserBean")
 @SessionScoped
 public class AdmiUserBean implements Serializable {
+    private static final Logger logger = Logger.getLogger(AdmiUserBean.class);
     private static final long serialVersionUID = 1L;
     @Inject
     private AdmiUserService admiUserService;
@@ -28,7 +28,6 @@ public class AdmiUserBean implements Serializable {
     private AdmiPropertyResourceService admiPropertyResourceService;;
     private UserDto userDto;
     private ResidentDto residentDto;
-
     private List<String> listNameProperty;
 
 
@@ -41,20 +40,20 @@ public class AdmiUserBean implements Serializable {
         try {
             if (admiUserService.createUser(userDto)) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "UserAdmi created"));
-                System.out.println("UserAdmi created");
+                logger.info("UserAdmi created");
                 return "panelAdmiUser.xhtml";
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "User created"));
-                System.out.println("User created");
+                logger.info("User created");
                 return "panelAdmiResident.xhtml";
             }
         } catch (RepetedObjectException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
-            System.out.println(e.getMessage());
+            logger.error("Error creating user", e);
             return "panelAdmiResource.xhtml";
         } catch (PasswordNotEncryptedException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
-            System.out.println(e.getMessage());
+            logger.error("Error creating user", e);
             return "panelAdmiResource.xhtml";
         }
 
@@ -67,16 +66,16 @@ public class AdmiUserBean implements Serializable {
             residentDto.setOwner(userDto.isResident());
             if (admiUserService.createPropertyResident(residentDto)) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Resident created"));
-                System.out.println("Resident created");
+                logger.info("Resident created");
                 return "panelAdmiUser.xhtml";
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Resident already exists"));
-                System.out.println("Resident already exists");
+                logger.warn("Resident already exists");
                 return "panelAdmiResident.xhtml";
             }
         } catch (RepetedObjectException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
-            System.out.println(e.getMessage());
+            logger.error("Error creating resident", e);
             return "panelAdmiResource.xhtml";
         }
     }

@@ -5,29 +5,28 @@ import co.edu.unbosque.livingcorp.model.dto.PropertyDto;
 import co.edu.unbosque.livingcorp.model.dto.VisitorDto;
 import co.edu.unbosque.livingcorp.service.ShowPropertyService;
 import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
-import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Named(value = "showPropertyBean")
-@ViewScoped
+@RequestScoped
 public class ShowPropertyBean implements Serializable {
+    private static final Logger logger = Logger.getLogger(ShowPropertyBean.class);
     private static final long serialVersionUID = 1L;
     @Inject
     private ShowPropertyService showPropertyService;
     private List<String> nameUsers;
-
     private List<PropertyDto> propertiesDto;
-
     private VisitorDto visitorDto;
     private Date minDateTime;
-
 
     @PostConstruct
     public void init() {
@@ -40,14 +39,14 @@ public class ShowPropertyBean implements Serializable {
             boolean aux = showPropertyService.createAppointmentVisitor(visitorDto);
             if (aux) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Visitor appointment created"));
-                System.out.println("Visitor appointment created");
+                logger.info("Visitor created");
             } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Visitor appointment already exists"));
-                System.out.println("Visitor appointment already exists");
+                logger.warn("Visitor already exists");
             }
         } catch (RepetedObjectException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 
