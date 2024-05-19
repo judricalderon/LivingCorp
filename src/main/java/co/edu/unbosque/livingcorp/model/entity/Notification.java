@@ -2,7 +2,6 @@ package co.edu.unbosque.livingcorp.model.entity;
 
 import java.util.Properties;
 
-import co.edu.unbosque.livingcorp.model.dto.PropertyResourceDto;
 import co.edu.unbosque.livingcorp.model.dto.ResourceBookingDto;
 import co.edu.unbosque.livingcorp.model.dto.UserDto;
 import jakarta.mail.Message;
@@ -46,10 +45,16 @@ public class Notification {
             throw new RuntimeException(e);
         }
     }
-    public void MsnResident(ResourceBookingDto resourceBookingDto, UserDto userDto){
+    public void MsnResident(ResourceBookingDto resourceBookingDto, UserDto userDto, double tiempoReserva){
         String to = userDto.getEmailUser();
         String subject = "Confirmación de Reserva";
-        String content =
+        String content = "Buen día,\n" +
+                "Su fecha de la reserva es: " + resourceBookingDto.getBookingStartDate()+".\n"+
+                "El tipo de servicio adquirido: "+ resourceBookingDto.getPropertyResourceId().getResId().getType()+".\n"+
+                "El residente responsable: " + resourceBookingDto.getUserName()+ ".\n"+
+                "El tiempo de reserva: "+tiempoReserva+ ".\n\n\n"+
+                "Atentamente la administracion.";
 
+        send(to, subject, content);
     }
 }

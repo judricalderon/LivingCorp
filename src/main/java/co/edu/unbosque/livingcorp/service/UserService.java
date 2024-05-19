@@ -39,7 +39,7 @@ public class UserService implements Serializable {
                     resourceBookingDto.setPaymentComplete(true);
                     resourceBookingDao.create(modelMapper.map(resourceBookingDto,ResourceBooking.class));
                     logger.info("Creada reserva completada");
-                    notification.MsnResident(resourceBookingDto,userDto);
+                    notification.MsnResident(resourceBookingDto,userDto,calcular(resourceBookingDto));
                     return true;
                 }else {
                     logger.info("no se crea reserva");
@@ -63,17 +63,19 @@ public class UserService implements Serializable {
 
     }
     public double calcularPrecio (ResourceBookingDto resourceBookingDto){
-        Duration duration = Duration.between(resourceBookingDto.getBookingStartDate(), resourceBookingDto.getBookingEndDate());
-        logger.info(duration);
-    double aux= (double)duration.toHours()*resourceBookingDto.getPropertyResourceId().getMinPrice();
+    double aux= calcular(resourceBookingDto);
         logger.info(aux+"calcularPrecio");
             return aux;
     }
     public boolean calcularTiempoMin(ResourceBookingDto resourceBookingDto){
-        Duration duration = Duration.between(resourceBookingDto.getBookingStartDate(), resourceBookingDto.getBookingEndDate());
-        double aux= (double)duration.toHours();
+        double aux= calcular(resourceBookingDto);
         logger.info(aux+"calcularTiempoMin");
         return aux > 3;
+    }
+    public double calcular(ResourceBookingDto resourceBookingDto){
+        Duration duration = Duration.between(resourceBookingDto.getBookingStartDate(), resourceBookingDto.getBookingEndDate());
+        double aux= (double)duration.toHours();
+        return aux;
     }
 
 
