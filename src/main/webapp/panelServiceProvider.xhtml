@@ -104,6 +104,11 @@
                     <h:outputLabel for="serviceDescription" value="Descripcion del servicio:" />
                     <p:inputText id="serviceDescription" value="#{proveedorTransportBean.serviceRFQDto.svcProviderId.serviceDescription}" disabled="true" />
                 </div>
+                <div class="form-field">
+                <h:outputLabel for="requestDescription" value="Cuantos pasajeros y descripcion del viaje:"/>
+                <p:inputText id="requestDescription" value="#{proveedorTransportBean.serviceRFQDto.requestDescription}" required="true"
+                             maxlength="10"/>
+                </div>
 
                 <p:commandButton value="Crear Recurso" styleClass="ui-button-primary" action="#{proveedorTransportBean.createServiceRfq()}" />
 

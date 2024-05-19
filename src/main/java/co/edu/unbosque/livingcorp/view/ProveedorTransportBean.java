@@ -7,6 +7,7 @@ import co.edu.unbosque.livingcorp.model.dto.*;
 import co.edu.unbosque.livingcorp.service.ProveedorAPIService;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
@@ -16,7 +17,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.Serializable;
 
 @Named (value = "proveedorTransportBean")
-@RequestScoped
+@SessionScoped
 public class ProveedorTransportBean implements Serializable {
     private static final long serialVersionUID = 1L;
     @Inject
@@ -82,8 +83,11 @@ public class ProveedorTransportBean implements Serializable {
             session.getAttribute("userLogIn");
             userDto = (UserDto) session.getAttribute("userLogIn");
             propertyResourceDto = (PropertyResourceDto) session.getAttribute("propertyResource");
+            providerDto = new ServiceProviderDto();
             providerDto = proveedorAPIService.getServiceTrasport();
             serviceRFQDto = new ServiceRFQDto();
+            serviceRFQDto.setPropertyId(new PropertyDto());
+            serviceRFQDto.setSvcProviderId(new ServiceProviderDto());
             serviceRFQDto.setPropertyId(propertyResourceDto.getProId());
             serviceRFQDto.setUserName(userDto);
             serviceRFQDto.setSvcProviderId(providerDto);

@@ -40,6 +40,7 @@ public class ProveedorAPIService implements Serializable {
         modelMapper = new ModelMapper();
     }
 
+
     public boolean createServiceRFQ(ServiceRFQDto serviceRFQDto) throws RepetedObjectException {
         if(serviceRFQDto != null) {
             serviceRFQDao.create(modelMapper.map(serviceRFQDto,ServiceRFQ.class));
@@ -60,9 +61,9 @@ public class ProveedorAPIService implements Serializable {
     public ServiceProviderDto getServiceTrasport() throws FailConectionException, DontExistException {
         List<ServiceProviderDto> serviceProviderDtos = getProviders();
         for(ServiceProviderDto serviceProviderDto : serviceProviderDtos) {
-            System.out.println(serviceProviderDto+ "fuera del if");
+
             if(serviceProviderDto.getServiceType().equals("Transporte")) {
-                System.out.println(serviceProviderDto+ "dentro del if");
+
                 return serviceProviderDto;
             }
         }

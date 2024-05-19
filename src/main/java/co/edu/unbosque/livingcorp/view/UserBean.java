@@ -88,7 +88,7 @@ public class UserBean implements Serializable {
         LocalDateTime now = LocalDateTime.now();
         resourceBookingDto.setBookingStartDate(now.plusDays(3));
         resourceBookingDto.setBookingEndDate(now.plusDays(3).plusHours(5));
-        session.setAttribute("propertyResources",propertyResources);
+        session.setAttribute("propertyResource",propertyResources.get(0));
     }
 
     public List<PropertyResourceDto> getPropertyResources() {
