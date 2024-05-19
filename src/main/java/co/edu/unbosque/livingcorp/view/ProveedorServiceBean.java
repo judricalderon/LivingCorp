@@ -6,7 +6,6 @@ import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
 import co.edu.unbosque.livingcorp.model.dto.*;
 import co.edu.unbosque.livingcorp.service.ProveedorAPIService;
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -15,10 +14,12 @@ import jakarta.inject.Named;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 
-@Named (value = "proveedorTransportBean")
+@Named (value = "proveedorServiceBean")
 @SessionScoped
-public class ProveedorTransportBean implements Serializable {
+public class ProveedorServiceBean implements Serializable {
     private static final long serialVersionUID = 1L;
     @Inject
     private ProveedorAPIService proveedorAPIService;
@@ -26,6 +27,8 @@ public class ProveedorTransportBean implements Serializable {
     private PropertyResourceDto propertyResourceDto;
     private ServiceProviderDto providerDto;
     private ServiceRFQDto serviceRFQDto;
+    private List<String> serviceProviderDtoList;
+    private ServiceRequestDto serviceRequestDto;
 
     @PostConstruct
     public void init() {
@@ -43,6 +46,18 @@ public class ProveedorTransportBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
         }
 
+    }
+    public void createServiceRequest(){
+        try{
+            serviceRequestDto.setRqstDateTime(LocalDateTime.now());
+            if(proveedorAPIService.createServiceRequest(serviceRequestDto)){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Service request  created"));
+            }else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Service request already exists"));
+            }
+        }catch (RepetedObjectException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+        }
     }
 
     public UserDto getUserDto() {
@@ -77,6 +92,22 @@ public class ProveedorTransportBean implements Serializable {
         this.serviceRFQDto = serviceRFQDto;
     }
 
+    public List<String> getServiceProviderDtoList() {
+        return serviceProviderDtoList;
+    }
+
+    public void setServiceProviderDtoList(List<String> serviceProviderDtoList) {
+        this.serviceProviderDtoList = serviceProviderDtoList;
+    }
+
+    public ServiceRequestDto getServiceRequestDto() {
+        return serviceRequestDto;
+    }
+
+    public void setServiceRequestDto(ServiceRequestDto serviceRequestDto) {
+        this.serviceRequestDto = serviceRequestDto;
+    }
+
     public void update() {
         try {
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
@@ -84,13 +115,22 @@ public class ProveedorTransportBean implements Serializable {
             userDto = (UserDto) session.getAttribute("userLogIn");
             propertyResourceDto = (PropertyResourceDto) session.getAttribute("propertyResource");
             providerDto = new ServiceProviderDto();
-            providerDto = proveedorAPIService.getServiceTrasport();
+            providerDto = proveedorAPIService.getServiceTransport();
             serviceRFQDto = new ServiceRFQDto();
             serviceRFQDto.setPropertyId(new PropertyDto());
             serviceRFQDto.setSvcProviderId(new ServiceProviderDto());
             serviceRFQDto.setPropertyId(propertyResourceDto.getProId());
             serviceRFQDto.setUserName(userDto);
             serviceRFQDto.setSvcProviderId(providerDto);
+            serviceRequestDto= new ServiceRequestDto();
+            serviceRequestDto.setPropertyId(new PropertyDto());
+            serviceRequestDto.setPropertyId(propertyResourceDto.getProId());
+            serviceRequestDto.setUserName(new UserDto());
+            serviceRequestDto.setUserName(userDto);
+            serviceRequestDto.setSvcProviderId(new ServiceProviderDto());
+            serviceRequestDto.setSvcProviderId(providerDto);
+            serviceProviderDtoList = proveedorAPIService.getServiceMaintenance();
+
         } catch (FailConectionException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
             System.out.println(e);

@@ -76,7 +76,7 @@
     <p:tooltip/>
 
 
-    <h:outputLabel  value="Creacion de Servicio" />
+    <h:outputLabel  value="Creacion de Cotizacion" />
     <div class="centered">
         <!-- Card -->
         <p:card style="width: 25em">
@@ -85,32 +85,35 @@
             <h:form styleClass="form-container">
 
                 <div class="field col-12 md:col-4">
-                    <p:outputLabel for="rfqDateTime" value="Hora del viaje:"/>
-                    <p:datePicker id="rfqDateTime" value="#{proveedorServiceBean.serviceRFQDto.rfqDateTime}"
+                    <p:outputLabel for="rqstDateTime" value="Hora del Servicio:"/>
+                    <p:datePicker id="rqstDateTime" value="#{proveedorServiceBean.serviceRequestDto.svcDateTime}"
                                   showTime="true" />
                 </div>
                 <div>
 
                     <h:outputLabel for="nameUser" value="A nombre de:" />
-                    <p:inputText id="nameUser" value="#{proveedorServiceBean.serviceRFQDto.userName.nameUser}" disabled="true" />
+                    <p:inputText id="nameUser" value="#{proveedorServiceBean.serviceRequestDto.userName.nameUser}" disabled="true" />
                 </div>
                 <div>
 
-                    <h:outputLabel for="serviceType" value="Servicio:" />
-                    <p:inputText id="serviceType" value="#{proveedorServiceBean.serviceRFQDto.svcProviderId.serviceType}" disabled="true" />
+                    <h:outputLabel for="nameProperty" value="Propiedad:" />
+                    <p:inputText id="nameProperty" value="#{proveedorServiceBean.serviceRequestDto.propertyId.nameProperty}" disabled="true" />
                 </div>
                 <div>
 
-                    <h:outputLabel for="serviceDescription" value="Descripcion del servicio:" />
-                    <p:inputText id="serviceDescription" value="#{proveedorServiceBean.serviceRFQDto.svcProviderId.serviceDescription}" disabled="true" />
+                    <h:outputLabel for="providerEmail" value="Proveedor:" />
+                    <p:inputText id="providerEmail" value="#{proveedorServiceBean.providerDto.providerEmail}" disabled="true" />
                 </div>
                 <div class="form-field">
-                <h:outputLabel for="requestDescription" value="Cuantos pasajeros y descripcion del viaje:"/>
-                <p:inputText id="requestDescription" value="#{proveedorServiceBean.serviceRFQDto.requestDescription}" required="true"
-                             maxlength="255"/>
+                <p:outputLabel for="requestDescription" value="Typo de recurso:"/>
+                <p:selectOneMenu id="requestDescription" value="#{proveedorServiceBean.serviceRequestDto.requestDescription}"
+                                 required="true">
+                    <f:selectItem itemLabel="" itemValue=""/>
+                    <f:selectItems value="#{proveedorServiceBean.serviceProviderDtoList}"/>
+                </p:selectOneMenu>
                 </div>
 
-                <p:commandButton value="Crear Reserva" styleClass="ui-button-primary" action="#{proveedorServiceBean.createServiceRfq()}" />
+                <p:commandButton value="Crear Cotizacion" styleClass="ui-button-primary" action="#{proveedorServiceBean.createServiceRequest()}" />
 
                 <p:messages id="messages" showDetail="true" closable="true">
                     <p:autoUpdate/>

@@ -5,16 +5,15 @@ import co.edu.unbosque.livingcorp.exception.FailConectionException;
 import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
 import co.edu.unbosque.livingcorp.model.dto.ServiceProviderDto;
 import co.edu.unbosque.livingcorp.model.dto.ServiceRFQDto;
+import co.edu.unbosque.livingcorp.model.dto.ServiceRequestDto;
 import co.edu.unbosque.livingcorp.model.entity.ServiceRFQ;
+import co.edu.unbosque.livingcorp.model.entity.ServiceRequest;
 import co.edu.unbosque.livingcorp.model.presistence.InterfaceDao;
-import co.edu.unbosque.livingcorp.model.presistence.ServiceRFQDao;
 import com.google.gson.Gson;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
-import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.modelmapper.ModelMapper;
@@ -33,6 +32,8 @@ public class ProveedorAPIService implements Serializable {
     private ModelMapper modelMapper;
     @Inject
     private InterfaceDao<ServiceRFQ,Integer> serviceRFQDao;
+    @Inject
+    private InterfaceDao<ServiceRequest,Integer> serviceRequestDao;
 
     public ProveedorAPIService() {
         this.client = ClientBuilder.newClient();
@@ -50,24 +51,36 @@ public class ProveedorAPIService implements Serializable {
         }
     }
 
+    public boolean createServiceRequest(ServiceRequestDto serviceRequestDto) throws RepetedObjectException {
+        if(serviceRequestDto != null) {
+            serviceRequestDao.create(modelMapper.map(serviceRequestDto,ServiceRequest.class));
+        return true;
+        }else {
+            return false;
+        }
+    }
 
-    public List<ServiceProviderDto> getServiceMaintenance() throws FailConectionException {
+
+    public List<String> getServiceMaintenance() throws FailConectionException {
         List<ServiceProviderDto> serviceProviderDtos = getProviders();
         return serviceProviderDtos.stream()
                 .filter(entity -> !entity.getServiceType().equals("Transporte"))
+                .map(ServiceProviderDto::getServiceType)
                 .collect(Collectors.toList());
     }
 
-    public ServiceProviderDto getServiceTrasport() throws FailConectionException, DontExistException {
+    public ServiceProviderDto getServiceTransport() throws FailConectionException, DontExistException {
         List<ServiceProviderDto> serviceProviderDtos = getProviders();
-        for(ServiceProviderDto serviceProviderDto : serviceProviderDtos) {
-
+        return serviceProviderDtos.stream()
+                .filter(entity -> entity.getServiceType().equals("Transporte"))
+                .findFirst()
+                .orElseGet(ServiceProviderDto::new);
+        /*for(ServiceProviderDto serviceProviderDto : serviceProviderDtos) {
             if(serviceProviderDto.getServiceType().equals("Transporte")) {
-
                 return serviceProviderDto;
             }
         }
-        return new ServiceProviderDto();
+        return new ServiceProviderDto();*/
 
     }
 
