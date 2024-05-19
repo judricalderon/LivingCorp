@@ -29,7 +29,17 @@ public class ProveedorTransportBean implements Serializable {
     public void init() {
         update();
     }
+
     public void createServiceRfq(){
+        try{
+            if(proveedorAPIService.createServiceRFQ(serviceRFQDto)){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Service request  created"));
+            }else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Service request already exists"));
+            }
+        }catch (RepetedObjectException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+        }
 
     }
 
