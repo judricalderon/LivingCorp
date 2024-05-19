@@ -1,5 +1,6 @@
 package co.edu.unbosque.livingcorp.view;
 
+import co.edu.unbosque.livingcorp.exception.DontExistException;
 import co.edu.unbosque.livingcorp.exception.FailConectionException;
 import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
 import co.edu.unbosque.livingcorp.model.dto.*;
@@ -88,6 +89,10 @@ public class ProveedorTransportBean implements Serializable {
             serviceRFQDto.setSvcProviderId(providerDto);
         } catch (FailConectionException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+            System.out.println(e);
+        } catch (DontExistException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+            System.out.println(e);
         }
     }
 

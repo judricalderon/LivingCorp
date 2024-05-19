@@ -1,5 +1,6 @@
 package co.edu.unbosque.livingcorp.service;
 
+import co.edu.unbosque.livingcorp.exception.DontExistException;
 import co.edu.unbosque.livingcorp.exception.FailConectionException;
 import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
 import co.edu.unbosque.livingcorp.model.dto.ServiceProviderDto;
@@ -11,6 +12,7 @@ import com.google.gson.Gson;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
@@ -32,13 +34,12 @@ public class ProveedorAPIService implements Serializable {
     @Inject
     private InterfaceDao<ServiceRFQ,Integer> serviceRFQDao;
 
-
-
-    public ProveedorAPIService(Client client, Gson gson) {
-        this.client = client;
-        this.gson = gson;
+    public ProveedorAPIService() {
+        this.client = ClientBuilder.newClient();
+        this.gson = new Gson();
         modelMapper = new ModelMapper();
     }
+
     public boolean createServiceRFQ(ServiceRFQDto serviceRFQDto) throws RepetedObjectException {
         if(serviceRFQDto != null) {
             serviceRFQDao.create(modelMapper.map(serviceRFQDto,ServiceRFQ.class));
@@ -56,12 +57,17 @@ public class ProveedorAPIService implements Serializable {
                 .collect(Collectors.toList());
     }
 
-    public ServiceProviderDto getServiceTrasport() throws FailConectionException {
+    public ServiceProviderDto getServiceTrasport() throws FailConectionException, DontExistException {
         List<ServiceProviderDto> serviceProviderDtos = getProviders();
-        return serviceProviderDtos.stream()
-                .filter(entity -> entity.getServiceType().equals("Transporte"))
-                .findFirst()
-                .orElse(null);
+        for(ServiceProviderDto serviceProviderDto : serviceProviderDtos) {
+            System.out.println(serviceProviderDto+ "fuera del if");
+            if(serviceProviderDto.getServiceType().equals("Transporte")) {
+                System.out.println(serviceProviderDto+ "dentro del if");
+                return serviceProviderDto;
+            }
+        }
+        return new ServiceProviderDto();
+
     }
 
     public List<ServiceProviderDto> getProviders() throws FailConectionException {

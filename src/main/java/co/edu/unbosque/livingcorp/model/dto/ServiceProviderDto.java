@@ -1,10 +1,21 @@
 package co.edu.unbosque.livingcorp.model.dto;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ServiceProviderDto {
+    @SerializedName("id")
     private int providerId;
+
+    @SerializedName("email")
     private String providerEmail;
+
+    @SerializedName("description")
     private String serviceDescription;
+
+    @SerializedName("type")
     private String serviceType;
+
+    @SerializedName("price")
     private double servicePrice;
 
     public ServiceProviderDto() {
@@ -56,5 +67,16 @@ public class ServiceProviderDto {
 
     public void setServicePrice(double servicePrice) {
         this.servicePrice = servicePrice;
+    }
+
+    @Override
+    public String toString() {
+        return "ServiceProviderDto{" +
+                "providerId=" + providerId +
+                ", providerEmail='" + providerEmail + '\'' +
+                ", serviceDescription='" + serviceDescription + '\'' +
+                ", serviceType='" + serviceType + '\'' +
+                ", servicePrice=" + servicePrice +
+                '}';
     }
 }

@@ -69,4 +69,16 @@ public class ServiceRFQDto {
     public void setRequestDescription(String requestDescription) {
         this.requestDescription = requestDescription;
     }
+
+    @Override
+    public String toString() {
+        return "ServiceRFQDto{" +
+                "rfqId=" + rfqId +
+                ", rfqDateTime=" + rfqDateTime +
+                ", userName=" + userName +
+                ", propertyId=" + propertyId +
+                ", svcProviderId=" + svcProviderId +
+                ", requestDescription='" + requestDescription + '\'' +
+                '}';
+    }
 }
