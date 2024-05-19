@@ -12,15 +12,17 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.http.HttpSession;
+import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Named (value = "proveedorServiceBean")
+@Named(value = "proveedorServiceBean")
 @SessionScoped
 public class ProveedorServiceBean implements Serializable {
     private static final long serialVersionUID = 1L;
+    private static final Logger logger = Logger.getLogger(ShowPropertyBean.class);
     @Inject
     private ProveedorAPIService proveedorAPIService;
     private UserDto userDto;
@@ -35,28 +37,35 @@ public class ProveedorServiceBean implements Serializable {
         update();
     }
 
-    public void createServiceRfq(){
-        try{
-            if(proveedorAPIService.createServiceRFQ(serviceRFQDto)){
+    public void createServiceRfq() {
+        try {
+            if (proveedorAPIService.createServiceRFQ(serviceRFQDto)) {
+                logger.info("Service request  created");
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Service request  created"));
-            }else {
+            } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Service request already exists"));
+                logger.info("Service request  already exists");
             }
-        }catch (RepetedObjectException e) {
+        } catch (RepetedObjectException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+            logger.info("Service request  already exists");
         }
 
     }
-    public void createServiceRequest(){
-        try{
+
+    public void createServiceRequest() {
+        try {
             serviceRequestDto.setRqstDateTime(LocalDateTime.now());
-            if(proveedorAPIService.createServiceRequest(serviceRequestDto)){
+            if (proveedorAPIService.createServiceRequest(serviceRequestDto)) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Service request  created"));
-            }else {
+                logger.info("Service request  created");
+            } else {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Service request already exists"));
+                logger.warn("Service request  already exists");
             }
-        }catch (RepetedObjectException e) {
+        } catch (RepetedObjectException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
+            logger.error(e.getMessage());
         }
     }
 
@@ -122,7 +131,7 @@ public class ProveedorServiceBean implements Serializable {
             serviceRFQDto.setPropertyId(propertyResourceDto.getProId());
             serviceRFQDto.setUserName(userDto);
             serviceRFQDto.setSvcProviderId(providerDto);
-            serviceRequestDto= new ServiceRequestDto();
+            serviceRequestDto = new ServiceRequestDto();
             serviceRequestDto.setPropertyId(new PropertyDto());
             serviceRequestDto.setPropertyId(propertyResourceDto.getProId());
             serviceRequestDto.setUserName(new UserDto());
@@ -133,10 +142,10 @@ public class ProveedorServiceBean implements Serializable {
 
         } catch (FailConectionException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
-            System.out.println(e);
+            logger.error(e.getMessage());
         } catch (DontExistException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", e.getMessage()));
-            System.out.println(e);
+           logger.error(e.getMessage());
         }
     }
 

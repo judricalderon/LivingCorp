@@ -26,11 +26,11 @@ public class UserService implements Serializable {
     @Inject
     private InterfaceDao<ResourceBooking,Integer> resourceBookingDao;
     private ModelMapper modelMapper;
-    private Notification notification;
+    private NotificationService notificationService;
 
     public UserService() {
         modelMapper = new ModelMapper();
-        notification = new Notification();
+        notificationService = new NotificationService();
     }
 
     public boolean crearReserva(ResourceBookingDto resourceBookingDto,UserDto userDto) throws RepetedObjectException {
@@ -39,7 +39,7 @@ public class UserService implements Serializable {
                     resourceBookingDto.setPaymentComplete(true);
                     resourceBookingDao.create(modelMapper.map(resourceBookingDto,ResourceBooking.class));
                     logger.info("Creada reserva completada");
-                    notification.notificationBooking(resourceBookingDto,userDto,calcular(resourceBookingDto));
+                    notificationService.notificationBooking(resourceBookingDto,userDto,calcular(resourceBookingDto));
                     return true;
 
                 }else {

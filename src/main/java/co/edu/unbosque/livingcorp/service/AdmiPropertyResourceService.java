@@ -29,12 +29,12 @@ public class AdmiPropertyResourceService implements Serializable {
     private InterfaceDao<PropertyResource,Integer> propertyResourceDao;
     @Inject
     private InterfaceDao<Resident,Integer> residentDao;
-    private Notification notification;
+    private NotificationService notificationService;
     private ModelMapper modelMapper;
 
     public AdmiPropertyResourceService() {
         modelMapper = new ModelMapper();
-        notification = new Notification();
+        notificationService = new NotificationService();
     }
 
     public boolean createPropertyResource(PropertyResourceDto propertyResourceDto) throws RepetedObjectException {
@@ -43,7 +43,7 @@ public class AdmiPropertyResourceService implements Serializable {
             propertyResourceDto.setResId(findResourceByName(propertyResourceDto.getResId()));
             propertyResourceDao.create(modelMapper.map(propertyResourceDto,PropertyResource.class));
             logger.info("Se crea la reserva a la propiedad: " + propertyResourceDto.getProId().getNameProperty());
-            notification.notificationResource(emailResident(propertyResourceDto),propertyResourceDto);
+            notificationService.notificationResource(emailResident(propertyResourceDto),propertyResourceDto);
             return true;
         }
         logger.info("No se crea la reserva a la propiedad: " + propertyResourceDto.getProId().getNameProperty());

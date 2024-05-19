@@ -1,11 +1,9 @@
-package co.edu.unbosque.livingcorp.model.entity;
+package co.edu.unbosque.livingcorp.service;
 
 import java.util.List;
 import java.util.Properties;
 
-import co.edu.unbosque.livingcorp.model.dto.PropertyResourceDto;
-import co.edu.unbosque.livingcorp.model.dto.ResourceBookingDto;
-import co.edu.unbosque.livingcorp.model.dto.UserDto;
+import co.edu.unbosque.livingcorp.model.dto.*;
 import jakarta.mail.Message;
 import jakarta.mail.MessagingException;
 import jakarta.mail.PasswordAuthentication;
@@ -13,10 +11,12 @@ import jakarta.mail.Session;
 import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import org.apache.log4j.Logger;
 
-public class Notification {
+public class NotificationService {
+    private static final Logger logger = Logger.getLogger(LogService.class);
 
-    public Notification() {
+    public NotificationService() {
     }
 
     public void send(String to, String subject, String content) {
@@ -33,6 +33,7 @@ public class Notification {
         Session session = Session.getInstance(props,
                 new jakarta.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
+                        logger.info("Autenticacion");
                         return new PasswordAuthentication(username, password);
                     }
                 });
@@ -44,6 +45,7 @@ public class Notification {
             message.setText(content);
             Transport.send(message);
         } catch (MessagingException e) {
+            logger.error(e);
             throw new RuntimeException(e);
         }
     }
@@ -56,7 +58,7 @@ public class Notification {
                 "El residente responsable: " + resourceBookingDto.getUserName()+ ".\n"+
                 "El tiempo de reserva: "+tiempoReserva+ ".\n\n\n"+
                 "Atentamente la administracion.";
-
+        logger.info(content);
         send(to, subject, content);
     }
     public void notificationResource(List<String> correos, PropertyResourceDto resourceDto){
@@ -67,9 +69,34 @@ public class Notification {
                     "se ha creado el siguiente recurso en la propiedad: \n"+
                     "Recurso: "+resourceDto.getResId().getType()+ ".\n\n\n"+
                     "Atentamente la administracion.";
+            logger.info(content);
 
             send(to, subject, content);
 
         }
+    }
+    public void notificationRequest(ServiceRequestDto serviceRequestDto){
+        String to = serviceRequestDto.getSvcProviderId().getProviderEmail();
+        String subject = "Solicitud de servicio";
+        String content = "Buen día,\n" +
+                "Servicio a la propiedad: " + serviceRequestDto.getPropertyId().getNameProperty()+".\n"+
+                "Al residente: "+ serviceRequestDto.getUserName().getNameUser()+".\n"+
+                "El servicio: " + serviceRequestDto.getSvcProviderId().getServiceType()+ ".\n"+
+                "Fecha del servicio: "+serviceRequestDto.getSvcDateTime()+ ".\n\n\n"+
+                "Atentamente la administracion.";
+        logger.info(content);
+        send(to, subject, content);
+    }
+    public void notificationService(ServiceRFQDto serviceRFQDto){
+        String to = serviceRFQDto.getUserName().getEmailUser();
+        String subject = "Solicitud de servicio de transporte";
+        String content = "Buen día,\n" +
+                "su servicio de trasporte ha sido recibido exitosamente.\n"+
+                "Al residente: "+ serviceRFQDto.getUserName().getNameUser()+".\n"+
+                "El servicio: " + serviceRFQDto.getSvcProviderId().getServiceType()+ ".\n"+
+                "Fecha del servicio: "+serviceRFQDto.getRfqDateTime()+ ".\n\n\n"+
+                "Atentamente la administracion.";
+        logger.info(content);
+        send(to, subject, content);
     }
 }
