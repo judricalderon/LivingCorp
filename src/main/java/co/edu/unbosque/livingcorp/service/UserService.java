@@ -39,8 +39,9 @@ public class UserService implements Serializable {
                     resourceBookingDto.setPaymentComplete(true);
                     resourceBookingDao.create(modelMapper.map(resourceBookingDto,ResourceBooking.class));
                     logger.info("Creada reserva completada");
-                    notification.MsnResident(resourceBookingDto,userDto,calcular(resourceBookingDto));
+                    notification.notificationBooking(resourceBookingDto,userDto,calcular(resourceBookingDto));
                     return true;
+
                 }else {
                     logger.info("no se crea reserva");
                     return false;

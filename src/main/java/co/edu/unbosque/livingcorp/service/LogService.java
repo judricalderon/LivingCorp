@@ -35,7 +35,7 @@ public class LogService implements Serializable {
             UserDto auxUserDto = mp.map(userDao.find(userDto.getNameUser()), UserDto.class);
             if (auxUserDto.getAttempt() <= 3) {
                 String auxEncrypted = encryptedPassword(userDto.getPassword());
-                if (auxUserDto.getPassword().equals(auxEncrypted) && auxUserDto.getNameUser().equals(userDto.getNameUser())) {
+                if (auxUserDto.getPassword().equals(auxEncrypted) && auxUserDto.getNameUser().equals(userDto.getNameUser() )) {
                     auxUserDto.setAttempt(0);
                     auxUserDto.setLastLogin(LocalDateTime.now());
                     userDao.update(mp.map(auxUserDto, User.class));

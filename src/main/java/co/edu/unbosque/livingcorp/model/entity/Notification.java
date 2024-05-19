@@ -1,7 +1,9 @@
 package co.edu.unbosque.livingcorp.model.entity;
 
+import java.util.List;
 import java.util.Properties;
 
+import co.edu.unbosque.livingcorp.model.dto.PropertyResourceDto;
 import co.edu.unbosque.livingcorp.model.dto.ResourceBookingDto;
 import co.edu.unbosque.livingcorp.model.dto.UserDto;
 import jakarta.mail.Message;
@@ -45,9 +47,9 @@ public class Notification {
             throw new RuntimeException(e);
         }
     }
-    public void MsnResident(ResourceBookingDto resourceBookingDto, UserDto userDto, double tiempoReserva){
+    public void notificationBooking(ResourceBookingDto resourceBookingDto, UserDto userDto, double tiempoReserva){
         String to = userDto.getEmailUser();
-        String subject = "Confirmación de Reserva";
+        String subject = "Reserva hecha";
         String content = "Buen día,\n" +
                 "Su fecha de la reserva es: " + resourceBookingDto.getBookingStartDate()+".\n"+
                 "El tipo de servicio adquirido: "+ resourceBookingDto.getPropertyResourceId().getResId().getType()+".\n"+
@@ -56,5 +58,18 @@ public class Notification {
                 "Atentamente la administracion.";
 
         send(to, subject, content);
+    }
+    public void notificationResource(List<String> correos, PropertyResourceDto resourceDto){
+        for(String correo : correos){
+            String to = correo;
+            String subject = "Creacion de Recurso";
+            String content = "Buen día,\n" +
+                    "se ha creado el siguiente recurso en la propiedad: \n"+
+                    "Recurso: "+resourceDto.getResId().getType()+ ".\n\n\n"+
+                    "Atentamente la administracion.";
+
+            send(to, subject, content);
+
+        }
     }
 }

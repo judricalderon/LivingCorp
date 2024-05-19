@@ -1,14 +1,8 @@
 package co.edu.unbosque.livingcorp.service;
 
 import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
-import co.edu.unbosque.livingcorp.model.dto.PropertyDto;
-import co.edu.unbosque.livingcorp.model.dto.PropertyResourceDto;
-import co.edu.unbosque.livingcorp.model.dto.ResourceDto;
-import co.edu.unbosque.livingcorp.model.dto.UserDto;
-import co.edu.unbosque.livingcorp.model.entity.Property;
-import co.edu.unbosque.livingcorp.model.entity.PropertyResource;
-import co.edu.unbosque.livingcorp.model.entity.Resource;
-import co.edu.unbosque.livingcorp.model.entity.User;
+import co.edu.unbosque.livingcorp.model.dto.*;
+import co.edu.unbosque.livingcorp.model.entity.*;
 import co.edu.unbosque.livingcorp.model.presistence.InterfaceDao;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
@@ -33,11 +27,14 @@ public class AdmiPropertyResourceService implements Serializable {
     private InterfaceDao<Resource,Integer> resourceDao;
     @Inject
     private InterfaceDao<PropertyResource,Integer> propertyResourceDao;
-
+    @Inject
+    private InterfaceDao<Resident,Integer> residentDao;
+    private Notification notification;
     private ModelMapper modelMapper;
 
     public AdmiPropertyResourceService() {
         modelMapper = new ModelMapper();
+        notification = new Notification();
     }
 
     public boolean createPropertyResource(PropertyResourceDto propertyResourceDto) throws RepetedObjectException {
@@ -46,6 +43,7 @@ public class AdmiPropertyResourceService implements Serializable {
             propertyResourceDto.setResId(findResourceByName(propertyResourceDto.getResId()));
             propertyResourceDao.create(modelMapper.map(propertyResourceDto,PropertyResource.class));
             logger.info("Se crea la reserva a la propiedad: " + propertyResourceDto.getProId().getNameProperty());
+            notification.notificationResource(emailResident(propertyResourceDto),propertyResourceDto);
             return true;
         }
         logger.info("No se crea la reserva a la propiedad: " + propertyResourceDto.getProId().getNameProperty());
@@ -103,6 +101,13 @@ public class AdmiPropertyResourceService implements Serializable {
                 .stream()
                 .map(entity -> modelMapper.map(entity, ResourceDto.class))
                 .map(ResourceDto::getType)
+                .collect(Collectors.toList());
+    }
+    public List<String> emailResident(PropertyResourceDto propertyResourceDto){
+        return residentDao.getAll().stream()
+                .map(entity -> modelMapper.map(entity, ResidentDto.class))
+                .filter(entity -> entity.getIdProperty().getIdProperty()==propertyResourceDto.getProId().getIdProperty())
+                .map(entity ->entity.getUserName().getEmailUser())
                 .collect(Collectors.toList());
     }
 
