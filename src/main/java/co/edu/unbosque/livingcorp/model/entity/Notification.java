@@ -23,7 +23,7 @@ public class Notification {
 
         String from = "jriveraca@unbosque.edu.co";
         final String username = "jriveraca@unbosque.edu.co";
-        final String password = "osuk jxct sjpi qols";
+        final String password = "qxph iwpm ccnb tqfr";
         String host = "smtp.gmail.com";
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
