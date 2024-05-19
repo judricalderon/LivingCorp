@@ -57,7 +57,7 @@ public class UserBean implements Serializable {
     }
     public String createResourceBooking(){
         try{
-            if(userService.crearReserva(resourceBookingDto)){
+            if(userService.crearReserva(resourceBookingDto,userDto)){
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Booking Resource created"));
                 logger.info("Booking Resource created");
                 return "panelUser.xhtml";

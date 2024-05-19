@@ -3,10 +3,7 @@ package co.edu.unbosque.livingcorp.service;
 import co.edu.unbosque.livingcorp.exception.DontExistException;
 import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
 import co.edu.unbosque.livingcorp.model.dto.*;
-import co.edu.unbosque.livingcorp.model.entity.PropertyResource;
-import co.edu.unbosque.livingcorp.model.entity.Resident;
-import co.edu.unbosque.livingcorp.model.entity.Resource;
-import co.edu.unbosque.livingcorp.model.entity.ResourceBooking;
+import co.edu.unbosque.livingcorp.model.entity.*;
 import co.edu.unbosque.livingcorp.model.presistence.InterfaceDao;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
@@ -29,17 +26,20 @@ public class UserService implements Serializable {
     @Inject
     private InterfaceDao<ResourceBooking,Integer> resourceBookingDao;
     private ModelMapper modelMapper;
+    private Notification notification;
 
     public UserService() {
         modelMapper = new ModelMapper();
+        notification = new Notification();
     }
 
-    public boolean crearReserva(ResourceBookingDto resourceBookingDto) throws RepetedObjectException {
+    public boolean crearReserva(ResourceBookingDto resourceBookingDto,UserDto userDto) throws RepetedObjectException {
         System.out.println(resourceBookingDto+"crearReserva");
                 if(resourceBookingDto != null){
                     resourceBookingDto.setPaymentComplete(true);
                     resourceBookingDao.create(modelMapper.map(resourceBookingDto,ResourceBooking.class));
                     logger.info("Creada reserva completada");
+                    notification.MsnResident(resourceBookingDto,userDto);
                     return true;
                 }else {
                     logger.info("no se crea reserva");
