@@ -3,7 +3,7 @@ package co.edu.unbosque.livingcorp.service;
 import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
 import co.edu.unbosque.livingcorp.model.dto.*;
 import co.edu.unbosque.livingcorp.model.entity.*;
-import co.edu.unbosque.livingcorp.model.presistence.InterfaceDao;
+import co.edu.unbosque.livingcorp.model.persistence.InterfaceDao;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import org.apache.log4j.Logger;

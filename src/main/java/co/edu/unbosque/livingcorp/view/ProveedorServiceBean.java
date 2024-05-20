@@ -76,15 +76,6 @@ public class ProveedorServiceBean implements Serializable {
     public void setUserDto(UserDto userDto) {
         this.userDto = userDto;
     }
-
-    public PropertyResourceDto getPropertyResourceDto() {
-        return propertyResourceDto;
-    }
-
-    public void setPropertyResourceDto(PropertyResourceDto propertyResourceDto) {
-        this.propertyResourceDto = propertyResourceDto;
-    }
-
     public ServiceProviderDto getProviderDto() {
         return providerDto;
     }

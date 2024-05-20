@@ -14,9 +14,8 @@ import java.util.List;
 
 @Named(value = "admiReportBean")
 @RequestScoped
-public class AdmiReportBean implements Serializable {
+public class AdmiReportBean {
     private static final Logger logger = Logger.getLogger(AdmiReportBean.class);
-    private static final long serialVersionUID = 1L;
     @Inject
     private AdmiReportService admiReportService;
     private List<ResourceBookingDto> resourceBookings;
@@ -24,6 +23,9 @@ public class AdmiReportBean implements Serializable {
 
     @PostConstruct
     public void init() {
+        update();
+    }
+    public void update(){
         logger.info("AdmiReportBean init");
         resourceBookings = admiReportService.listResourceBookings();
         residentDtos = admiReportService.listResident();

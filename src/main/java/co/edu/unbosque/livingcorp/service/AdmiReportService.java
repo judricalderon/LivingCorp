@@ -4,7 +4,7 @@ import co.edu.unbosque.livingcorp.model.dto.ResidentDto;
 import co.edu.unbosque.livingcorp.model.dto.ResourceBookingDto;
 import co.edu.unbosque.livingcorp.model.entity.Resident;
 import co.edu.unbosque.livingcorp.model.entity.ResourceBooking;
-import co.edu.unbosque.livingcorp.model.presistence.InterfaceDao;
+import co.edu.unbosque.livingcorp.model.persistence.InterfaceDao;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import org.apache.log4j.Logger;

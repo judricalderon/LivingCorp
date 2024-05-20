@@ -12,7 +12,6 @@ public class ServiceRFQ {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "RFQ_ID")
     private int rfqId;
-
     @Column(name = "RFQ_DATETIME")
     private LocalDateTime rfqDateTime;
     @ManyToOne

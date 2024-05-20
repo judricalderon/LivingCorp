@@ -4,15 +4,13 @@ import co.edu.unbosque.livingcorp.exception.PasswordNotEncryptedException;
 import co.edu.unbosque.livingcorp.exception.RepetedObjectException;
 import co.edu.unbosque.livingcorp.model.dto.ResidentDto;
 import co.edu.unbosque.livingcorp.model.dto.UserDto;
-import co.edu.unbosque.livingcorp.model.entity.Property;
 import co.edu.unbosque.livingcorp.model.entity.Resident;
 import co.edu.unbosque.livingcorp.model.entity.User;
-import co.edu.unbosque.livingcorp.model.presistence.InterfaceDao;
+import co.edu.unbosque.livingcorp.model.persistence.InterfaceDao;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 
 import java.io.Serializable;
 import java.security.MessageDigest;

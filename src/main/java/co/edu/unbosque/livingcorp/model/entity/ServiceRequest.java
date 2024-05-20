@@ -12,7 +12,6 @@ public class ServiceRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "RQST_ID")
     private int rqstId;
-
     @Column(name = "RQST_DATETIME")
     private LocalDateTime rqstDateTime;
     @ManyToOne

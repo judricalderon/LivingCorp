@@ -23,7 +23,6 @@ public class AdmiPropertyBean  {
     private AdmiPropertiesService admiPropertiesService;
     private PropertyDto propertyDto;
     private List<String> administradores;
-    private String Administrador;
 
     @PostConstruct
     public void init() {

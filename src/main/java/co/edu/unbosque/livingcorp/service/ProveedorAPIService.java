@@ -8,7 +8,7 @@ import co.edu.unbosque.livingcorp.model.dto.ServiceRFQDto;
 import co.edu.unbosque.livingcorp.model.dto.ServiceRequestDto;
 import co.edu.unbosque.livingcorp.model.entity.ServiceRFQ;
 import co.edu.unbosque.livingcorp.model.entity.ServiceRequest;
-import co.edu.unbosque.livingcorp.model.presistence.InterfaceDao;
+import co.edu.unbosque.livingcorp.model.persistence.InterfaceDao;
 import com.google.gson.Gson;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
@@ -86,19 +86,10 @@ public class ProveedorAPIService implements Serializable {
                 .filter(entity -> entity.getServiceType().equals("Transporte"))
                 .findFirst()
                 .orElseGet(ServiceProviderDto::new);
-        /*for(ServiceProviderDto serviceProviderDto : serviceProviderDtos) {
-            if(serviceProviderDto.getServiceType().equals("Transporte")) {
-                return serviceProviderDto;
-            }
-        }
-        return new ServiceProviderDto();*/
-
     }
 
     public List<ServiceProviderDto> getProviders() throws FailConectionException {
-        try {
-
-            Response response = client.target(URL)
+        try {Response response = client.target(URL)
                     .path("/proveedor")
                     .request(MediaType.APPLICATION_JSON)
                     .get();
